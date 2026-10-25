@@ -347,8 +347,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ticket-pack{display:flex;justify-content:center;padding:18px 18px 12px;border-bottom:2px dashed var(--rule);background:radial-gradient(60% 70% at 50% 60%,rgba(233,212,156,.45),transparent 70%)}
 .ticket-pack img{height:170px;width:auto;display:block;filter:drop-shadow(0 12px 16px rgba(22,38,31,.18))}
 @media (min-width:900px){.ticket-pack img{height:240px}}
-/* Design D: the brand tagline runs across the very top and scrolls away under the sticky header */
-.brand-strip{margin:0;padding:8px var(--gutter-r) 8px var(--gutter-l);background:var(--forest);color:var(--card);text-align:center;font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:.02em}
 /* Design D: the chakki block ends with the timeline; Veer hangs from its bottom edge */
 #way{padding-bottom:40px}
 .aware .film-card{color:var(--forest)}
@@ -383,7 +381,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <body>
 
 <a class="skip" href="#top">Skip to content</a>
-<p class="brand-strip">Freshly milled. Delivered weekly.</p>
 <header class="hdr" id="hdr">
   <div class="wrap hdr-in">
     <a class="hdr-logo" href="#top" aria-label="Atulyash home"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"></a>
@@ -403,7 +400,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <section class="hero" data-veer="hero" aria-labelledby="h-hero">
   <div class="wrap hero-in">
     <div>
-      <p class="mill-tag">Milled yesterday<br>Delivered this morning</p>
+      <p class="mill-tag">Freshly milled<br>Delivered weekly</p>
       <h1 id="h-hero">When was your atta milled? Most packets never say.</h1>
       <p class="lede">Ours is milled slowly on natural stone. Fresh, every week.</p>
       <div class="hero-ctas">
