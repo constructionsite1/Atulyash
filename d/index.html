@@ -343,6 +343,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tally-stamp{font-family:var(--sans);font-size:15px;letter-spacing:0;text-transform:none;padding:0 12px}
 @media (max-width:899px){.stone-pin{position:relative;top:auto}}
 
+/* Design D: the pack sits at the top of the "In every pack" card, right under the delivery button */
+.ticket-pack{display:flex;justify-content:center;padding:18px 18px 12px;border-bottom:2px dashed var(--rule);background:radial-gradient(60% 70% at 50% 60%,rgba(233,212,156,.45),transparent 70%)}
+.ticket-pack img{height:170px;width:auto;display:block;filter:drop-shadow(0 12px 16px rgba(22,38,31,.18))}
+@media (min-width:900px){.ticket-pack img{height:240px}}
 /* Design D: the tally sits under the questions, after you tick */
 .tally-after{margin-top:24px;justify-content:flex-start;gap:24px}
 .tally-stamp strong{white-space:nowrap}
@@ -400,6 +404,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       </div>
     </div>
     <div class="ticket" aria-label="What goes into every Atulyash pack">
+      <div class="ticket-pack"><img src="img/pack.webp" alt="Atulyash Whole Wheat Atta pack" width="900" height="1334" fetchpriority="high"></div>
       <div class="ticket-hd"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"><span class="label">In every pack</span></div>
       <ul class="ticket-rows print">
         <li><span class="k">Wheat</span><span class="v">MP Sharbati, one origin</span></li>
@@ -592,7 +597,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <div class="ticket contact-card" style="margin-top:22px">
         <p class="label">Customer care</p>
         <p class="num" id="careNum">+91 98185 88996</p>
-        <div style="display:flex;flex-wrap:wrap;gap:10px"><button class="btn btn-line btn-sm" type="button" id="copyNum">Copy number</button><a class="btn btn-solid btn-sm" href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp us</a></div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-line btn-sm" href="tel:+919818588996">Call us</a><a class="btn btn-solid btn-sm" href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp us</a></div>
       </div>
     </div>
     <div class="q-list" id="helpList"></div>
@@ -701,13 +706,19 @@ window.ATL_onTally=function(){var t=document.getElementById('tallyStamp');if(!t)
 </script>
 <script src="app.js"></script>
 <script>
-/* The stone turns as you scroll through the six decisions, slowly, like the real chakki */
+/* The stone makes one full turn as you scroll through the six decisions, slowly, like the real chakki */
 (function(){
   var g=document.getElementById('grooves'), stone=document.getElementById('stone'), steps=[].slice.call(document.querySelectorAll('#stoneSteps li'));
   for(var i=0;i<18;i++){var a=i/18*Math.PI*2, a2=a+0.35;var l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',100+Math.cos(a)*26);l.setAttribute('y1',100+Math.sin(a)*26);l.setAttribute('x2',100+Math.cos(a2)*92);l.setAttribute('y2',100+Math.sin(a2)*92);g.appendChild(l)}
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, sec=document.getElementById('way'), ticking=false;
-  function upd(){ticking=false;var r=sec.getBoundingClientRect(),vh=innerHeight;var p=Math.min(1,Math.max(0,(vh-r.top)/(r.height+vh)));
-    if(!reduce) stone.style.transform='rotate('+(p*300).toFixed(1)+'deg)';
+  /* One full turn while you can see it: from coming in at the bottom to leaving at the top.
+     On desktop the stone stays put beside the steps, so that span is its whole column */
+  var pin=stone.parentNode;
+  function upd(){ticking=false;var vh=innerHeight,p;
+    var q=(getComputedStyle(pin).position==='sticky'?pin.parentNode:pin).getBoundingClientRect();
+    p=(vh-q.top)/(vh+q.height);
+    p=Math.min(1,Math.max(0,p));
+    if(!reduce) stone.style.transform='rotate('+(p*360).toFixed(1)+'deg)';
     var mid=vh*0.55;steps.forEach(function(li){var b=li.getBoundingClientRect();li.classList.toggle('on',b.top<mid&&b.bottom>mid*0.6)})}
   addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true}); upd();
 })();
