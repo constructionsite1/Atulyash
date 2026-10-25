@@ -333,7 +333,7 @@ var CAMEO_CSS='.cameo{--u:.46px;--cw:calc(var(--w) * var(--u));--ch:calc(var(--h
  '.cameo[data-at="right"] .cameo-say{right:calc(var(--cameo-x,16px) + var(--cw) + 14px)}.cameo[data-at="right"] .cameo-say::after{right:-5px}'+
  '.cameo.side[data-at="left"] .cameo-say{left:calc(var(--cw) + 14px)}.cameo.side[data-at="right"] .cameo-say{right:calc(var(--cw) + 14px)}'+
  '.cameo.talking .cameo-say{opacity:1;transform:translateY(-50%)}'+
- '@media (max-width:599px){.cameo.wide{height:calc(var(--ch) + 84px)}.cameo.wide .cameo-say{top:6px;left:var(--cameo-x,16px)!important;right:auto!important;max-width:calc(100% - 2 * var(--cameo-x,16px));transform:scale(.92);transform-origin:left bottom}.cameo.wide.talking .cameo-say{transform:none}.cameo.wide .cameo-say::after{top:auto;bottom:-5px;left:40px!important;right:auto!important;transform:rotate(45deg)}}'+
+ '@media (max-width:599px){.cameo.wide{height:calc(var(--ch) + 84px)}.cameo.wide .cameo-say{top:6px;max-width:calc(100% - 2 * var(--cameo-x,16px));transform:scale(.92)}.cameo.wide.talking .cameo-say{transform:none}.cameo.wide .cameo-say::after{top:auto;bottom:-5px;transform:rotate(45deg)}.cameo.wide[data-at="left"] .cameo-say{left:var(--cameo-x,16px)!important;right:auto!important;transform-origin:left bottom;min-width:calc(var(--cw) * var(--head) + 30px)}.cameo.wide[data-at="left"] .cameo-say::after{left:calc(var(--cw) * var(--head) - 6px)!important;right:auto!important}.cameo.wide[data-at="right"] .cameo-say{right:var(--cameo-x,16px)!important;left:auto!important;transform-origin:right bottom;min-width:calc(var(--cw) * (1 - var(--head)) + 30px)}.cameo.wide[data-at="right"] .cameo-say::after{right:calc(var(--cw) * (1 - var(--head)) - 6px)!important;left:auto!important}}'+
  '@media (min-width:900px){.cameo{--u:.56px}}'+
  '@media (prefers-reduced-motion:reduce){.cameo-veer,.cameo-say{transition:none!important}.cameo-veer.hop{animation:none}}';
 var cst=document.createElement('style'); cst.textContent=CAMEO_CSS; document.head.appendChild(cst);
@@ -341,7 +341,7 @@ var cst=document.createElement('style'); cst.textContent=CAMEO_CSS; document.hea
 var POSES=Object.assign({
   lean:{w:194,h:182,frames:['lean','lean-blink','lean-talk'],blink:'lean-blink',talk:'lean-talk'},
   peek:{w:233,h:186,frames:['peek-up','peek-up-wave'],then:'peek-up-wave'},
-  lie:{w:416,h:177,frames:['lie','lie-kick'],loop:'lie-kick'},
+  lie:{w:416,h:177,head:.3,frames:['lie','lie-kick'],loop:'lie-kick'},
   hang:{w:227,h:516,top:true,frames:['hang','hang-swing'],loop:'hang-swing'},
   'side-left':{w:140,h:227,side:'left',frames:['peek-left']},
   'side-right':{w:131,h:203,side:'right',frames:['peek-right']}
@@ -367,7 +367,7 @@ var cameos=$$('.cameo[data-cameo]').map(function(el){
   var pose=POSES[el.dataset.pose]||POSES.lean, key=el.dataset.cameo;
   if(pose.side){el.classList.add('side');el.dataset.at=pose.side}
   if(pose.top) el.classList.add('top');
-  if(pose.w>=300) el.classList.add('wide');
+  if(pose.w>=300){el.classList.add('wide');el.style.setProperty('--head',pose.head||.5)};
   el.style.setProperty('--w',pose.w); el.style.setProperty('--h',pose.h);
   var btn=document.createElement('button'); btn.type='button'; btn.className='cameo-veer'; btn.setAttribute('aria-label','Veer. Tap for a tip.');
   var imgs={}; pose.frames.forEach(function(n,i){var im=document.createElement('img');im.alt='';im.src='img/veer/'+n+'.webp';im.decoding='async';if(!i)im.classList.add('on');btn.appendChild(im);imgs[n]=im});
