@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Atulyash Fresh Atta</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+/* Layout: one calm column on phone, asymmetric two-column bands from 900px. Brand palette, light only by choice. */
+:root{
+  --forest-950:#0b2721; --forest-900:#11372e; --forest-800:#194b3e; --forest-700:#286454;
+  --cream-50:#fffdf8; --cream-100:#f7f1e6; --cream-200:#ede2cf;
+  --wheat-200:#eedba9; --wheat-400:#cba65d; --rust:#953b24;
+  --ink:#18231f; --muted:#4f5a54; --line:rgba(17,55,46,.14); --line-strong:rgba(17,55,46,.32);
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ease-out:cubic-bezier(.23,1,.32,1); --ease-io:cubic-bezier(.77,0,.175,1); --ease-drawer:cubic-bezier(.32,.72,0,1);
+  --gutter-l:max(20px, env(safe-area-inset-left, 0px)); --gutter-r:max(20px, env(safe-area-inset-right, 0px));
+  --bar-h:0px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--cream-50);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--forest-900);text-wrap:balance;margin:0}
+h1{font-size:clamp(42px,11vw,76px);line-height:1.04;letter-spacing:-.01em}
+h2{font-size:clamp(32px,8vw,50px);line-height:1.1;letter-spacing:-.005em}
+h3{font-size:24px;line-height:1.25}
+p{margin:0}
+a{color:var(--forest-900);text-underline-offset:3px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--rust);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.lede{font-size:1.08em;color:var(--ink);max-width:36ch}
+.muted{color:var(--muted)}
+.small{font-size:16px}
+.kicker{font-size:15px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--rust)}
+.sec{padding-block:72px}
+.sec-tight{padding-block:48px}
+.stack{display:flex;flex-direction:column}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:14px;border:1.5px solid var(--forest-900);font-size:18px;font-weight:600;text-decoration:none;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease;-webkit-tap-highlight-color:transparent;user-select:none}
+.btn:active{transform:scale(.97)}
+.btn-solid{background:var(--forest-900);color:var(--cream-50)}
+.btn-line{background:transparent;color:var(--forest-900)}
+.btn-wheat{background:var(--wheat-200);border-color:var(--wheat-200);color:var(--forest-900)}
+.btn-block{width:100%}
+.btn-sm{min-height:44px;padding:0 16px;font-size:16px;border-radius:12px}
+.link-btn{background:none;border:0;padding:0;min-height:44px;display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--forest-900);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+@media (hover:hover) and (pointer:fine){
+  .btn-solid:hover{background:var(--forest-800)}
+  .btn-line:hover{background:rgba(17,55,46,.06)}
+  .btn-wheat:hover{background:#e6cf92}
+}
+.chip{min-height:52px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line-strong);background:var(--cream-50);font-size:17px;font-weight:500;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed="true"]{background:var(--forest-900);border-color:var(--forest-900);color:var(--cream-50)}
+.chip small{display:block;font-size:14px;font-weight:400;opacity:.85;line-height:1.2}
+
+/* Header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--cream-50)}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,253,248,.94);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid transparent;transition:border-color 200ms ease}
+.hdr.scrolled{border-color:var(--line)}
+.hdr-in{display:flex;align-items:center;gap:12px;min-height:64px}
+.hdr-logo{display:flex;align-items:center;margin-right:auto;min-height:44px}
+.hdr-logo img{height:30px;width:auto}
+.hdr-nav{display:none}
+.hdr-tools{display:flex;align-items:center;gap:8px}
+.icon-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:48px;min-height:48px;padding:0 12px;border-radius:12px;border:1.5px solid var(--line-strong);background:var(--cream-50);font-size:16px;font-weight:600;cursor:pointer;color:var(--forest-900);transition:transform 160ms var(--ease-out)}
+.icon-btn:active{transform:scale(.96)}
+.icon-btn svg{width:20px;height:20px}
+.badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:11px;background:var(--rust);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 6px;transform:scale(1);transition:transform 260ms var(--ease-out)}
+.badge[hidden]{display:none}
+.badge.bump{transform:scale(1.25)}
+.hide-sm{display:none}
+
+/* Hero */
+.hero{background:var(--cream-100);overflow:hidden}
+.hero-in{display:grid;gap:28px;padding-block:36px 48px}
+.stamp{display:inline-flex;flex-direction:column;align-self:flex-start;padding:9px 14px;border:2.5px double var(--rust);border-radius:8px;color:var(--rust);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.35;transform:rotate(-3deg);background:var(--cream-50)}
+.hero h1{margin-top:22px}
+.hero .lede{margin-top:18px}
+.hero-ctas{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.hero-facts{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 18px;padding:0;list-style:none;font-size:16px;color:var(--forest-900)}
+.hero-facts li{display:flex;align-items:center;gap:8px}
+.hero-facts li::before{content:"";width:6px;height:6px;border-radius:3px;background:var(--wheat-400)}
+.hero-art{position:relative;display:flex;justify-content:center;align-items:flex-end;min-height:0;margin-top:-8px}
+.hero-art .pack{width:min(44%,190px);position:relative;z-index:2;filter:drop-shadow(0 18px 28px rgba(11,39,33,.18))}
+.hero-art .disc{position:absolute;bottom:0;left:50%;width:min(92%,420px);aspect-ratio:1;transform:translate(-50%,38%);border-radius:50%;background:radial-gradient(circle at 50% 40%,var(--wheat-200),rgba(238,219,169,0) 68%)}
+.load-in{animation:loadIn 640ms var(--ease-out) both}
+.load-in.d1{animation-delay:60ms}.load-in.d2{animation-delay:120ms}.load-in.d3{animation-delay:180ms}.load-in.d4{animation-delay:240ms}
+@keyframes loadIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.stamp.load-in{animation:stampIn 520ms var(--ease-out) 300ms both}
+@keyframes stampIn{from{opacity:0;transform:rotate(-3deg) scale(1.12)}to{opacity:1;transform:rotate(-3deg) scale(1)}}
+
+/* Reveal: content is always visible; only position eases in */
+.rv{transition:transform 700ms var(--ease-out)}
+.rv.pre{transform:translateY(22px)}
+
+/* Habit */
+.habit-grid{display:grid;gap:32px}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.compare div{padding:18px 16px;border-radius:14px;background:var(--cream-100)}
+.compare div:last-child{background:var(--forest-900);color:var(--cream-50)}
+.compare b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.2}
+.compare span{display:block;margin-top:6px;font-size:16px;line-height:1.45}
+.compare div:last-child b{color:var(--wheat-200)}
+.age-card{padding:24px 18px;border-radius:18px;background:var(--cream-100)}
+.age-card h3{font-size:26px}
+.age-opts{margin-top:18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.age-result{margin-top:22px}
+.bar-row{margin-top:16px}
+.bar-label{display:flex;justify-content:space-between;gap:12px;font-size:16px}
+.bar-label b{font-weight:600}
+.bar-track{margin-top:8px;height:14px;border-radius:7px;background:rgba(17,55,46,.1);overflow:hidden}
+.bar-fill{height:100%;width:100%;border-radius:7px;transform-origin:left center;transform:scaleX(0);transition:transform 700ms var(--ease-out)}
+.bar-fill.yours{background:var(--rust)}
+.bar-fill.ours{background:var(--forest-900)}
+.age-note{margin-top:18px}
+.age-empty{margin-top:18px;font-size:16px;color:var(--muted)}
+
+/* Awareness */
+.aware{background:var(--forest-900);color:var(--cream-50)}
+.aware h2{color:var(--cream-50)}
+.aware p{max-width:40ch}
+.aware .lines{margin-top:28px;display:flex;flex-direction:column;gap:6px;font-family:var(--serif);font-size:28px;line-height:1.25;color:var(--wheat-200)}
+
+/* Questions */
+.q-intro{display:grid;gap:20px}
+.q-list{margin-top:32px;border-top:1px solid var(--line)}
+.q-item{border-bottom:1px solid var(--line)}
+.q-btn{width:100%;display:grid;grid-template-columns:44px minmax(0,1fr) 28px;gap:12px;align-items:start;padding:20px 0;background:none;border:0;text-align:left;cursor:pointer}
+.q-num{font-family:var(--serif);font-size:22px;color:var(--rust);line-height:1.3}
+.q-topic{display:block;font-size:15px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.q-text{display:block;margin-top:4px;font-family:var(--serif);font-size:23px;line-height:1.3;color:var(--forest-900)}
+.q-sign{width:28px;height:28px;margin-top:4px;border-radius:14px;border:1.5px solid var(--line-strong);position:relative;transition:transform 280ms var(--ease-out),background-color 200ms ease}
+.q-sign::before,.q-sign::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--forest-900);transform:translate(-50%,-50%)}
+.q-sign::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform 280ms var(--ease-out)}
+.q-btn[aria-expanded="true"] .q-sign::after{transform:translate(-50%,-50%) rotate(0deg)}
+.q-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows 320ms var(--ease-out)}
+.q-panel.open{grid-template-rows:1fr}
+.q-panel > div{overflow:hidden}
+.q-body{padding:0 0 24px 56px;display:grid;gap:14px}
+.q-body .often{font-size:17px;color:var(--ink)}
+.q-way{padding:14px 16px;border-radius:12px;background:var(--cream-100)}
+.q-way b{display:block;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--forest-700)}
+.q-check{display:flex;align-items:center;gap:12px;min-height:48px;cursor:pointer;font-size:17px;font-weight:500}
+.q-check input{width:24px;height:24px;accent-color:var(--forest-900);margin:0}
+.tally{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px;border-radius:16px;background:var(--cream-100)}
+.tally strong{font-family:var(--serif);font-weight:400;font-size:28px;color:var(--forest-900)}
+
+/* The way */
+.way{background:var(--cream-100)}
+.way-band{width:100%;height:auto;aspect-ratio:1800/970;object-fit:cover;object-position:center 30%;max-height:260px}
+.path{position:relative;list-style:none;margin:36px 0 0;padding:0 0 0 52px;display:flex;flex-direction:column;gap:30px}
+.path-line{position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:rgba(17,55,46,.14)}
+.path-line i{position:absolute;inset:0;background:var(--forest-900);transform-origin:top;transform:scaleY(var(--p,0))}
+.path li{position:relative}
+.path .dot{position:absolute;left:-52px;top:0;width:40px;height:40px;border-radius:20px;background:var(--cream-50);border:2px solid var(--line-strong);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:var(--forest-900);transition:background-color 300ms ease,color 300ms ease,border-color 300ms ease}
+.path li.lit .dot{background:var(--forest-900);border-color:var(--forest-900);color:var(--cream-50)}
+.path h3{font-size:24px;padding-top:4px}
+.path p{margin-top:6px;font-size:17px;color:var(--muted)}
+.film-card{display:grid;gap:14px;margin-top:40px;text-decoration:none;color:var(--ink)}
+.film-thumb{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/9;background:var(--cream-200)}
+.film-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 500ms var(--ease-out)}
+.play{position:absolute;left:14px;bottom:14px;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 10px;border-radius:20px;background:rgba(11,39,33,.86);color:#fff;font-size:15px;font-weight:600}
+.play svg{width:18px;height:18px}
+@media (hover:hover) and (pointer:fine){.film-card:hover .film-thumb img,.film:hover .film-thumb img{transform:scale(1.03)}}
+
+/* Dr. Asha */
+.asha-top{display:grid;gap:22px}
+.asha-person{display:flex;gap:16px;align-items:center}
+.asha-person img{width:96px;height:96px;border-radius:48px;object-fit:cover;flex:0 0 96px}
+.asha-person h2{font-size:clamp(30px,7vw,44px)}
+.asha-quote{font-family:var(--serif);font-size:26px;line-height:1.3;color:var(--forest-900);max-width:30ch}
+.profile{margin-top:4px}
+.profile summary{list-style:none;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.profile summary::-webkit-details-marker{display:none}
+.profile ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px;font-size:17px}
+.films{margin-top:32px;display:grid;grid-auto-flow:column;grid-auto-columns:min(78%,300px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;margin-left:calc(-1 * var(--gutter-l));margin-right:calc(-1 * var(--gutter-r));padding-left:var(--gutter-l);padding-right:var(--gutter-r);scroll-padding-left:var(--gutter-l)}
+.film{scroll-snap-align:start;text-decoration:none;color:var(--ink);display:grid;gap:10px;align-content:start}
+.film .film-thumb{border-radius:12px}
+.film span.t{font-size:17px;font-weight:600;line-height:1.35;color:var(--forest-900)}
+.film span.k{font-size:14px;color:var(--muted)}
+.film.feature .film-thumb{outline:2px solid var(--wheat-400);outline-offset:-2px}
+
+/* Shop */
+.shop{background:var(--cream-50)}
+.shop-grid{display:grid;gap:28px}
+.shop-visual{position:relative;border-radius:22px;background:var(--cream-100);padding:28px 20px 20px;display:flex;flex-direction:column;align-items:center}
+.shop-visual img{width:min(58%,260px);filter:drop-shadow(0 16px 24px rgba(11,39,33,.16))}
+.shop-visual .tagline{margin-top:16px;font-family:var(--serif);font-size:20px;color:var(--forest-900);text-align:center}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.seg .chip{min-height:72px;text-align:left;padding:10px 14px}
+.qty{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.field-label{font-weight:600;margin-top:24px;display:block}
+.field-hint{font-size:16px;color:var(--muted);margin-top:4px}
+.price-row{margin-top:24px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-block:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.price-row .big{font-family:var(--serif);font-size:40px;line-height:1;color:var(--forest-900);font-variant-numeric:tabular-nums}
+.price-row .per{font-size:16px;color:var(--muted)}
+.add-btn{position:relative;overflow:hidden;margin-top:18px}
+.add-btn .lbl{transition:opacity 200ms ease,filter 200ms ease,transform 260ms var(--ease-out)}
+.add-btn.swap .lbl{opacity:0;filter:blur(3px);transform:translateY(6px)}
+.details{margin-top:24px;border-top:1px solid var(--line)}
+.details .q-btn{grid-template-columns:minmax(0,1fr) 28px;padding:16px 0}
+.details .q-text{font-family:var(--sans);font-size:18px;font-weight:600;margin:0}
+.details .q-body{padding:0 0 18px;font-size:17px}
+.details .q-item{border-bottom:1px solid var(--line)}
+
+/* Calculator */
+.calc{background:var(--forest-900);color:var(--cream-50)}
+.calc h2{color:var(--cream-50)}
+.calc .muted{color:rgba(255,253,248,.82)}
+.calc-grid{display:grid;gap:28px}
+.calc-card{padding:22px 18px;border-radius:20px;background:var(--forest-800)}
+.stepper{margin-top:14px;display:grid;grid-template-columns:64px minmax(0,1fr) 64px;align-items:center;gap:10px}
+.stepper button{min-height:64px;border-radius:14px;border:1.5px solid rgba(238,219,169,.5);background:transparent;color:var(--cream-50);font-size:30px;line-height:1;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease}
+.stepper button:active{transform:scale(.95)}
+.stepper output{text-align:center;font-family:var(--serif);font-size:48px;line-height:1;font-variant-numeric:tabular-nums}
+.stepper output small{display:block;font-family:var(--sans);font-size:15px;color:rgba(255,253,248,.8);margin-top:4px}
+.calc .chip{background:transparent;color:var(--cream-50);border-color:rgba(238,219,169,.45)}
+.calc .chip[aria-pressed="true"]{background:var(--wheat-200);color:var(--forest-900);border-color:var(--wheat-200)}
+.extras{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.calc-out{padding:22px 18px;border-radius:20px;background:var(--cream-50);color:var(--ink)}
+.calc-out .kg{font-family:var(--serif);font-size:64px;line-height:1;color:var(--forest-900);font-variant-numeric:tabular-nums}
+.calc-out .kg small{font-size:22px}
+.calc-how{margin-top:14px;font-size:16px;color:var(--muted)}
+
+/* App */
+.app-row{display:grid;gap:20px;align-items:center}
+.app-row .soon{display:inline-flex;align-self:flex-start;padding:6px 12px;border-radius:999px;background:var(--cream-200);font-size:14px;font-weight:600;color:var(--forest-900)}
+.app-list{margin:14px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.app-list li{padding:14px 12px;border-radius:14px;background:var(--cream-100);font-size:16px}
+.app-list b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;color:var(--forest-900)}
+
+/* Help */
+.help{background:var(--cream-100)}
+.help .q-btn{grid-template-columns:minmax(0,1fr) 28px}
+.help .q-body{padding-left:0}
+.contact-card{margin-top:28px;display:grid;gap:12px;padding:22px 18px;border-radius:18px;background:var(--cream-50)}
+.num{font-family:var(--serif);font-size:30px;color:var(--forest-900);user-select:all;font-variant-numeric:tabular-nums}
+
+/* Closing */
+.closing{text-align:left}
+.closing-in{display:grid;gap:24px;align-items:center}
+.closing img{width:min(70%,280px)}
+
+/* Footer */
+.ftr{background:var(--forest-950);color:rgba(255,253,248,.88);font-size:16px}
+.ftr a{color:var(--cream-50)}
+.ftr-in{display:grid;gap:32px;padding-block:56px calc(56px + var(--bar-h))}
+.ftr-belief{font-family:var(--serif);font-size:24px;line-height:1.35;color:var(--wheat-200);max-width:30ch}
+.ftr h4{margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,253,248,.7)}
+.ftr ul{list-style:none;margin:0;padding:0;display:grid}
+.ftr li a{display:inline-flex;align-items:center;min-height:44px}
+.ftr-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+
+/* Bottom action bar (phone) */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom,0px)) var(--gutter-l);background:rgba(255,253,248,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;gap:10px;transform:translateY(110%);transition:transform 380ms var(--ease-drawer)}
+.bar.show{transform:none}
+.bar .btn{flex:1;min-height:52px}
+.bar .icon-btn{min-height:52px;min-width:52px}
+
+/* Sheets */
+.backdrop{position:fixed;inset:0;z-index:80;background:rgba(11,39,33,.42);opacity:0;transition:opacity 260ms ease}
+.backdrop.open{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:90;max-height:min(92vh,920px);display:flex;flex-direction:column;background:var(--cream-50);border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(11,39,33,.18);transform:translateY(100%);transition:transform 420ms var(--ease-drawer);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet.open{transform:none}
+#bag.sheet{height:min(86vh,760px)}
+#bag .sheet-bd{flex:1 1 auto}
+.sheet.closing{transition-duration:240ms;transition-timing-function:var(--ease-out)}
+.sheet-grab{width:44px;height:5px;border-radius:3px;background:var(--line-strong);margin:10px auto 0}
+.sheet-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px var(--gutter-r) 8px var(--gutter-l)}
+.sheet-hd h2{font-size:28px}
+.sheet-bd{overflow:auto;padding:4px var(--gutter-r) 24px var(--gutter-l);overscroll-behavior:contain}
+.sheet-ft{padding:14px var(--gutter-r) 16px var(--gutter-l);border-top:1px solid var(--line);background:var(--cream-50)}
+.x-btn{min-width:48px;min-height:48px;border-radius:24px;border:0;background:var(--cream-100);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.x-btn svg{width:20px;height:20px}
+.sample-note{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--cream-100);font-size:14px;color:var(--muted)}
+.step-pane{display:none}
+.step-pane.on{display:block;animation:paneIn 300ms var(--ease-out)}
+@keyframes paneIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.line-item{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.line-item img{width:64px;height:64px;object-fit:contain;background:var(--cream-100);border-radius:12px;padding:4px}
+.line-item b{display:block;font-weight:600}
+.line-item .rm{min-height:44px;background:none;border:0;color:var(--rust);font-weight:600;text-decoration:underline;cursor:pointer;padding:0}
+.sum{display:grid;gap:8px;margin-top:18px;font-size:17px}
+.sum div{display:flex;justify-content:space-between;gap:12px}
+.sum .tot{font-weight:700;font-size:19px;padding-top:10px;border-top:1px solid var(--line)}
+.empty{padding:28px 0;text-align:center;display:grid;gap:14px;justify-items:center}
+.empty img{width:120px}
+.input{width:100%;min-height:56px;padding:0 16px;border-radius:14px;border:1.5px solid var(--line-strong);background:#fff;font:inherit;font-size:20px;color:var(--ink)}
+.input:focus{border-color:var(--forest-900);outline:none;box-shadow:0 0 0 3px rgba(17,55,46,.15)}
+.phone-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center;margin-top:10px}
+.phone-row span{min-height:56px;display:flex;align-items:center;padding:0 14px;border-radius:14px;background:var(--cream-100);font-size:20px}
+.otp{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:12px}
+.otp input{text-align:center;padding:0;font-size:24px;font-variant-numeric:tabular-nums}
+.err{margin-top:8px;color:var(--rust);font-size:16px;font-weight:500;min-height:24px}
+.ok-msg{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:14px;background:#e7f0e9;color:var(--forest-900);margin-top:14px}
+.no-msg{padding:14px;border-radius:14px;background:#f6e8e2;color:var(--rust);margin-top:14px}
+.days{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.days .chip{min-height:72px}
+.menu-links{list-style:none;margin:0;padding:0}
+.menu-links a{display:flex;align-items:center;justify-content:space-between;min-height:60px;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:26px;text-decoration:none;color:var(--forest-900)}
+.done-mark{width:64px;height:64px;border-radius:32px;background:var(--forest-900);color:var(--cream-50);display:flex;align-items:center;justify-content:center}
+.done-mark svg{width:30px;height:30px}
+
+/* Veer companion */
+.veer{position:fixed;right:max(10px, env(safe-area-inset-right,0px));bottom:calc(var(--bar-h) + 12px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:flex-end;gap:8px;pointer-events:none;transition:bottom 380ms var(--ease-drawer),transform 380ms var(--ease-drawer),opacity 240ms ease}
+.veer.away,.veer.dodge{transform:translateX(130%);opacity:0}
+.veer-bubble{pointer-events:auto;position:relative;max-width:min(220px, calc(100vw - 120px));padding:10px 12px;border-radius:16px 16px 4px 16px;background:var(--forest-900);color:var(--cream-50);font-size:15px;line-height:1.4;box-shadow:0 10px 30px rgba(11,39,33,.22);transform-origin:bottom right;opacity:0;transform:scale(.94) translateY(6px);transition:opacity 220ms var(--ease-out),transform 260ms var(--ease-out);margin-bottom:22px}
+.veer-bubble.show{opacity:1;transform:none}
+.veer-bubble button{display:block;margin-top:6px;padding:0;min-height:32px;background:none;border:0;color:var(--wheat-200);font-size:14px;font-weight:600;text-decoration:underline;cursor:pointer}
+/* Veer: one fixed frame. Every pose is drawn on the same canvas at the same scale, so only the pose changes, never the size */
+.veer-me{pointer-events:auto;position:relative;width:100px;height:110px;border:0;padding:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:0 0 auto}
+.veer-me::before{content:"";position:absolute;left:18px;right:18px;bottom:0;height:8px;border-radius:50%;background:rgba(11,39,33,.16);filter:blur(3px)}
+.veer-me .body{position:absolute;inset:0;animation:bob 4s ease-in-out infinite}
+.veer-me .frame{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:0}
+.veer-me .frame.on{opacity:1}
+.veer-me .frame.fade{transition:opacity 200ms ease}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.veer-me.hop .body{animation:hop 480ms var(--ease-out)}
+@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+.veer-tab{position:fixed;right:0;bottom:calc(var(--bar-h) + 24px + env(safe-area-inset-bottom,0px));z-index:45;min-height:48px;padding:0 14px 0 12px;border-radius:24px 0 0 24px;border:1.5px solid var(--line-strong);border-right:0;background:var(--cream-50);font-weight:600;color:var(--forest-900);cursor:pointer;display:flex;align-items:center;gap:8px;transform:translateX(110%);transition:transform 320ms var(--ease-drawer),bottom 380ms var(--ease-drawer)}
+.veer-tab.show{transform:none}
+.veer-tab img{width:28px;height:28px;object-fit:cover;object-position:top;border-radius:14px}
+
+/* Desktop */
+@media (min-width:900px){
+  body{font-size:19px}
+  .wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}
+  .sec{padding-block:112px}
+  .hide-sm{display:inline-flex}
+  .hdr-nav{display:flex;gap:4px;margin-right:12px}
+  .hdr-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:10px;text-decoration:none;font-size:16px;font-weight:500;color:var(--forest-900)}
+  .hdr-nav a:hover{background:rgba(17,55,46,.06)}
+  .menu-toggle{display:none!important}
+  .hero-in{grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:center;padding-block:72px 88px;gap:48px}
+  .hero-ctas{flex-direction:row}
+  .hero-art{min-height:520px;margin-top:0}
+  .hero-art .pack{width:min(78%,380px)}
+  .habit-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:72px;align-items:start}
+  .age-card{padding:32px}
+  .age-opts{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .aware-in{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:72px;align-items:end}
+  .aware .lines{font-size:34px;margin-top:0}
+  .q-intro{grid-template-columns:minmax(0,7fr) minmax(0,4fr);align-items:end}
+  .q-list{max-width:880px}
+  .q-text{font-size:27px}
+  .tally{max-width:880px}
+  .way-band{max-height:380px}
+  .path{flex-direction:row;padding:68px 0 0;gap:20px}
+  .path li{flex:1 1 0;min-width:0}
+  .path-line{left:20px;right:20px;top:19px;bottom:auto;width:auto;height:2px}
+  .path-line i{transform-origin:left;transform:scaleX(var(--p,0))}
+  .path .dot{left:0;top:-68px}
+  .path h3{font-size:22px}
+  .path p{font-size:16px}
+  .film-card{grid-template-columns:minmax(0,7fr) minmax(0,4fr);align-items:center;gap:40px}
+  .asha-top{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:72px;align-items:end}
+  .films{grid-auto-flow:row;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-columns:auto;overflow:visible;margin-left:0;margin-right:0;padding-left:0;padding-right:0}
+  .film.feature{grid-column:span 2;grid-row:span 2}
+  .film.feature span.t{font-size:22px}
+  .shop-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+  .shop-visual{position:sticky;top:96px;padding:56px 32px 32px}
+  .calc-grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:48px;align-items:start}
+  .calc-card,.calc-out{padding:32px}
+  .extras{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .app-row{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px}
+  .help-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:72px;align-items:start}
+  .contact-card{margin-top:28px}
+  .closing-in{grid-template-columns:minmax(0,7fr) minmax(0,4fr)}
+  .closing .hero-ctas{flex-direction:row}
+  .ftr-in{grid-template-columns:minmax(0,5fr) minmax(0,6fr);padding-block:72px}
+  .ftr-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .bar{display:none}
+  .sheet{left:auto;top:0;bottom:0;width:min(460px,100vw);max-height:none;border-radius:22px 0 0 22px;transform:translateX(100%)}
+  .sheet.open{transform:none}
+  .sheet-grab{display:none}
+  #bag.sheet{height:auto}
+  .sheet-hd{padding-top:20px}
+  .veer-me{width:128px;height:140px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important}
+  .rv,.rv.pre{transform:none!important;transition:none}
+  .bar,.sheet,.veer,.veer-tab,.bar-fill,.q-panel,.path-line i{transition-duration:1ms!important}
+  .veer-me .body{animation:none}
+}
+</style>
+<style>[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="hdr-logo" href="#top" aria-label="Atulyash home"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"></a>
+    <nav class="hdr-nav" aria-label="Main">
+      <a href="#habit">Why fresh</a>
+      <a href="#questions">Ask what matters</a>
+      <a href="#way">Our way</a>
+      <a href="#asha">Dr. Asha</a>
+      <a href="#shop">Shop</a>
+    </nav>
+    <div class="hdr-tools">
+      <button class="icon-btn hide-sm" type="button" data-open="account" id="acctBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        <span id="acctLabel">Sign in</span>
+      </button>
+      <button class="icon-btn" type="button" data-open="bag" aria-label="My bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span>Bag</span>
+        <span class="badge" id="bagCount" hidden>0</span>
+      </button>
+      <button class="icon-btn menu-toggle" type="button" data-open="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" data-veer="hero" aria-labelledby="h-hero">
+  <div class="wrap hero-in">
+    <div class="stack">
+      <span class="stamp load-in">Milled yesterday<br>Delivered this morning</span>
+      <h1 id="h-hero" class="load-in d1">You buy milk fresh. Why keep atta for a month?</h1>
+      <p class="lede load-in d2">Atulyash is whole wheat atta milled slowly on natural stone, the day before it reaches your door. Every week.</p>
+      <div class="hero-ctas load-in d3">
+        <a class="btn btn-solid" href="#shop">See packs and prices</a>
+        <button class="btn btn-line" type="button" data-open="pin">Check delivery to my area</button>
+      </div>
+      <ul class="hero-facts load-in d4">
+        <li>MP Sharbati wheat</li><li>Natural stone chakki</li><li>Chokar kept in</li>
+      </ul>
+    </div>
+    <div class="hero-art load-in d2" aria-hidden="true">
+      <span class="disc"></span>
+      <img class="pack" src="img/pack.webp" alt="" width="900" height="1334">
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="habit" data-veer="habit" aria-labelledby="h-habit">
+  <div class="wrap habit-grid">
+    <div class="rv">
+      <p class="kicker">Atta deserves respect</p>
+      <h2 id="h-habit" style="margin-top:12px">Eaten at every meal. Rarely questioned.</h2>
+      <p class="lede" style="margin-top:18px">Nobody keeps milk for a month. Yet a big bag of atta often sits in the kitchen for weeks, and it was milled long before you opened it.</p>
+      <div class="compare">
+        <div><b>Milk</b><span>Bought fresh, used in a day or two.</span></div>
+        <div><b>Atulyash atta</b><span>Milled the day before, used within the week.</span></div>
+      </div>
+    </div>
+    <div class="age-card rv">
+      <h3 id="age-q">When did you buy the atta in your kitchen now?</h3>
+      <div class="age-opts" role="group" aria-labelledby="age-q">
+        <button class="chip" type="button" aria-pressed="false" data-age="7" data-age-text="up to a week">This week</button>
+        <button class="chip" type="button" aria-pressed="false" data-age="14" data-age-text="about 2 weeks">2 weeks ago</button>
+        <button class="chip" type="button" aria-pressed="false" data-age="30" data-age-text="about a month">A month ago</button>
+        <button class="chip" type="button" aria-pressed="false" data-age="45" data-age-text="more than a month">Longer</button>
+      </div>
+      <p class="age-empty" id="ageEmpty">Tap one to compare.</p>
+      <div class="age-result" id="ageResult" aria-live="polite" hidden>
+        <div class="bar-row">
+          <div class="bar-label"><b>Your bag, in your kitchen</b><span id="ageText">about 2 weeks</span></div>
+          <div class="bar-track"><div class="bar-fill yours" id="barYours"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><b>Atulyash, since milling</b><span>1 day</span></div>
+          <div class="bar-track"><div class="bar-fill ours" id="barOurs"></div></div>
+        </div>
+        <p class="age-note small">That is only the time in your kitchen. It was milled, packed and shipped before you bought it, and most packets do not say when it was milled.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec aware" data-veer="aware" aria-labelledby="h-aware">
+  <div class="wrap aware-in">
+    <div class="rv">
+      <h2 id="h-aware">You cannot control everything your family eats.</h2>
+      <p style="margin-top:18px">You will eat outside. You will depend on food you did not choose. But atta is on your table at almost every meal, and it is one thing you can choose with care.</p>
+    </div>
+    <div class="lines rv" aria-label="Know the wheat. Know the process. Know what reaches your home.">
+      <span>Know the wheat.</span><span>Know the process.</span><span>Know what reaches your home.</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="questions" data-veer="questions" aria-labelledby="h-q">
+  <div class="wrap">
+    <div class="q-intro">
+      <div class="rv">
+        <p class="kicker">Six questions</p>
+        <h2 id="h-q" style="margin-top:12px">Before you buy atta, ask what matters.</h2>
+        <p class="lede" style="margin-top:16px">Bring the packet from your kitchen. Open each question and tick the ones your packet answers.</p>
+      </div>
+    </div>
+    <div class="q-list" id="qList"></div>
+    <div class="tally" aria-live="polite">
+      <div><span class="small muted">Your packet answers</span><br><strong id="tally">0 of 6</strong></div>
+      <a class="btn btn-solid btn-sm" href="#way">See how Atulyash answers</a>
+    </div>
+  </div>
+</section>
+
+<section class="way" id="way" data-veer="way" aria-labelledby="h-way">
+  <img class="way-band" src="img/village.webp" alt="Illustration of the Atulyash village: green fields, trees and mud houses" width="1800" height="970">
+  <div class="wrap sec" style="padding-top:56px">
+    <p class="kicker">The Atulyash way</p>
+    <h2 id="h-way" style="margin-top:12px">Six decisions. One honest packet.</h2>
+    <ol class="path" id="path">
+      <span class="path-line" aria-hidden="true"><i></i></span>
+      <li><span class="dot">1</span><h3>One wheat</h3><p>Single-origin MP Sharbati. Never blended with other varieties.</p></li>
+      <li><span class="dot">2</span><h3>Cleaned in stages</h3><p>Multi-stage cleaning before the grain reaches the chakki.</p></li>
+      <li><span class="dot">3</span><h3>Natural stone</h3><p>Natural stone chakkis. No emery stone, no steel rollers.</p></li>
+      <li><span class="dot">4</span><h3>Milled slowly</h3><p>Slow and gentle, to keep heat down.</p></li>
+      <li><span class="dot">5</span><h3>Small batches</h3><p>Chokar kept in. Packed with minimal handling.</p></li>
+      <li><span class="dot">6</span><h3>To your door</h3><p>Milled the day before, delivered the next morning.</p></li>
+    </ol>
+    <a class="film-card rv" href="https://www.youtube.com/watch?v=3mXae8undRI" target="_blank" rel="noopener">
+      <span class="film-thumb"><img src="img/film-process.webp" alt="" width="1000" height="562" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Watch the film</span></span>
+      <span><h3>A different way to think about atta</h3><span class="muted" style="display:block;margin-top:8px">From the wheat we choose to how we mill, pack and deliver. Opens on YouTube.</span></span>
+    </a>
+  </div>
+</section>
+
+<section class="sec" id="asha" data-veer="asha" aria-labelledby="h-asha">
+  <div class="wrap">
+    <div class="asha-top">
+      <div class="stack" style="gap:16px">
+        <div class="asha-person rv">
+          <img src="img/asha.webp" alt="Dr. Asha Kawatra" width="720" height="720" loading="lazy">
+          <div><p class="kicker">Foods &amp; nutrition</p><h2 id="h-asha">Dr. Asha Kawatra</h2></div>
+        </div>
+        <p class="rv">35 years in foods and nutrition. Former Professor and Head, Department of Foods &amp; Nutrition, CCS HAU, Hisar.</p>
+        <details class="profile">
+          <summary>Her full profile</summary>
+          <ul>
+            <li>Doctorate in Foods &amp; Nutrition.</li>
+            <li>Topper through B.Sc., M.Sc. and Ph.D., with two gold medals.</li>
+            <li>35 years of teaching, research and extension work in Foods &amp; Nutrition.</li>
+            <li>Former Professor and Head, Department of Foods &amp; Nutrition, CCS HAU, Hisar.</li>
+            <li>Former Dean of Postgraduate Studies at CCS HAU, Hisar and MHU, Karnal.</li>
+          </ul>
+        </details>
+      </div>
+      <div class="rv">
+        <p class="asha-quote">“The foods we eat most often deserve the most attention.”</p>
+        <p class="muted small" style="margin-top:10px">Her work inspires us to question more and treat everyday food with respect.</p>
+      </div>
+    </div>
+    <div class="films" role="list" aria-label="Films with Dr. Asha Kawatra" id="films"></div>
+  </div>
+</section>
+
+<section class="sec shop" id="shop" data-veer="shop" aria-labelledby="h-shop">
+  <div class="wrap shop-grid">
+    <div class="shop-visual">
+      <img src="img/pack.webp" alt="Atulyash Whole Wheat Atta pack" width="900" height="1334" loading="lazy">
+      <p class="tagline">100% MP Sharbati. Slow-milled. Chokar kept in.</p>
+    </div>
+    <div>
+      <p class="kicker">Atulyash Whole Wheat Atta</p>
+      <h2 id="h-shop" style="margin-top:12px">Choose your atta.</h2>
+      <p class="muted" style="margin-top:12px">One wheat, milled slowly, for homes that want to know what goes into their everyday roti.</p>
+
+      <span class="field-label" id="mode-l">How would you like it?</span>
+      <div class="seg" role="group" aria-labelledby="mode-l">
+        <button class="chip" type="button" data-mode="weekly" aria-pressed="true">Every week<small>Fresh on your chosen day</small></button>
+        <button class="chip" type="button" data-mode="once" aria-pressed="false">Just once<small>No subscription</small></button>
+      </div>
+
+      <span class="field-label" id="qty-l">How much each time?</span>
+      <p class="field-hint">Packed in 1 kg and 2 kg packets.</p>
+      <div class="qty" role="group" aria-labelledby="qty-l" id="qty"></div>
+      <button class="link-btn" type="button" data-go="calc" style="margin-top:6px">Not sure? Work it out from your rotis</button>
+
+      <div class="price-row">
+        <div><span class="big" id="price">₹240</span><br><span class="per" id="perLine">₹120 a kg, about ₹3.60 a roti</span></div>
+        <span class="small muted" id="modeLine" style="text-align:right">every week</span>
+      </div>
+      <p class="small muted" style="margin-top:10px" id="delivLine">Weekly deliveries are free. No automatic billing.</p>
+      <button class="btn btn-solid btn-block add-btn" type="button" id="addBtn"><span class="lbl" id="addLbl">Add to bag</span></button>
+
+      <div class="details" id="details"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec calc" id="calc" data-veer="calc" aria-labelledby="h-calc">
+  <div class="wrap calc-grid">
+    <div>
+      <h2 id="h-calc">How much atta does your family need?</h2>
+      <p class="muted" style="margin-top:14px">Tell us your rotis on a usual day. We will suggest a weekly quantity.</p>
+      <div class="calc-card" style="margin-top:24px">
+        <span class="field-label" style="margin-top:0" id="rot-l">Rotis on a usual day, for the whole family</span>
+        <div class="stepper" role="group" aria-labelledby="rot-l">
+          <button type="button" id="rotMinus" aria-label="Fewer rotis">−</button>
+          <output id="rotOut" aria-live="polite">8<small>rotis a day</small></output>
+          <button type="button" id="rotPlus" aria-label="More rotis">+</button>
+        </div>
+        <span class="field-label" id="ext-l">How often do you make parathas or pooris?</span>
+        <div class="extras" role="group" aria-labelledby="ext-l" id="extras"></div>
+      </div>
+    </div>
+    <div class="calc-out" aria-live="polite">
+      <p class="small muted">You need about</p>
+      <p class="kg"><span id="kgOut">1.93</span> <small>kg a week</small></p>
+      <p class="small muted" style="margin-top:6px">About <span id="kg4">7.7</span> kg over 4 weeks</p>
+      <button class="btn btn-solid btn-block" type="button" id="usePlan" style="margin-top:22px">Choose 2 kg every week</button>
+      <p class="calc-how" id="calcHow">8 rotis × 30 g × 7 days, plus 15% for extras. One medium roti uses about 30 g of atta. This is an estimate.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec-tight" id="app" aria-labelledby="h-app">
+  <div class="wrap app-row">
+    <div class="stack" style="gap:12px">
+      <span class="soon">Coming soon on Android and iOS</span>
+      <h2 id="h-app" style="font-size:clamp(28px,6vw,38px)">The Atulyash app</h2>
+      <p class="muted">Keep every weekly delivery in one place.</p>
+    </div>
+    <ul class="app-list">
+      <li><b>Plan</b>See what is coming.</li>
+      <li><b>Adjust</b>Change an eligible delivery.</li>
+      <li><b>Track</b>Follow each fresh batch.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec help" id="help" data-veer="help" aria-labelledby="h-help">
+  <div class="wrap help-in">
+    <div>
+      <h2 id="h-help">Questions before you order</h2>
+      <div class="contact-card">
+        <p class="small muted">Customer care</p>
+        <p class="num" id="careNum">+91 98185 88996</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <button class="btn btn-line btn-sm" type="button" id="copyNum">Copy number</button>
+          <a class="btn btn-solid btn-sm" href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp us</a>
+        </div>
+      </div>
+    </div>
+    <div class="q-list" style="margin-top:0" id="helpList"></div>
+  </div>
+</section>
+
+<section class="sec closing" id="start" data-veer="start" aria-labelledby="h-start">
+  <div class="wrap closing-in">
+    <div>
+      <p class="kicker">Experience Atulyash</p>
+      <h2 id="h-start" style="margin-top:12px">Bring home atta in its purest form.</h2>
+      <p class="lede" style="margin-top:16px">Milled fresh and delivered every week, so it reaches you close to when it is eaten.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-solid" type="button" data-quick="once">Start with one fresh 2 kg batch</button>
+        <button class="btn btn-line" type="button" data-quick="weekly">Get it every week</button>
+      </div>
+    </div>
+    <img src="img/veer-roti.webp" alt="Veer holding a fresh roti" width="600" height="600" loading="lazy" data-fallback="img/veer-stand.webp">
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <div class="stack" style="gap:18px">
+      <img src="img/mark.webp" alt="" width="240" height="210" style="width:56px">
+      <p class="ftr-belief">“This is not about adding more. It is about refusing what does not belong.”</p>
+      <p>Bringing respect, discipline and freshness back to the atta we eat every day.</p>
+    </div>
+    <div class="ftr-cols">
+      <div><h4>Explore</h4><ul><li><a href="#way">The Atulyash way</a></li><li><a href="#habit">Weekly freshness</a></li><li><a href="#questions">Ask what matters</a></li><li><a href="#asha">Dr. Asha's films</a></li><li><a href="#shop">Shop</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp</a></li><li><span style="display:inline-flex;min-height:44px;align-items:center">+91 98185 88996</span></li></ul></div>
+      <div><h4>Policies</h4><ul>
+        <li><a href="https://atulyash.com/legal/terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a></li>
+        <li><a href="https://atulyash.com/legal/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
+        <li><a href="https://atulyash.com/legal/refund.html" target="_blank" rel="noopener">Cancellation &amp; Refunds</a></li>
+        <li><a href="https://atulyash.com/legal/shipping.html" target="_blank" rel="noopener">Delivery Policy</a></li>
+        <li><a href="https://atulyash.com/legal/rider-terms.html" target="_blank" rel="noopener">For delivery partners</a></li>
+      </ul></div>
+    </div>
+    <p class="small" style="opacity:.75">© 2026 Atulyash Foods Private Limited</p>
+  </div>
+</footer>
+
+<div class="bar" id="bar">
+  <a class="btn btn-solid" href="#shop" id="barCta">Order fresh atta</a>
+  <a class="icon-btn" href="https://wa.me/919818588996" target="_blank" rel="noopener" aria-label="WhatsApp us">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.1z"/><path d="M9.5 9.5c.5 2 2 3.5 4 4l1.2-1.2 1.8.8-.4 1.6c-3.6 0-6.8-3.2-6.8-6.8l1.6-.4.8 1.8z"/></svg>
+  </a>
+</div>
+
+<div class="veer" id="veer" aria-live="polite">
+  <div class="veer-bubble" id="veerBubble" role="status"><span id="veerText"></span><button type="button" id="veerHide">Hide Veer</button></div>
+  <button class="veer-me" type="button" id="veerMe" aria-label="Veer, your guide. Tap to hear from him.">
+    <span class="body" id="veerFrames"></span>
+  </button>
+</div>
+<button class="veer-tab" type="button" id="veerTab"><img src="img/veer/face.webp" alt="">Bring back Veer</button>
+
+<div class="backdrop" id="backdrop" hidden></div>
+
+<!-- Menu -->
+<div class="sheet" id="menu" role="dialog" aria-modal="true" aria-labelledby="menu-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="menu-h">Menu</h2><button class="x-btn" type="button" data-close aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd">
+    <ul class="menu-links">
+      <li><a href="#shop" data-close>Shop atta <span aria-hidden="true">›</span></a></li>
+      <li><a href="#habit" data-close>Why fresh atta <span aria-hidden="true">›</span></a></li>
+      <li><a href="#questions" data-close>Ask what matters <span aria-hidden="true">›</span></a></li>
+      <li><a href="#way" data-close>The Atulyash way <span aria-hidden="true">›</span></a></li>
+      <li><a href="#asha" data-close>Dr. Asha's films <span aria-hidden="true">›</span></a></li>
+      <li><a href="#calc" data-close>Roti calculator <span aria-hidden="true">›</span></a></li>
+      <li><a href="#help" data-close>Help <span aria-hidden="true">›</span></a></li>
+    </ul>
+    <div style="display:grid;gap:10px;margin-top:22px">
+      <button class="btn btn-line btn-block" type="button" data-open="account" id="menuAcct">Sign in to My Atulyash</button>
+      <button class="btn btn-line btn-block" type="button" data-open="pin">Check delivery to my area</button>
+      <p class="small muted" style="margin-top:8px">Customer care <b style="color:var(--forest-900)">+91 98185 88996</b></p>
+    </div>
+  </div>
+</div>
+
+<!-- PIN check -->
+<div class="sheet" id="pin" role="dialog" aria-modal="true" aria-labelledby="pin-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="pin-h">Do we deliver to you?</h2><button class="x-btn" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd">
+    <form id="pinForm" novalidate>
+      <label for="pinIn" class="field-label" style="margin-top:0">Your 6-digit PIN code</label>
+      <input class="input" id="pinIn" inputmode="numeric" autocomplete="postal-code" maxlength="6" placeholder="110001" style="margin-top:10px">
+      <p class="err" id="pinErr"></p>
+      <button class="btn btn-solid btn-block" type="submit">Check</button>
+    </form>
+    <button class="link-btn" type="button" id="locBtn" style="margin-top:8px">Use my current location instead</button>
+    <div id="pinRes" aria-live="polite"></div>
+    <p class="sample-note">Design sample: Delhi NCR PIN codes show as available. The real site checks live.</p>
+  </div>
+</div>
+
+<!-- Account / sign in -->
+<div class="sheet" id="account" role="dialog" aria-modal="true" aria-labelledby="acct-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="acct-h">My Atulyash</h2><button class="x-btn" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd" id="acctBody"></div>
+</div>
+
+<!-- Bag and checkout -->
+<div class="sheet" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="bag-h">My bag</h2><button class="x-btn" type="button" data-close aria-label="Close bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd" id="bagBody"></div>
+  <div class="sheet-ft" id="bagFoot"></div>
+</div>
+
+<script src="app.js"></script>
+
+
+</body>
+</html>

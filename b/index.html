@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Atulyash Batch Ticket</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: the page reads like the label of one fresh batch. Stone paper ground, ticket cards with perforated edges, a millstone that turns as you scroll. Light only by choice. */
+:root{
+  --paper:#ece5d6; --paper-2:#e2d8c4; --card:#f8f4ea; --ink:#16261f; --forest:#11372e; --forest-2:#1c4a3d;
+  --stamp:#9a3b22; --kraft:#b88d57; --muted:#5a5447; --rule:rgba(22,38,31,.24); --rule-soft:rgba(22,38,31,.12); --wheat:#e9d49c;
+  --display:'Young Serif',Georgia,serif; --sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --ease-out:cubic-bezier(.23,1,.32,1); --ease-drawer:cubic-bezier(.32,.72,0,1);
+  --gutter-l:max(20px, env(safe-area-inset-left, 0px)); --gutter-r:max(20px, env(safe-area-inset-right, 0px)); --bar-h:0px;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .18 0 0 0 0 .12 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper) var(--grain);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+h1,h2,h3{font-family:var(--display);font-weight:400;color:var(--forest);text-wrap:balance;margin:0}
+h1{font-size:clamp(40px,10.5vw,78px);line-height:1.04}
+h2{font-size:clamp(31px,7.6vw,52px);line-height:1.1}
+h3{font-size:23px;line-height:1.25}
+p{margin:0}
+a{color:var(--forest);text-underline-offset:3px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--stamp);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.sec{padding-block:72px}
+.sec-tight{padding-block:48px}
+.lede{font-size:1.08em;max-width:36ch}
+.muted{color:var(--muted)}
+.small{font-size:16px}
+.label{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.stack{display:flex;flex-direction:column}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:6px;border:2px solid var(--forest);font-size:18px;font-weight:700;text-decoration:none;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease;-webkit-tap-highlight-color:transparent;user-select:none}
+.btn:active{transform:scale(.97)}
+.btn-solid{background:var(--forest);color:var(--card)}
+.btn-line{background:transparent;color:var(--forest)}
+.btn-block{width:100%}
+.btn-sm{min-height:44px;padding:0 16px;font-size:16px}
+.link-btn{background:none;border:0;padding:0;min-height:44px;display:inline-flex;align-items:center;font-weight:600;color:var(--forest);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+@media (hover:hover) and (pointer:fine){.btn-solid:hover{background:var(--forest-2)}.btn-line:hover{background:rgba(17,55,46,.06)}}
+.chip{min-height:52px;padding:0 14px;border-radius:6px;border:2px solid var(--rule);background:var(--card);font-size:17px;font-weight:600;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--card)}
+.chip small{display:block;font-size:14px;font-weight:400;opacity:.85;line-height:1.2}
+
+/* Ticket */
+.ticket{position:relative;background:var(--card);border-radius:6px;box-shadow:0 1px 0 var(--rule-soft),0 12px 30px rgba(22,38,31,.08);
+  -webkit-mask:radial-gradient(circle 9px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 9px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 9px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 9px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.ticket-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:2px dashed var(--rule)}
+.ticket-hd img{height:24px;width:auto}
+.ticket-rows{list-style:none;margin:0;padding:6px 18px 14px}
+.ticket-rows li{display:grid;grid-template-columns:112px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dotted var(--rule)}
+.ticket-rows li:last-child{border-bottom:0}
+.ticket-rows dt,.ticket-rows .k{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.ticket-rows .v{font-weight:600;color:var(--forest);font-size:17px;line-height:1.35}
+.stamp{position:absolute;right:14px;bottom:16px;width:104px;height:104px;border-radius:50%;border:3px solid var(--stamp);color:var(--stamp);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;line-height:1.3;text-transform:uppercase;transform:rotate(-12deg);opacity:.9;pointer-events:none;mix-blend-mode:multiply}
+.stamp::before{content:"";position:absolute;inset:5px;border-radius:50%;border:1px solid var(--stamp)}
+.print li{animation:printIn 520ms var(--ease-out) both}
+.print li:nth-child(1){animation-delay:200ms}.print li:nth-child(2){animation-delay:270ms}.print li:nth-child(3){animation-delay:340ms}.print li:nth-child(4){animation-delay:410ms}.print li:nth-child(5){animation-delay:480ms}.print li:nth-child(6){animation-delay:550ms}
+@keyframes printIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.stamp.press{animation:stampIn 460ms var(--ease-out) 900ms both}
+@keyframes stampIn{from{opacity:0;transform:rotate(-4deg) scale(1.35)}60%{opacity:.95}to{opacity:.9;transform:rotate(-12deg) scale(1)}}
+
+/* Header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(236,229,214,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:2px solid transparent;transition:border-color 200ms ease}
+.hdr.scrolled{border-color:var(--rule-soft)}
+.hdr-in{display:flex;align-items:center;gap:10px;min-height:64px}
+.hdr-logo{margin-right:auto;display:flex;align-items:center;min-height:44px}
+.hdr-logo img{height:30px;width:auto}
+.hdr-nav{display:none}
+.hdr-tools{display:flex;gap:8px}
+.icon-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:48px;min-height:48px;padding:0 12px;border-radius:6px;border:2px solid var(--rule);background:var(--card);font-size:16px;font-weight:700;color:var(--forest);cursor:pointer;transition:transform 160ms var(--ease-out)}
+.icon-btn:active{transform:scale(.96)}
+.icon-btn svg{width:20px;height:20px}
+.badge{position:absolute;top:-7px;right:-7px;min-width:22px;height:22px;border-radius:11px;background:var(--stamp);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 6px;transition:transform 260ms var(--ease-out)}
+.badge[hidden]{display:none}
+.badge.bump{transform:scale(1.25)}
+.hide-sm{display:none}
+
+/* Hero */
+.hero-in{display:grid;gap:32px;padding-block:32px 56px}
+.hero h1{margin-top:14px}
+.hero .lede{margin-top:16px}
+.hero-ctas{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+
+/* Habit: date stub */
+.stub{padding:22px 18px}
+.stub h3{font-size:25px}
+.age-opts{margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.age-empty{margin-top:16px;font-size:16px;color:var(--muted)}
+.bar-row{margin-top:16px}
+.bar-label{display:flex;justify-content:space-between;gap:12px;font-size:16px}
+.bar-label b{font-weight:700}
+.bar-track{margin-top:8px;height:16px;border-radius:3px;background:repeating-linear-gradient(90deg,rgba(22,38,31,.1) 0 6px,transparent 6px 8px);overflow:hidden}
+.bar-fill{height:100%;width:100%;transform-origin:left;transform:scaleX(0);transition:transform 700ms var(--ease-out)}
+.bar-fill.yours{background:var(--stamp)}
+.bar-fill.ours{background:var(--forest)}
+.age-note{margin-top:16px}
+.habit-grid{display:grid;gap:28px}
+
+/* Questions as label lines */
+.q-list{margin-top:28px;background:var(--card);border-radius:6px;padding:4px 18px;box-shadow:0 12px 30px rgba(22,38,31,.06)}
+.q-item{border-bottom:1px dotted var(--rule)}
+.q-item:last-child{border-bottom:0}
+.q-btn{width:100%;display:grid;grid-template-columns:40px minmax(0,1fr) 28px;gap:10px;align-items:start;padding:18px 0;background:none;border:0;text-align:left;cursor:pointer}
+.q-num{font-family:var(--mono);font-size:15px;font-weight:600;color:var(--stamp);padding-top:4px}
+.q-topic{display:block;font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.q-text{display:block;margin-top:4px;font-family:var(--display);font-size:22px;line-height:1.3;color:var(--forest)}
+.q-sign{width:28px;height:28px;margin-top:4px;border-radius:4px;border:2px solid var(--rule);position:relative}
+.q-sign::before,.q-sign::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--forest);transform:translate(-50%,-50%)}
+.q-sign::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform 280ms var(--ease-out)}
+.q-btn[aria-expanded="true"] .q-sign::after{transform:translate(-50%,-50%) rotate(0)}
+.q-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows 320ms var(--ease-out)}
+.q-panel.open{grid-template-rows:1fr}
+.q-panel>div{overflow:hidden}
+.q-body{padding:0 0 20px 50px;display:grid;gap:12px;font-size:17px}
+.q-way{padding:12px 14px;border:2px solid var(--forest);border-radius:4px}
+.q-way b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--forest)}
+.q-check{display:flex;align-items:center;gap:12px;min-height:48px;cursor:pointer;font-weight:600}
+.q-check input{width:24px;height:24px;accent-color:var(--forest);margin:0}
+.tally{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.tally-stamp{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:132px;height:132px;border-radius:50%;border:3px solid var(--stamp);color:var(--stamp);font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transform:rotate(-8deg);text-align:center;line-height:1.3;transition:transform 300ms var(--ease-out)}
+.tally-stamp strong{font-family:var(--display);font-size:30px;font-weight:400;letter-spacing:0;line-height:1.1;text-transform:none}
+.tally-stamp.thump{transform:rotate(-8deg) scale(1.08)}
+
+/* Stone */
+.stone-sec{background:var(--forest);color:var(--card)}
+.stone-sec h2{color:var(--card)}
+.stone-sec .label{color:rgba(248,244,234,.75)}
+.stone-wrap{display:grid;gap:8px}
+.stone-pin{position:sticky;top:72px;z-index:1;display:flex;justify-content:center;padding-block:12px;background:var(--forest)}
+.stone{width:min(56vw,240px);aspect-ratio:1;display:block;filter:drop-shadow(0 16px 28px rgba(0,0,0,.35))}
+.stone-steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
+.stone-steps li{padding:18px;border-radius:6px;background:rgba(248,244,234,.06);border:1px solid rgba(248,244,234,.14);transition:background-color 300ms ease,border-color 300ms ease}
+.stone-steps li.on{background:rgba(233,212,156,.14);border-color:rgba(233,212,156,.6)}
+.stone-steps h3{color:var(--wheat);font-size:24px}
+.stone-steps p{margin-top:6px;font-size:17px;color:rgba(248,244,234,.88)}
+.stone-steps .n{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.12em;color:rgba(248,244,234,.7)}
+.film-card{display:grid;gap:14px;margin-top:36px;text-decoration:none;color:var(--card)}
+.film-thumb{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:16/9;background:rgba(0,0,0,.2)}
+.film-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 500ms var(--ease-out)}
+.play{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 10px;border-radius:4px;background:rgba(17,55,46,.92);color:#fff;font-size:15px;font-weight:700}
+.play svg{width:18px;height:18px}
+@media (hover:hover) and (pointer:fine){.film-card:hover .film-thumb img,.film:hover .film-thumb img{transform:scale(1.03)}}
+
+/* Aware */
+.aware-in{display:grid;gap:20px}
+.aware .big{font-family:var(--display);font-size:clamp(30px,7.4vw,48px);line-height:1.15;color:var(--forest)}
+.aware .big em{font-style:normal;color:var(--stamp)}
+
+/* Dr. Asha */
+.asha-card{display:grid;gap:18px;padding:22px 18px}
+.asha-person{display:flex;gap:16px;align-items:center}
+.asha-person img{width:88px;height:88px;border-radius:4px;object-fit:cover;flex:0 0 88px;filter:sepia(.15)}
+.profile summary{list-style:none;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.profile summary::-webkit-details-marker{display:none}
+.profile ul{margin:8px 0 0;padding-left:20px;display:grid;gap:6px;font-size:17px}
+.films{margin-top:28px;display:grid;grid-auto-flow:column;grid-auto-columns:min(78%,300px);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;margin-left:calc(-1 * var(--gutter-l));margin-right:calc(-1 * var(--gutter-r));padding-left:var(--gutter-l);padding-right:var(--gutter-r);scroll-padding-left:var(--gutter-l)}
+.film{scroll-snap-align:start;text-decoration:none;color:var(--ink);display:grid;gap:10px;align-content:start;background:var(--card);padding:10px;border-radius:6px}
+.film span.t{font-size:17px;font-weight:700;line-height:1.35;color:var(--forest)}
+.film span.k{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Shop */
+.shop-grid{display:grid;gap:28px}
+.shop-pack{display:flex;justify-content:center;padding:20px 0 0}
+.shop-pack img{width:min(48%,230px);filter:drop-shadow(0 16px 24px rgba(22,38,31,.2))}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.seg .chip{min-height:72px;text-align:left;padding:10px 14px}
+.qty{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.field-label{display:block;font-weight:700;margin-top:22px}
+.field-hint{font-size:16px;color:var(--muted);margin-top:2px}
+.order-ticket{margin-top:24px}
+.order-ticket .ticket-rows li{grid-template-columns:120px minmax(0,1fr)}
+.order-total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 18px 18px;border-top:2px dashed var(--rule)}
+.order-total .big{font-family:var(--display);font-size:40px;line-height:1;color:var(--forest);font-variant-numeric:tabular-nums}
+.add-btn .lbl{display:inline-block;transition:opacity 200ms ease,filter 200ms ease,transform 260ms var(--ease-out)}
+.add-btn.swap .lbl{opacity:0;filter:blur(3px);transform:translateY(6px)}
+.details{margin-top:22px}
+.details .q-btn{grid-template-columns:minmax(0,1fr) 28px;padding:14px 0}
+.details .q-text{font-family:var(--sans);font-size:18px;font-weight:700;margin:0}
+.details .q-body{padding:0 0 16px}
+.details .q-item{border-bottom:1px dotted var(--rule)}
+
+/* Calculator */
+.calc{background:var(--paper-2) var(--grain)}
+.calc-grid{display:grid;gap:24px}
+.calc-card{padding:22px 18px}
+.stepper{margin-top:12px;display:grid;grid-template-columns:64px minmax(0,1fr) 64px;align-items:center;gap:10px}
+.stepper button{min-height:64px;border-radius:6px;border:2px solid var(--forest);background:var(--card);color:var(--forest);font-size:30px;line-height:1;cursor:pointer;transition:transform 160ms var(--ease-out)}
+.stepper button:active{transform:scale(.95)}
+.stepper output{text-align:center;font-family:var(--display);font-size:48px;line-height:1;color:var(--forest);font-variant-numeric:tabular-nums}
+.stepper output small{display:block;font-family:var(--sans);font-size:15px;color:var(--muted);margin-top:4px}
+.extras{margin-top:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.calc-out{padding:22px 18px}
+.calc-out .kg{font-family:var(--display);font-size:60px;line-height:1;color:var(--forest);font-variant-numeric:tabular-nums}
+.calc-out .kg small{font-size:22px}
+.calc-how{margin-top:12px;font-size:16px;color:var(--muted)}
+
+/* App / help / closing / footer */
+.app-row{display:grid;gap:18px}
+.app-list{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.app-list li{padding:14px 12px;background:var(--card);border-radius:6px;font-size:16px}
+.app-list b{display:block;font-family:var(--display);font-weight:400;font-size:21px;color:var(--forest)}
+.help-in{display:grid;gap:28px}
+.help .q-list{margin-top:0}
+.help .q-btn{grid-template-columns:minmax(0,1fr) 28px}
+.help .q-body{padding-left:0}
+.contact-card{padding:20px 18px;display:grid;gap:10px}
+.num{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--forest);user-select:all}
+.closing-in{display:grid;gap:24px;align-items:center}
+.closing img{width:min(60%,260px)}
+.ftr{background:var(--forest);color:rgba(248,244,234,.9);font-size:16px}
+.ftr a{color:var(--card)}
+.ftr-in{display:grid;gap:30px;padding-block:56px calc(56px + var(--bar-h))}
+.ftr-belief{font-family:var(--display);font-size:24px;line-height:1.35;color:var(--wheat);max-width:30ch}
+.ftr h4{margin:0 0 6px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(248,244,234,.7)}
+.ftr ul{list-style:none;margin:0;padding:0}
+.ftr li a{display:inline-flex;align-items:center;min-height:44px}
+.ftr-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+
+/* Bottom bar, sheets, Veer (shared behaviour, batch styling) */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px var(--gutter-r) calc(10px + env(safe-area-inset-bottom,0px)) var(--gutter-l);background:rgba(236,229,214,.97);border-top:2px dashed var(--rule);display:flex;gap:10px;transform:translateY(110%);transition:transform 380ms var(--ease-drawer)}
+.bar.show{transform:none}
+.bar .btn{flex:1;min-height:52px}
+.bar .icon-btn{min-height:52px;min-width:52px}
+.backdrop{position:fixed;inset:0;z-index:80;background:rgba(22,38,31,.45);opacity:0;transition:opacity 260ms ease}
+.backdrop.open{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:90;max-height:min(92vh,920px);display:flex;flex-direction:column;background:var(--card);border-radius:12px 12px 0 0;box-shadow:0 -10px 40px rgba(22,38,31,.2);transform:translateY(100%);transition:transform 420ms var(--ease-drawer);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet.open{transform:none}
+#bag.sheet{height:min(86vh,760px)}
+#bag .sheet-bd{flex:1 1 auto}
+.sheet.closing{transition-duration:240ms;transition-timing-function:var(--ease-out)}
+.sheet-grab{width:44px;height:5px;border-radius:3px;background:var(--rule);margin:10px auto 0}
+.sheet-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px var(--gutter-r) 8px var(--gutter-l);border-bottom:2px dashed var(--rule-soft)}
+.sheet-hd h2{font-size:27px}
+.sheet-bd{overflow:auto;padding:12px var(--gutter-r) 24px var(--gutter-l);overscroll-behavior:contain}
+.sheet-ft{padding:14px var(--gutter-r) 16px var(--gutter-l);border-top:2px dashed var(--rule-soft)}
+.x-btn{min-width:48px;min-height:48px;border-radius:6px;border:0;background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.x-btn svg{width:20px;height:20px}
+.sample-note{margin-top:14px;padding:10px 12px;border:1px dashed var(--rule);border-radius:4px;font-size:14px;color:var(--muted)}
+.step-pane{display:none}
+.step-pane.on{display:block;animation:paneIn 300ms var(--ease-out)}
+@keyframes paneIn{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.line-item{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px dotted var(--rule)}
+.line-item img{width:64px;height:64px;object-fit:contain;background:var(--paper);border-radius:4px;padding:4px}
+.line-item b{display:block}
+.line-item .rm{min-height:44px;background:none;border:0;color:var(--stamp);font-weight:700;text-decoration:underline;cursor:pointer;padding:0}
+.sum{display:grid;gap:8px;margin-top:16px;font-size:17px}
+.sum div{display:flex;justify-content:space-between;gap:12px}
+.sum .tot{font-weight:700;font-size:19px;padding-top:10px;border-top:2px dashed var(--rule)}
+.empty{padding:28px 0;text-align:center;display:grid;gap:14px;justify-items:center}
+.empty img{width:120px}
+.input{width:100%;min-height:56px;padding:0 16px;border-radius:6px;border:2px solid var(--rule);background:#fff;font:inherit;font-size:20px;color:var(--ink)}
+.input:focus{border-color:var(--forest);outline:none;box-shadow:0 0 0 3px rgba(17,55,46,.15)}
+.phone-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center;margin-top:10px}
+.phone-row span{min-height:56px;display:flex;align-items:center;padding:0 14px;border-radius:6px;background:var(--paper);font-size:20px}
+.otp{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:12px}
+.otp input{text-align:center;padding:0;font-size:24px;font-family:var(--mono)}
+.err{margin-top:8px;color:var(--stamp);font-size:16px;font-weight:600;min-height:24px}
+.ok-msg{display:flex;gap:12px;align-items:flex-start;padding:14px;border:2px solid var(--forest);border-radius:6px;color:var(--forest);margin-top:14px}
+.no-msg{padding:14px;border:2px solid var(--stamp);border-radius:6px;color:var(--stamp);margin-top:14px}
+.days{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.days .chip{min-height:72px}
+.menu-links{list-style:none;margin:0;padding:0}
+.menu-links a{display:flex;align-items:center;justify-content:space-between;min-height:60px;border-bottom:1px dotted var(--rule);font-family:var(--display);font-size:25px;text-decoration:none;color:var(--forest)}
+.done-mark{width:64px;height:64px;border-radius:50%;border:3px solid var(--forest);color:var(--forest);display:flex;align-items:center;justify-content:center}
+.done-mark svg{width:30px;height:30px}
+.veer{position:fixed;right:max(10px, env(safe-area-inset-right,0px));bottom:calc(var(--bar-h) + 12px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:flex-end;gap:6px;pointer-events:none;transition:bottom 380ms var(--ease-drawer),transform 380ms var(--ease-drawer),opacity 240ms ease}
+.veer.away,.veer.dodge{transform:translateX(130%);opacity:0}
+.veer-bubble{pointer-events:auto;max-width:min(220px, calc(100vw - 124px));padding:10px 12px;border-radius:6px;background:var(--card);color:var(--ink);border:2px solid var(--forest);font-size:15px;line-height:1.4;box-shadow:0 10px 26px rgba(22,38,31,.18);transform-origin:bottom right;opacity:0;transform:scale(.94) translateY(6px);transition:opacity 220ms var(--ease-out),transform 260ms var(--ease-out);margin-bottom:24px}
+.veer-bubble.show{opacity:1;transform:none}
+.veer-bubble button{display:block;margin-top:4px;padding:0;min-height:32px;background:none;border:0;color:var(--stamp);font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer}
+.veer-me{pointer-events:auto;position:relative;width:100px;height:110px;border:0;padding:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:0 0 auto}
+.veer-me::before{content:"";position:absolute;left:18px;right:18px;bottom:0;height:8px;border-radius:50%;background:rgba(22,38,31,.18);filter:blur(3px)}
+.veer-me .body{position:absolute;inset:0;animation:bob 4s ease-in-out infinite}
+.veer-me .frame{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:0}
+.veer-me .frame.on{opacity:1}
+.veer-me .frame.fade{transition:opacity 200ms ease}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.veer-me.hop .body{animation:hop 480ms var(--ease-out)}
+@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+.veer-tab{position:fixed;right:0;bottom:calc(var(--bar-h) + 24px + env(safe-area-inset-bottom,0px));z-index:45;min-height:48px;padding:0 14px 0 10px;border-radius:6px 0 0 6px;border:2px solid var(--rule);border-right:0;background:var(--card);font-weight:700;color:var(--forest);cursor:pointer;display:flex;align-items:center;gap:8px;transform:translateX(110%);transition:transform 320ms var(--ease-drawer)}
+.veer-tab.show{transform:none}
+.veer-tab img{width:28px;height:28px;border-radius:14px}
+.rv{transition:transform 700ms var(--ease-out)}
+.rv.pre{transform:translateY(22px)}
+
+@media (min-width:900px){
+  body{font-size:19px}
+  .wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}
+  .sec{padding-block:112px}
+  .hide-sm{display:inline-flex}
+  .menu-toggle{display:none!important}
+  .hdr-nav{display:flex;gap:2px;margin-right:10px}
+  .hdr-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:6px;text-decoration:none;font-size:16px;font-weight:600;color:var(--forest)}
+  .hdr-nav a:hover{background:rgba(17,55,46,.06)}
+  .hero-in{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:center;gap:56px;padding-block:72px 96px}
+  .hero-ctas{flex-direction:row}
+  .habit-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+  .age-opts{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .q-wrap{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:56px;align-items:start}
+  .q-wrap .q-list{margin-top:0}
+  .q-text{font-size:25px}
+  .stone-wrap{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:start}
+  .stone-pin{top:120px;padding-block:0;background:none}
+  .stone{width:min(100%,420px)}
+  .stone-steps{gap:18px;padding-block:8vh 20vh}
+  .film-card{grid-template-columns:minmax(0,7fr) minmax(0,4fr);align-items:center;gap:40px}
+  .aware-in{grid-template-columns:minmax(0,7fr) minmax(0,4fr);align-items:end;gap:56px}
+  .asha-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:start}
+  .films{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-columns:auto;overflow:visible;margin:0;padding:0;margin-top:0}
+  .shop-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+  .shop-left{position:sticky;top:96px}
+  .shop-pack img{width:min(70%,320px)}
+  .calc-grid{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:40px;align-items:start}
+  .extras{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .app-row{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center}
+  .help-in{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+  .closing-in{grid-template-columns:minmax(0,7fr) minmax(0,4fr)}
+  .closing .hero-ctas{flex-direction:row}
+  .ftr-in{grid-template-columns:minmax(0,5fr) minmax(0,6fr);padding-block:72px}
+  .ftr-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .bar{display:none}
+  .sheet{left:auto;top:0;bottom:0;width:min(460px,100vw);max-height:none;border-radius:12px 0 0 12px;transform:translateX(100%)}
+  .sheet.open{transform:none}
+  #bag.sheet{height:auto}
+  .sheet-grab{display:none}
+  .sheet-hd{padding-top:20px}
+  .veer-me{width:128px;height:140px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important}
+  .rv,.rv.pre{transform:none!important;transition:none}
+  .bar,.sheet,.veer,.veer-tab,.bar-fill,.q-panel{transition-duration:1ms!important}
+  .veer-me .body{animation:none}
+}
+</style>
+<style>[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="hdr-logo" href="#top" aria-label="Atulyash home"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"></a>
+    <nav class="hdr-nav" aria-label="Main">
+      <a href="#habit">The date</a><a href="#questions">Read your packet</a><a href="#way">The stone</a><a href="#asha">Dr. Asha</a><a href="#shop">Shop</a>
+    </nav>
+    <div class="hdr-tools">
+      <button class="icon-btn hide-sm" type="button" data-open="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span id="acctLabel">Sign in</span></button>
+      <button class="icon-btn" type="button" data-open="bag" aria-label="My bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Bag</span><span class="badge" id="bagCount" hidden>0</span></button>
+      <button class="icon-btn menu-toggle" type="button" data-open="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" data-veer="hero" aria-labelledby="h-hero">
+  <div class="wrap hero-in">
+    <div>
+      <p class="label">Atta deserves respect</p>
+      <h1 id="h-hero">Every bag of atta was milled on a date. Do you know yours?</h1>
+      <p class="lede">Ours is milled slowly on natural stone, the day before it reaches your door. Every week.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-solid" href="#shop">Fill your batch ticket</a>
+        <button class="btn btn-line" type="button" data-open="pin">Check delivery to my area</button>
+      </div>
+    </div>
+    <div class="ticket" aria-label="What every Atulyash batch tells you">
+      <div class="ticket-hd"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"><span class="label">Batch ticket</span></div>
+      <ul class="ticket-rows print">
+        <li><span class="k">Wheat</span><span class="v">MP Sharbati, one origin</span></li>
+        <li><span class="k">Cleaned</span><span class="v">In several stages</span></li>
+        <li><span class="k">Stone</span><span class="v">Natural stone chakki</span></li>
+        <li><span class="k">Speed</span><span class="v">Slow and gentle</span></li>
+        <li><span class="k">Chokar</span><span class="v">Kept in</span></li>
+        <li><span class="k">Milled</span><span class="v">The day before delivery</span></li>
+      </ul>
+      <span class="stamp press" aria-hidden="true">Milled<br>fresh<br>weekly</span>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="habit" data-veer="habit" aria-labelledby="h-habit" style="padding-top:24px">
+  <div class="wrap habit-grid">
+    <div class="rv">
+      <p class="label">The date nobody asks about</p>
+      <h2 id="h-habit" style="margin-top:12px">You check the date on milk. Atta gets a free pass.</h2>
+      <p class="lede" style="margin-top:16px">Atta is on the roti at almost every meal. Yet a big bag can sit in the kitchen for weeks, after it has already been milled, packed and shipped.</p>
+    </div>
+    <div class="ticket stub rv">
+      <h3 id="age-q">When did you buy the bag in your kitchen now?</h3>
+      <div class="age-opts" role="group" aria-labelledby="age-q">
+        <button class="chip" type="button" aria-pressed="false" data-age="7" data-age-text="up to a week">This week</button>
+        <button class="chip" type="button" aria-pressed="false" data-age="14" data-age-text="about 2 weeks">2 weeks ago</button>
+        <button class="chip" type="button" aria-pressed="false" data-age="30" data-age-text="about a month">A month ago</button>
+        <button class="chip" type="button" aria-pressed="false" data-age="45" data-age-text="more than a month">Longer</button>
+      </div>
+      <p class="age-empty" id="ageEmpty">Tap one to compare.</p>
+      <div id="ageResult" aria-live="polite" hidden>
+        <div class="bar-row"><div class="bar-label"><b>Your bag, in your kitchen</b><span id="ageText"></span></div><div class="bar-track"><div class="bar-fill yours" id="barYours"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><b>Atulyash, since milling</b><span>1 day</span></div><div class="bar-track"><div class="bar-fill ours" id="barOurs"></div></div></div>
+        <p class="age-note small">That is only the time in your kitchen. Most packets do not tell you when the atta was milled.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="questions" data-veer="questions" aria-labelledby="h-q" style="padding-top:24px">
+  <div class="wrap q-wrap">
+    <div class="rv">
+      <p class="label">Read your packet</p>
+      <h2 id="h-q" style="margin-top:12px">Before you buy atta, ask what matters.</h2>
+      <p class="lede" style="margin-top:16px">Hold your packet next to our ticket. Open each line and tick the ones your packet answers.</p>
+      <div class="tally" aria-live="polite">
+        <span class="tally-stamp" id="tallyStamp">Your packet<strong id="tally">0 of 6</strong>answered</span>
+        <a class="btn btn-solid btn-sm" href="#way">How we answer</a>
+      </div>
+    </div>
+    <div class="q-list" id="qList"></div>
+  </div>
+</section>
+
+<section class="sec stone-sec" id="way" data-veer="way" aria-labelledby="h-way">
+  <div class="wrap">
+    <p class="label">The Atulyash way</p>
+    <h2 id="h-way" style="margin-top:12px">Six decisions. One honest packet.</h2>
+    <div class="stone-wrap" style="margin-top:24px">
+      <div class="stone-pin" aria-hidden="true">
+        <svg class="stone" id="stone" viewBox="0 0 200 200">
+          <defs>
+            <radialGradient id="sg" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#b9b3a6"/><stop offset=".7" stop-color="#8e887b"/><stop offset="1" stop-color="#6f6a5f"/></radialGradient>
+            <filter id="sn"><feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="3"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .35 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
+          </defs>
+          <circle cx="100" cy="100" r="96" fill="url(#sg)"/>
+          <circle cx="100" cy="100" r="96" fill="#000" filter="url(#sn)" opacity=".5"/>
+          <g id="grooves" stroke="#5f5a50" stroke-width="1.6" stroke-linecap="round" opacity=".55"></g>
+          <circle cx="100" cy="100" r="96" fill="none" stroke="#5f5a50" stroke-width="2"/>
+          <circle cx="100" cy="100" r="20" fill="#4f4a42"/>
+          <circle cx="100" cy="100" r="11" fill="#2b2823"/>
+          <rect x="94" y="8" width="12" height="30" rx="3" fill="#6b4a2c"/>
+        </svg>
+      </div>
+      <ol class="stone-steps" id="stoneSteps">
+        <li><span class="n">01 · The wheat</span><h3>One wheat, one origin</h3><p>Single-origin MP Sharbati. Never blended with other varieties.</p></li>
+        <li><span class="n">02 · The cleaning</span><h3>Cleaned in stages</h3><p>Multi-stage cleaning, so only grain reaches the stone.</p></li>
+        <li><span class="n">03 · The mill</span><h3>Natural stone</h3><p>Natural stone chakkis. No emery stone, no steel rollers.</p></li>
+        <li><span class="n">04 · The speed</span><h3>Slowly</h3><p>The stone turns slowly, keeping heat down and the grain's character in.</p></li>
+        <li><span class="n">05 · The chokar</span><h3>Nothing taken out</h3><p>Chokar kept in. Small batches, packed with minimal handling.</p></li>
+        <li><span class="n">06 · The freshness</span><h3>To your door</h3><p>Milled the day before, delivered the next morning, every week.</p></li>
+      </ol>
+    </div>
+    <a class="film-card rv" href="https://www.youtube.com/watch?v=3mXae8undRI" target="_blank" rel="noopener">
+      <span class="film-thumb"><img src="img/film-process.webp" alt="" width="1000" height="562" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Watch the film</span></span>
+      <span><h3 style="color:var(--card)">A different way to think about atta</h3><span style="display:block;margin-top:8px;color:rgba(248,244,234,.85)">From the wheat we choose to how we mill, pack and deliver. Opens on YouTube.</span></span>
+    </a>
+  </div>
+</section>
+
+<section class="sec aware" data-veer="aware" aria-labelledby="h-aware">
+  <div class="wrap aware-in">
+    <h2 id="h-aware" class="visually-hidden">Know what reaches your home</h2>
+    <p class="big rv">You cannot control everything your family eats. <em>Atta is the one you can.</em></p>
+    <p class="rv muted">You will eat outside and depend on food you did not choose. Know the wheat. Know the process. Know what reaches your home.</p>
+  </div>
+</section>
+
+<section class="sec" id="asha" data-veer="asha" aria-labelledby="h-asha" style="padding-top:0">
+  <div class="wrap asha-grid">
+    <div class="ticket asha-card rv">
+      <div class="asha-person"><img src="img/asha.webp" alt="Dr. Asha Kawatra" width="720" height="720" loading="lazy"><div><p class="label">Foods &amp; nutrition</p><h2 id="h-asha" style="font-size:clamp(28px,6.4vw,40px)">Dr. Asha Kawatra</h2></div></div>
+      <p>35 years in foods and nutrition. Former Professor and Head, Department of Foods &amp; Nutrition, CCS HAU, Hisar.</p>
+      <details class="profile"><summary>Her full profile</summary><ul>
+        <li>Doctorate in Foods &amp; Nutrition.</li><li>Topper through B.Sc., M.Sc. and Ph.D., with two gold medals.</li><li>35 years of teaching, research and extension work in Foods &amp; Nutrition.</li><li>Former Professor and Head, Department of Foods &amp; Nutrition, CCS HAU, Hisar.</li><li>Former Dean of Postgraduate Studies at CCS HAU, Hisar and MHU, Karnal.</li>
+      </ul></details>
+      <p class="muted small">“The foods we eat most often deserve the most attention.” Her work inspires us to question more and treat everyday food with respect.</p>
+    </div>
+    <div class="films" role="list" aria-label="Films with Dr. Asha Kawatra" id="films"></div>
+  </div>
+</section>
+
+<section class="sec" id="shop" data-veer="shop" aria-labelledby="h-shop" style="background:var(--paper-2) var(--grain)">
+  <div class="wrap shop-grid">
+    <div class="shop-left">
+      <p class="label">Atulyash Whole Wheat Atta</p>
+      <h2 id="h-shop" style="margin-top:12px">Fill your batch ticket.</h2>
+      <p class="muted" style="margin-top:12px">100% MP Sharbati, slow-milled on natural stone, chokar kept in. Nothing added.</p>
+      <div class="shop-pack"><img src="img/pack.webp" alt="Atulyash Whole Wheat Atta pack" width="900" height="1334" loading="lazy"></div>
+    </div>
+    <div>
+      <span class="field-label" id="mode-l" style="margin-top:0">How would you like it?</span>
+      <div class="seg" role="group" aria-labelledby="mode-l">
+        <button class="chip" type="button" data-mode="weekly" aria-pressed="true">Every week<small>Fresh on your chosen day</small></button>
+        <button class="chip" type="button" data-mode="once" aria-pressed="false">Just once<small>No subscription</small></button>
+      </div>
+      <span class="field-label" id="qty-l">How much each time?</span>
+      <p class="field-hint">Packed in 1 kg and 2 kg packets.</p>
+      <div class="qty" role="group" aria-labelledby="qty-l" id="qty"></div>
+      <button class="link-btn" type="button" data-go="calc">Not sure? Work it out from your rotis</button>
+
+      <div class="ticket order-ticket" aria-live="polite">
+        <div class="ticket-hd"><span class="label">Your batch</span><span class="label" id="tkMode">Weekly</span></div>
+        <ul class="ticket-rows">
+          <li><span class="k">Atta</span><span class="v" id="tkKg">2 kg, every week</span></li>
+          <li><span class="k">Milled</span><span class="v">The day before your delivery</span></li>
+          <li><span class="k">Delivery</span><span class="v" id="delivLine">Free every week. No automatic billing.</span></li>
+        </ul>
+        <div class="order-total"><span class="small muted" id="perLine">₹120 a kg, about ₹3.60 a roti</span><span class="big" id="price">₹240</span></div>
+      </div>
+      <span id="modeLine" hidden></span>
+      <button class="btn btn-solid btn-block add-btn" type="button" id="addBtn" style="margin-top:16px"><span class="lbl" id="addLbl">Add to bag</span></button>
+      <div class="details" id="details"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec calc" id="calc" data-veer="calc" aria-labelledby="h-calc" style="padding-top:0">
+  <div class="wrap calc-grid">
+    <div>
+      <h2 id="h-calc">How much atta does your family need?</h2>
+      <p class="muted" style="margin-top:12px">Tell us your rotis on a usual day. We will suggest a weekly quantity.</p>
+      <div class="ticket calc-card" style="margin-top:22px">
+        <span class="field-label" style="margin-top:0" id="rot-l">Rotis on a usual day, for the whole family</span>
+        <div class="stepper" role="group" aria-labelledby="rot-l"><button type="button" id="rotMinus" aria-label="Fewer rotis">−</button><output id="rotOut" aria-live="polite">8<small>rotis a day</small></output><button type="button" id="rotPlus" aria-label="More rotis">+</button></div>
+        <span class="field-label" id="ext-l">How often do you make parathas or pooris?</span>
+        <div class="extras" role="group" aria-labelledby="ext-l" id="extras"></div>
+      </div>
+    </div>
+    <div class="ticket calc-out" aria-live="polite">
+      <p class="label">You need about</p>
+      <p class="kg" style="margin-top:8px"><span id="kgOut">1.93</span> <small>kg a week</small></p>
+      <p class="small muted" style="margin-top:6px">About <span id="kg4">7.7</span> kg over 4 weeks</p>
+      <button class="btn btn-solid btn-block" type="button" id="usePlan" style="margin-top:20px">Choose 2 kg every week</button>
+      <p class="calc-how" id="calcHow"></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec-tight" id="app" aria-labelledby="h-app">
+  <div class="wrap app-row">
+    <div><p class="label">Coming soon on Android and iOS</p><h2 id="h-app" style="font-size:clamp(28px,6vw,38px);margin-top:10px">The Atulyash app</h2><p class="muted" style="margin-top:8px">Every weekly delivery, in one place.</p></div>
+    <ul class="app-list"><li><b>Plan</b>See what is coming.</li><li><b>Adjust</b>Change an eligible delivery.</li><li><b>Track</b>Follow each fresh batch.</li></ul>
+  </div>
+</section>
+
+<section class="sec help" id="help" data-veer="help" aria-labelledby="h-help" style="padding-top:24px">
+  <div class="wrap help-in">
+    <div>
+      <h2 id="h-help">Questions before you order</h2>
+      <div class="ticket contact-card" style="margin-top:22px">
+        <p class="label">Customer care</p>
+        <p class="num" id="careNum">+91 98185 88996</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px"><button class="btn btn-line btn-sm" type="button" id="copyNum">Copy number</button><a class="btn btn-solid btn-sm" href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp us</a></div>
+      </div>
+    </div>
+    <div class="q-list" id="helpList"></div>
+  </div>
+</section>
+
+<section class="sec closing" id="start" data-veer="start" aria-labelledby="h-start" style="padding-top:24px">
+  <div class="wrap closing-in">
+    <div>
+      <p class="label">Experience Atulyash</p>
+      <h2 id="h-start" style="margin-top:12px">Bring home atta in its purest form.</h2>
+      <p class="lede" style="margin-top:14px">Milled fresh and delivered every week, so it reaches you close to when it is eaten.</p>
+      <div class="hero-ctas"><button class="btn btn-solid" type="button" data-quick="once">Start with one fresh 2 kg batch</button><button class="btn btn-line" type="button" data-quick="weekly">Get it every week</button></div>
+    </div>
+    <img src="img/veer-roti.webp" alt="Veer holding a fresh roti" width="520" height="932" loading="lazy">
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <div class="stack" style="gap:16px">
+      <img src="img/mark.webp" alt="" width="240" height="210" style="width:52px">
+      <p class="ftr-belief">“This is not about adding more. It is about refusing what does not belong.”</p>
+      <p>Bringing respect, discipline and freshness back to the atta we eat every day.</p>
+    </div>
+    <div class="ftr-cols">
+      <div><h4>Explore</h4><ul><li><a href="#way">The Atulyash way</a></li><li><a href="#habit">Weekly freshness</a></li><li><a href="#questions">Ask what matters</a></li><li><a href="#asha">Dr. Asha's films</a></li><li><a href="#shop">Shop</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp</a></li><li><span style="display:inline-flex;min-height:44px;align-items:center">+91 98185 88996</span></li></ul></div>
+      <div><h4>Policies</h4><ul><li><a href="https://atulyash.com/legal/terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a></li><li><a href="https://atulyash.com/legal/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li><li><a href="https://atulyash.com/legal/refund.html" target="_blank" rel="noopener">Cancellation &amp; Refunds</a></li><li><a href="https://atulyash.com/legal/shipping.html" target="_blank" rel="noopener">Delivery Policy</a></li><li><a href="https://atulyash.com/legal/rider-terms.html" target="_blank" rel="noopener">For delivery partners</a></li></ul></div>
+    </div>
+    <p class="small" style="opacity:.75">© 2026 Atulyash Foods Private Limited</p>
+  </div>
+</footer>
+
+<div class="bar" id="bar">
+  <a class="btn btn-solid" href="#shop" id="barCta">Order fresh atta</a>
+  <a class="icon-btn" href="https://wa.me/919818588996" target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.1z"/><path d="M9.5 9.5c.5 2 2 3.5 4 4l1.2-1.2 1.8.8-.4 1.6c-3.6 0-6.8-3.2-6.8-6.8l1.6-.4.8 1.8z"/></svg></a>
+</div>
+
+<div class="veer" id="veer" aria-live="polite">
+  <div class="veer-bubble" id="veerBubble" role="status"><span id="veerText"></span><button type="button" id="veerHide">Hide Veer</button></div>
+  <button class="veer-me" type="button" id="veerMe" aria-label="Veer, your guide. Tap to hear from him."><span class="body" id="veerFrames"></span></button>
+</div>
+<button class="veer-tab" type="button" id="veerTab"><img src="img/veer/face.webp" alt="">Bring back Veer</button>
+
+<div class="backdrop" id="backdrop" hidden></div>
+
+<div class="sheet" id="menu" role="dialog" aria-modal="true" aria-labelledby="menu-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="menu-h">Menu</h2><button class="x-btn" type="button" data-close aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd">
+    <ul class="menu-links">
+      <li><a href="#shop" data-close>Shop atta <span aria-hidden="true">›</span></a></li><li><a href="#habit" data-close>Why fresh atta <span aria-hidden="true">›</span></a></li><li><a href="#questions" data-close>Read your packet <span aria-hidden="true">›</span></a></li><li><a href="#way" data-close>The Atulyash way <span aria-hidden="true">›</span></a></li><li><a href="#asha" data-close>Dr. Asha's films <span aria-hidden="true">›</span></a></li><li><a href="#calc" data-close>Roti calculator <span aria-hidden="true">›</span></a></li><li><a href="#help" data-close>Help <span aria-hidden="true">›</span></a></li>
+    </ul>
+    <div style="display:grid;gap:10px;margin-top:22px">
+      <button class="btn btn-line btn-block" type="button" data-open="account" id="menuAcct">Sign in to My Atulyash</button>
+      <button class="btn btn-line btn-block" type="button" data-open="pin">Check delivery to my area</button>
+      <p class="small muted" style="margin-top:6px">Customer care <b style="color:var(--forest)">+91 98185 88996</b></p>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="pin" role="dialog" aria-modal="true" aria-labelledby="pin-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="pin-h">Do we deliver to you?</h2><button class="x-btn" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd">
+    <form id="pinForm" novalidate>
+      <label for="pinIn" class="field-label" style="margin-top:0">Your 6-digit PIN code</label>
+      <input class="input" id="pinIn" inputmode="numeric" autocomplete="postal-code" maxlength="6" placeholder="110001" style="margin-top:10px">
+      <p class="err" id="pinErr"></p>
+      <button class="btn btn-solid btn-block" type="submit">Check</button>
+    </form>
+    <button class="link-btn" type="button" id="locBtn" style="margin-top:8px">Use my current location instead</button>
+    <div id="pinRes" aria-live="polite"></div>
+    <p class="sample-note">Design sample: Delhi NCR PIN codes show as available. The real site checks live.</p>
+  </div>
+</div>
+
+<div class="sheet" id="account" role="dialog" aria-modal="true" aria-labelledby="acct-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="acct-h">My Atulyash</h2><button class="x-btn" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd" id="acctBody"></div>
+</div>
+
+<div class="sheet" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-h" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-hd"><h2 id="bag-h">My bag</h2><button class="x-btn" type="button" data-close aria-label="Close bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-bd" id="bagBody"></div>
+  <div class="sheet-ft" id="bagFoot"></div>
+</div>
+
+<script>
+/* Design B hooks for the shared script: the order ticket mirrors the choices, the tally thumps like a stamp */
+window.ATL_LINES={
+  hero:['wave','Namaste! I am Veer. Every batch of ours comes with a ticket like this.'],
+  questions:['packet','Hold your packet next to our ticket. What does yours say?'],
+  way:['point','Keep scrolling and watch the stone turn. Slowly, always.'],
+  shop:['point','Fill in your ticket. I will check it with you.']
+};
+window.ATL_onShop=function(s){
+  var m=document.getElementById('tkMode'), k=document.getElementById('tkKg');
+  if(m) m.textContent=s.mode==='weekly'?'Weekly':'One time';
+  if(k) k.textContent=s.kg+' kg, '+(s.mode==='weekly'?'every week':'one time');
+};
+window.ATL_onTally=function(){var t=document.getElementById('tallyStamp');if(!t)return;t.classList.add('thump');setTimeout(function(){t.classList.remove('thump')},300)};
+</script>
+<script src="app.js"></script>
+<script>
+/* The stone turns as you scroll through the six decisions, slowly, like the real chakki */
+(function(){
+  var g=document.getElementById('grooves'), stone=document.getElementById('stone'), steps=[].slice.call(document.querySelectorAll('#stoneSteps li'));
+  for(var i=0;i<18;i++){var a=i/18*Math.PI*2, a2=a+0.35;var l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',100+Math.cos(a)*26);l.setAttribute('y1',100+Math.sin(a)*26);l.setAttribute('x2',100+Math.cos(a2)*92);l.setAttribute('y2',100+Math.sin(a2)*92);g.appendChild(l)}
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, sec=document.getElementById('way'), ticking=false;
+  function upd(){ticking=false;var r=sec.getBoundingClientRect(),vh=innerHeight;var p=Math.min(1,Math.max(0,(vh-r.top)/(r.height+vh)));
+    if(!reduce) stone.style.transform='rotate('+(p*300).toFixed(1)+'deg)';
+    var mid=vh*0.55;steps.forEach(function(li){var b=li.getBoundingClientRect();li.classList.toggle('on',b.top<mid&&b.bottom>mid*0.6)})}
+  addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true}); upd();
+})();
+</script>
+
+</body>
+</html>
