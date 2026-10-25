@@ -218,7 +218,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ftr a{color:var(--card)}
 .ftr-in{display:grid;gap:30px;padding-block:56px calc(56px + var(--bar-h))}
 .ftr-belief{font-family:var(--display);font-size:24px;line-height:1.35;color:#f2d79b;max-width:30ch;font-style:italic}
-.ftr h4{margin:0 0 6px;font-size:14px;font-weight:800;color:rgba(255,253,248,.7)}
+.ftr h3{margin:0 0 6px;font-size:14px;font-weight:800;color:rgba(255,253,248,.7)}
 .ftr ul{list-style:none;margin:0;padding:0}
 .ftr li a{display:inline-flex;align-items:center;min-height:44px}
 .ftr-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
@@ -270,34 +270,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .menu-links a{display:flex;align-items:center;justify-content:space-between;min-height:60px;border-bottom:1px solid var(--rule-soft);font-family:var(--display);font-size:24px;text-decoration:none;color:var(--forest)}
 .done-mark{width:64px;height:64px;border-radius:50%;background:var(--forest);color:var(--card);display:flex;align-items:center;justify-content:center}
 .done-mark svg{width:30px;height:30px}
-.veer{position:fixed;right:max(10px, env(safe-area-inset-right,0px));bottom:calc(var(--bar-h) + 12px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:flex-end;gap:6px;pointer-events:none;transition:bottom 380ms var(--ease-drawer),transform 380ms var(--ease-drawer),opacity 240ms ease}
-.veer.away{transform:translateX(130%);opacity:0}
-.veer-bubble{pointer-events:auto;max-width:min(220px, calc(100vw - 124px));padding:10px 14px;border-radius:18px 18px 4px 18px;background:var(--card);color:var(--ink);font-size:15px;line-height:1.4;box-shadow:0 10px 26px rgba(31,42,36,.18);transform-origin:bottom right;opacity:0;transform:scale(.94) translateY(6px);transition:opacity 220ms var(--ease-out),transform 260ms var(--ease-out);margin-bottom:24px}
-.veer-bubble.show{opacity:1;transform:none}
-.veer-bubble button{display:block;margin-top:4px;padding:0;min-height:32px;background:none;border:0;color:var(--terra);font-size:14px;font-weight:800;text-decoration:underline;cursor:pointer}
-.veer-me{pointer-events:auto;position:relative;width:100px;height:110px;border:0;padding:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:0 0 auto}
-.veer-me .body{position:absolute;inset:0;animation:bob 4s ease-in-out infinite}
-.veer-me .frame{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:0}
-.veer-me .frame.on{opacity:1}
-.veer-me .frame.fade{transition:opacity 200ms ease}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
-.veer-me.hop .body{animation:hop 480ms var(--ease-out)}
-@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
-.veer-tab{position:fixed;right:0;bottom:calc(var(--bar-h) + 24px + env(safe-area-inset-bottom,0px));z-index:45;min-height:48px;padding:0 14px 0 10px;border-radius:24px 0 0 24px;border:2px solid var(--rule);border-right:0;background:var(--card);font-weight:800;color:var(--forest);cursor:pointer;display:flex;align-items:center;gap:8px;transform:translateX(110%);transition:transform 320ms var(--ease-drawer)}
-.veer-tab.show{transform:none}
-.veer-tab img{width:28px;height:28px;border-radius:14px}
 .rv{transition:transform 700ms var(--ease-out)}
 .rv.pre{transform:translateY(22px)}
 
-/* Phone: Veer lives at the left end of the bottom bar and talks from there, so he never covers the page or slides away */
-@media (max-width:899px){
-  .veer{left:var(--gutter-l);right:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 4px);flex-direction:column;align-items:flex-start;gap:8px}
-  .veer-me{width:66px;height:72px}
-  .veer-me::before{display:none}
-  .veer-bubble{max-width:min(300px, calc(100vw - 40px));margin-bottom:0;transform-origin:bottom left;font-size:16px}
-  .bar{padding-left:calc(var(--gutter-l) + 74px)}
-  body.veer-off .bar{padding-left:var(--gutter-l)}
-}
 @media (min-width:900px){
   body{font-size:19px}
   .wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}
@@ -341,22 +316,33 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   #bag.sheet{height:auto}
   .sheet-grab{display:none}
   .sheet-hd{padding-top:20px}
-  .veer-me{width:128px;height:140px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important}
   .rv,.rv.pre{transform:none!important;transition:none}
-  .bar,.sheet,.veer,.veer-tab,.bar-fill,.q-panel,.path-line i{transition-duration:1ms!important}
-  .veer-me .body{animation:none}
+  .bar,.sheet,.bar-fill,.q-panel,.path-line i{transition-duration:1ms!important}
   .scene img{transform:none!important}
 }
+
+/* Audit fixes: skip link, visible input focus, larger tick boxes, 44px header links */
+.skip{position:absolute;left:12px;top:-80px;z-index:100;padding:12px 18px;border-radius:10px;background:#fffdf8;color:#11372e;font-weight:600}
+.skip:focus{top:12px}
+.input:focus{outline:2px solid currentColor;outline-offset:2px}
+.q-check input{width:28px;height:28px}
+.hdr-nav a{min-width:44px;justify-content:center}
+
+/* Audit fixes for C: 16px labels, a shorter phone header, visible focus on dark sections */
+.label,.q-topic,.q-way b,.film span.k,.ftr h3,.progress{font-size:16px}
+.scene figcaption,.chip small,.sample-note{font-size:15px}
+.aware :focus-visible,.ftr :focus-visible{outline-color:#f2d79b}
+@media (max-width:899px){.hdr-in{min-height:56px}.progress{min-height:30px}}
 </style>
 <style>[hidden]{display:none!important}</style>
 </head>
 <body>
 
-
+<a class="skip" href="#top">Skip to content</a>
 <header class="hdr" id="hdr">
   <div class="wrap hdr-in">
     <a class="hdr-logo" href="#top" aria-label="Atulyash home"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"></a>
@@ -365,7 +351,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </nav>
     <div class="hdr-tools">
       <button class="icon-btn hide-sm" type="button" data-open="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span id="acctLabel">Sign in</span></button>
-      <button class="icon-btn" type="button" data-open="bag" aria-label="My bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>Bag</span><span class="badge" id="bagCount" hidden>0</span></button>
+      <button class="icon-btn" type="button" data-open="bag" aria-label="My cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.3 10.6a1.6 1.6 0 0 0 1.6 1.3h8.3a1.6 1.6 0 0 0 1.6-1.2L21 8H6.1"/><circle cx="9.5" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg><span>Cart</span><span class="badge" id="bagCount" hidden>0</span></button>
       <button class="icon-btn menu-toggle" type="button" data-open="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
     </div>
   </div>
@@ -390,18 +376,19 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
 </section>
 
-<section class="sec" id="habit" data-veer="habit" data-chapter="The bag in the corner" aria-labelledby="h-habit" style="padding-top:16px">
+<section class="sec" id="habit" data-veer="habit" data-chapter="The packet in the corner" aria-labelledby="h-habit" style="padding-top:16px">
   <div class="wrap chapter-in flip">
     <figure class="scene rv"><img src="img/scene/scene-2-old-bag-1200.webp" srcset="img/scene/scene-2-old-bag-720.webp 720w, img/scene/scene-2-old-bag-1200.webp 1200w" sizes="(min-width:900px) 50vw, 100vw" alt="Illustration: Veer and his grandmother look at a large old bag of atta in the corner of the kitchen" width="1200" height="800" loading="lazy"></figure>
     <div class="chapter-text">
-      <span class="chap">Chapter 2 <i>The bag in the corner</i></span>
+      <span class="chap">Chapter 2 <i>The packet in the corner</i></span>
       <h2 id="h-habit">Milk is bought fresh. Why does atta sit for a month?</h2>
-      <p class="lede">Atta is on the plate at almost every meal. Yet a big bag can sit in the kitchen for weeks, after it was milled, packed and shipped.</p>
+      <p class="lede">Atta is on the plate at almost every meal. Yet a big packet can sit in the kitchen for weeks, after it was milled, packed and shipped.</p>
     </div>
   </div>
-  <div class="wrap" style="margin-top:28px">
+  <div class="wrap" style="margin-top:20px">
+    <div class="cameo" data-cameo="habit" data-pose="lie" data-at="right"></div>
     <div class="card stub rv">
-      <h3 id="age-q">When did you buy the bag in your kitchen now?</h3>
+      <h3 id="age-q">When did you buy the atta in your kitchen?</h3>
       <div class="age-opts" role="group" aria-labelledby="age-q">
         <button class="chip" type="button" aria-pressed="false" data-age="7" data-age-text="up to a week">This week</button>
         <button class="chip" type="button" aria-pressed="false" data-age="14" data-age-text="about 2 weeks">2 weeks ago</button>
@@ -410,7 +397,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       </div>
       <p class="age-empty" id="ageEmpty">Tap one to compare.</p>
       <div id="ageResult" aria-live="polite" hidden>
-        <div class="bar-row"><div class="bar-label"><b>Your bag, in your kitchen</b><span id="ageText"></span></div><div class="bar-track"><div class="bar-fill yours" id="barYours"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><b>Your atta, in your kitchen</b><span id="ageText"></span></div><div class="bar-track"><div class="bar-fill yours" id="barYours"></div></div></div>
         <div class="bar-row"><div class="bar-label"><b>Atulyash, since milling</b><span>1 day</span></div><div class="bar-track"><div class="bar-fill ours" id="barOurs"></div></div></div>
         <p class="age-note small">That is only the time in your kitchen. Most packets do not tell you when the atta was milled.</p>
       </div>
@@ -419,6 +406,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </section>
 
 <section class="sec" id="questions" data-veer="questions" data-chapter="Ask the packet" aria-labelledby="h-q" style="padding-top:16px">
+  <div class="cameo" data-cameo="questions" data-pose="side-left" style="margin-bottom:12px"></div>
   <div class="wrap q-wrap">
     <div class="rv">
       <span class="chap">Chapter 3 <i>Ask the packet</i></span>
@@ -449,7 +437,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <li><span class="dot">5</span><h3>Nothing removed</h3><p>Chokar kept in. Small batches.</p></li>
       <li><span class="dot">6</span><h3>To your door</h3><p>Milled the day before, delivered next morning.</p></li>
     </ol>
-    <a class="film-card rv" href="https://www.youtube.com/watch?v=3mXae8undRI" target="_blank" rel="noopener">
+    <div class="cameo" data-cameo="way" data-pose="peek" data-at="right" style="margin-top:28px"></div>
+    <a class="film-card rv" style="margin-top:0" href="https://www.youtube.com/watch?v=3mXae8undRI" target="_blank" rel="noopener">
       <span class="film-thumb"><img src="img/film-process.webp" alt="" width="1000" height="562" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Watch the real mill</span></span>
       <span><h3>A different way to think about atta</h3><span class="muted" style="display:block;margin-top:8px">The real wheat, stone and packing, filmed at our mill. Opens on YouTube.</span></span>
     </a>
@@ -466,6 +455,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <section class="sec" id="asha" data-veer="asha" data-chapter="Who taught us to ask" aria-labelledby="h-asha">
   <div class="wrap asha-grid">
+    <div><div class="cameo" data-cameo="asha" data-pose="lean" data-at="left"></div>
     <div class="card asha-card rv">
       <span class="chap">Chapter 5 <i>Who taught us to ask</i></span>
       <div class="asha-person"><img src="img/asha.webp" alt="Dr. Asha Kawatra" width="720" height="720" loading="lazy"><div><p class="label">Foods &amp; nutrition</p><h2 id="h-asha" style="font-size:clamp(28px,6.4vw,40px)">Dr. Asha Kawatra</h2></div></div>
@@ -474,7 +464,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <li>Doctorate in Foods &amp; Nutrition.</li><li>Topper through B.Sc., M.Sc. and Ph.D., with two gold medals.</li><li>35 years of teaching, research and extension work in Foods &amp; Nutrition.</li><li>Former Professor and Head, Department of Foods &amp; Nutrition, CCS HAU, Hisar.</li><li>Former Dean of Postgraduate Studies at CCS HAU, Hisar and MHU, Karnal.</li>
       </ul></details>
       <p class="muted small">“The foods we eat most often deserve the most attention.” Her work inspires us to question more and treat everyday food with respect.</p>
-    </div>
+    </div></div>
     <div class="films" role="list" aria-label="Films with Dr. Asha Kawatra" id="films"></div>
   </div>
 </section>
@@ -496,8 +486,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <div class="extras" role="group" aria-labelledby="ext-l" id="extras"></div>
       <div class="calc-out" aria-live="polite">
         <p class="label">You need about</p>
-        <p class="kg" style="margin-top:8px"><span id="kgOut">1.93</span> <small>kg a week</small></p>
-        <p class="small muted" style="margin-top:6px">About <span id="kg4">7.7</span> kg over 4 weeks</p>
+        <p class="kg" style="margin-top:8px"><span id="kgOut">1.9</span> <small>kg a week</small></p>
+        <p class="small muted" style="margin-top:6px">About <span id="kg4">8</span> kg over 4 weeks</p>
         <button class="btn btn-solid btn-block" type="button" id="usePlan" style="margin-top:18px">Choose 2 kg every week</button>
         <p class="calc-how" id="calcHow"></p>
       </div>
@@ -505,11 +495,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
 </section>
 
-<section class="sec" id="shop" data-veer="shop" data-chapter="On the tawa" aria-labelledby="h-shop" style="padding-top:16px">
+<section class="sec" id="shop" data-veer="shop" data-chapter="Order your atta" aria-labelledby="h-shop" style="padding-top:16px">
   <div class="wrap chapter-in">
     <figure class="scene rv"><img src="img/scene/scene-5-tawa-1200.webp" srcset="img/scene/scene-5-tawa-720.webp 720w, img/scene/scene-5-tawa-1200.webp 1200w" sizes="(min-width:900px) 50vw, 100vw" alt="Illustration: a soft roti puffs up on a tawa beside a basket of fresh rotis" width="1200" height="800" loading="lazy"></figure>
-    <div class="card shop-card">
-      <div class="shop-top"><img src="img/pack.webp" alt="" width="900" height="1334" loading="lazy"><div><span class="chap">Chapter 7 <i>On the tawa</i></span><h2 id="h-shop" style="font-size:clamp(28px,6.4vw,40px)">Choose your atta.</h2></div></div>
+    <div><div class="card shop-card">
+      <div class="shop-top"><img src="img/pack.webp" alt="" width="900" height="1334" loading="lazy"><div><span class="chap">Chapter 7 <i>Order your atta</i></span><h2 id="h-shop" style="font-size:clamp(28px,6.4vw,40px)">Choose your atta.</h2></div></div>
       <p class="muted small" style="margin-top:12px">Whole wheat atta. 100% MP Sharbati, slow-milled on natural stone, chokar kept in. Nothing added.</p>
       <span class="field-label" id="mode-l">How would you like it?</span>
       <div class="seg" role="group" aria-labelledby="mode-l">
@@ -517,13 +507,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <button class="chip" type="button" data-mode="once" aria-pressed="false">Just once<small>No subscription</small></button>
       </div>
       <span class="field-label" id="qty-l">How much each time?</span>
-      <p class="field-hint">Packed in 1 kg and 2 kg packets.</p>
+      <p class="field-hint">Packed in 1 kg and 2 kg packets. Choose the total for each delivery.</p>
       <div class="qty" role="group" aria-labelledby="qty-l" id="qty"></div>
       <button class="link-btn" type="button" data-go="calc">Not sure? Work it out from your rotis</button>
       <div class="price-row" aria-live="polite"><div><span class="price" id="price">₹240</span><p class="price-note" id="perLine">₹120 a kg, about ₹3.60 a roti</p></div><span class="small muted" id="modeLine" style="text-align:right">every week</span></div>
       <p class="small" id="delivLine" style="margin-top:8px;color:var(--leaf);font-weight:700">Free delivery every week. No automatic billing.</p>
-      <button class="btn btn-solid btn-block add-btn" type="button" id="addBtn" style="margin-top:16px"><span class="lbl" id="addLbl">Add to bag</span></button>
+      <button class="btn btn-solid btn-block add-btn" type="button" id="addBtn" style="margin-top:16px"><span class="lbl" id="addLbl">Add to cart</span></button>
       <div class="details" id="details"></div>
+    </div>
+      <div class="cameo" data-cameo="shop" data-pose="hang" data-at="left" style="--cameo-x:28px"></div>
     </div>
   </div>
 </section>
@@ -531,11 +523,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <section class="sec-tight" id="app" aria-labelledby="h-app">
   <div class="wrap"><div class="card app-row">
     <div><p class="label">Coming soon on Android and iOS</p><h2 id="h-app" style="font-size:clamp(26px,6vw,36px);margin-top:8px">The Atulyash app</h2><p class="muted" style="margin-top:6px">Every weekly delivery, in one place.</p></div>
-    <ul class="app-list"><li><b>Plan</b>See what is coming.</li><li><b>Adjust</b>Change an eligible delivery.</li><li><b>Track</b>Follow each fresh batch.</li></ul>
+    <ul class="app-list"><li><b>Plan</b>See what is coming.</li><li><b>Adjust</b>Change an eligible delivery.</li><li><b>Track</b>See when your atta arrives.</li></ul>
   </div></div>
 </section>
 
 <section class="sec help" id="help" data-veer="help" aria-labelledby="h-help">
+  <div class="cameo" data-cameo="help" data-pose="side-right" style="margin-bottom:20px"></div>
   <div class="wrap help-in">
     <div>
       <h2 id="h-help">Questions before you order</h2>
@@ -571,9 +564,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <p>Bringing respect, discipline and freshness back to the atta we eat every day.</p>
     </div>
     <div class="ftr-cols">
-      <div><h4>Explore</h4><ul><li><a href="#way">The Atulyash way</a></li><li><a href="#habit">Weekly freshness</a></li><li><a href="#questions">Ask what matters</a></li><li><a href="#asha">Dr. Asha's films</a></li><li><a href="#shop">Shop</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li><a href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp</a></li><li><span style="display:inline-flex;min-height:44px;align-items:center">+91 98185 88996</span></li></ul></div>
-      <div><h4>Policies</h4><ul><li><a href="https://atulyash.com/legal/terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a></li><li><a href="https://atulyash.com/legal/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li><li><a href="https://atulyash.com/legal/refund.html" target="_blank" rel="noopener">Cancellation &amp; Refunds</a></li><li><a href="https://atulyash.com/legal/shipping.html" target="_blank" rel="noopener">Delivery Policy</a></li><li><a href="https://atulyash.com/legal/rider-terms.html" target="_blank" rel="noopener">For delivery partners</a></li></ul></div>
+      <div><h3>Explore</h3><ul><li><a href="#way">The Atulyash way</a></li><li><a href="#habit">Weekly freshness</a></li><li><a href="#questions">Ask what matters</a></li><li><a href="#asha">Dr. Asha's films</a></li><li><a href="#shop">Shop</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li><a href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp</a></li><li><span style="display:inline-flex;min-height:44px;align-items:center">+91 98185 88996</span></li></ul></div>
+      <div><h3>Policies</h3><ul><li><a href="https://atulyash.com/legal/terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a></li><li><a href="https://atulyash.com/legal/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li><li><a href="https://atulyash.com/legal/refund.html" target="_blank" rel="noopener">Cancellation &amp; Refunds</a></li><li><a href="https://atulyash.com/legal/shipping.html" target="_blank" rel="noopener">Delivery Policy</a></li><li><a href="https://atulyash.com/legal/rider-terms.html" target="_blank" rel="noopener">For delivery partners</a></li></ul></div>
     </div>
     <p class="small" style="opacity:.75">© 2026 Atulyash Foods Private Limited</p>
   </div>
@@ -584,11 +577,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <a class="icon-btn" href="https://wa.me/919818588996" target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.1z"/><path d="M9.5 9.5c.5 2 2 3.5 4 4l1.2-1.2 1.8.8-.4 1.6c-3.6 0-6.8-3.2-6.8-6.8l1.6-.4.8 1.8z"/></svg></a>
 </div>
 
-<div class="veer" id="veer" aria-live="polite">
-  <div class="veer-bubble" id="veerBubble" role="status"><span id="veerText"></span><button type="button" id="veerHide">Hide Veer</button></div>
-  <button class="veer-me" type="button" id="veerMe" aria-label="Veer, your guide. Tap to hear from him."><span class="body" id="veerFrames"></span></button>
-</div>
-<button class="veer-tab" type="button" id="veerTab"><img src="img/veer/face.webp" alt="">Bring back Veer</button>
 
 <div class="backdrop" id="backdrop" hidden></div>
 
@@ -631,21 +619,20 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <div class="sheet" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-h" hidden>
   <div class="sheet-grab" aria-hidden="true"></div>
-  <div class="sheet-hd"><h2 id="bag-h">My bag</h2><button class="x-btn" type="button" data-close aria-label="Close bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-hd"><h2 id="bag-h">My cart</h2><button class="x-btn" type="button" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="sheet-bd" id="bagBody"></div>
   <div class="sheet-ft" id="bagFoot"></div>
 </div>
 
 <script>
-/* Design C lines: Veer narrates the morning */
+/* Design C lines: Veer guides you through the morning */
 window.ATL_LINES={
-  hero:['wave','Namaste! I am Veer. Come, spend a morning in our kitchen.'],
-  habit:['point','Dadi keeps asking how old that bag is. How old is yours?'],
-  questions:['packet','Bring your packet here. Let us read it together.'],
-  way:['point','This is where it all begins. Slowly, on stone.'],
-  calc:['idle','Mummy makes rotis for all of us. How many for your family?'],
-  shop:['point','The best part. Pick how much you need.'],
-  start:['roti','Khana taiyaar hai! Food is ready.']
+  habit:'Pick the closest one. There is no wrong answer.',
+  questions:'Got a packet nearby? Tick what it tells you.',
+  way:'This film shows our mill. It is short.',
+  asha:'Start with any of her films. They are short.',
+  shop:'Weekly or once, it is milled the day before.',
+  help:'Still unsure? Call or WhatsApp us.'
 };
 </script>
 <script src="app.js"></script>
@@ -667,6 +654,5 @@ window.ATL_LINES={
   addEventListener('resize',upd); upd();
 })();
 </script>
-
 </body>
 </html>

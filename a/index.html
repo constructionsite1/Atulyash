@@ -35,6 +35,8 @@ p{margin:0}
 a{color:var(--forest-900);text-underline-offset:3px}
 button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--rust);outline-offset:3px;border-radius:8px}
+.calc :focus-visible,.aware :focus-visible,.ftr :focus-visible{outline-color:var(--wheat-200)}
+.calc .calc-out :focus-visible{outline-color:var(--rust)}
 .wrap{max-width:1160px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
 .lede{font-size:1.08em;color:var(--ink);max-width:36ch}
 .muted{color:var(--muted)}
@@ -218,6 +220,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .calc{background:var(--forest-900);color:var(--cream-50)}
 .calc h2{color:var(--cream-50)}
 .calc .muted{color:rgba(255,253,248,.82)}
+.calc .calc-out .muted{color:var(--muted)}
 .calc-grid{display:grid;gap:28px}
 .calc-card{padding:22px 18px;border-radius:20px;background:var(--forest-800)}
 .stepper{margin-top:14px;display:grid;grid-template-columns:64px minmax(0,1fr) 64px;align-items:center;gap:10px}
@@ -257,7 +260,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ftr a{color:var(--cream-50)}
 .ftr-in{display:grid;gap:32px;padding-block:56px calc(56px + var(--bar-h))}
 .ftr-belief{font-family:var(--serif);font-size:24px;line-height:1.35;color:var(--wheat-200);max-width:30ch}
-.ftr h4{margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,253,248,.7)}
+.ftr h3{margin:0 0 8px;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,253,248,.7)}
 .ftr ul{list-style:none;margin:0;padding:0;display:grid}
 .ftr li a{display:inline-flex;align-items:center;min-height:44px}
 .ftr-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
@@ -312,36 +315,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .done-mark{width:64px;height:64px;border-radius:32px;background:var(--forest-900);color:var(--cream-50);display:flex;align-items:center;justify-content:center}
 .done-mark svg{width:30px;height:30px}
 
-/* Veer companion */
-.veer{position:fixed;right:max(10px, env(safe-area-inset-right,0px));bottom:calc(var(--bar-h) + 12px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:flex-end;gap:8px;pointer-events:none;transition:bottom 380ms var(--ease-drawer),transform 380ms var(--ease-drawer),opacity 240ms ease}
-.veer.away{transform:translateX(130%);opacity:0}
-.veer-bubble{pointer-events:auto;position:relative;max-width:min(220px, calc(100vw - 120px));padding:10px 12px;border-radius:16px 16px 4px 16px;background:var(--forest-900);color:var(--cream-50);font-size:15px;line-height:1.4;box-shadow:0 10px 30px rgba(11,39,33,.22);transform-origin:bottom right;opacity:0;transform:scale(.94) translateY(6px);transition:opacity 220ms var(--ease-out),transform 260ms var(--ease-out);margin-bottom:22px}
-.veer-bubble.show{opacity:1;transform:none}
-.veer-bubble button{display:block;margin-top:6px;padding:0;min-height:32px;background:none;border:0;color:var(--wheat-200);font-size:14px;font-weight:600;text-decoration:underline;cursor:pointer}
-/* Veer: one fixed frame. Every pose is drawn on the same canvas at the same scale, so only the pose changes, never the size */
-.veer-me{pointer-events:auto;position:relative;width:100px;height:110px;border:0;padding:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:0 0 auto}
-.veer-me::before{content:"";position:absolute;left:18px;right:18px;bottom:0;height:8px;border-radius:50%;background:rgba(11,39,33,.16);filter:blur(3px)}
-.veer-me .body{position:absolute;inset:0;animation:bob 4s ease-in-out infinite}
-.veer-me .frame{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:0}
-.veer-me .frame.on{opacity:1}
-.veer-me .frame.fade{transition:opacity 200ms ease}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
-.veer-me.hop .body{animation:hop 480ms var(--ease-out)}
-@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-8px)}100%{transform:translateY(0)}}
-.veer-tab{position:fixed;right:0;bottom:calc(var(--bar-h) + 24px + env(safe-area-inset-bottom,0px));z-index:45;min-height:48px;padding:0 14px 0 12px;border-radius:24px 0 0 24px;border:1.5px solid var(--line-strong);border-right:0;background:var(--cream-50);font-weight:600;color:var(--forest-900);cursor:pointer;display:flex;align-items:center;gap:8px;transform:translateX(110%);transition:transform 320ms var(--ease-drawer),bottom 380ms var(--ease-drawer)}
-.veer-tab.show{transform:none}
-.veer-tab img{width:28px;height:28px;object-fit:cover;object-position:top;border-radius:14px}
 
 /* Desktop */
-/* Phone: Veer lives at the left end of the bottom bar and talks from there, so he never covers the page or slides away */
-@media (max-width:899px){
-  .veer{left:var(--gutter-l);right:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 4px);flex-direction:column;align-items:flex-start;gap:8px}
-  .veer-me{width:66px;height:72px}
-  .veer-me::before{display:none}
-  .veer-bubble{max-width:min(300px, calc(100vw - 40px));margin-bottom:0;transform-origin:bottom left;font-size:16px}
-  .bar{padding-left:calc(var(--gutter-l) + 74px)}
-  body.veer-off .bar{padding-left:var(--gutter-l)}
-}
 @media (min-width:900px){
   body{font-size:19px}
   .wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}
@@ -395,21 +370,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   .sheet-grab{display:none}
   #bag.sheet{height:auto}
   .sheet-hd{padding-top:20px}
-  .veer-me{width:128px;height:140px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;animation-delay:0ms!important}
   .rv,.rv.pre{transform:none!important;transition:none}
-  .bar,.sheet,.veer,.veer-tab,.bar-fill,.q-panel,.path-line i{transition-duration:1ms!important}
-  .veer-me .body{animation:none}
+  .bar,.sheet,.bar-fill,.q-panel,.path-line i{transition-duration:1ms!important}
 }
+
+/* Audit fixes: skip link, visible input focus, larger tick boxes, 44px header links */
+.skip{position:absolute;left:12px;top:-80px;z-index:100;padding:12px 18px;border-radius:10px;background:#fffdf8;color:#11372e;font-weight:600}
+.skip:focus{top:12px}
+.input:focus{outline:2px solid currentColor;outline-offset:2px}
+.q-check input{width:28px;height:28px}
+.hdr-nav a{min-width:44px;justify-content:center}
 </style>
 <style>[hidden]{display:none!important}</style>
 </head>
 <body>
 
-
+<a class="skip" href="#top">Skip to content</a>
 <header class="hdr" id="hdr">
   <div class="wrap hdr-in">
     <a class="hdr-logo" href="#top" aria-label="Atulyash home"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"></a>
@@ -425,9 +405,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
         <span id="acctLabel">Sign in</span>
       </button>
-      <button class="icon-btn" type="button" data-open="bag" aria-label="My bag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-        <span>Bag</span>
+      <button class="icon-btn" type="button" data-open="bag" aria-label="My cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.3 10.6a1.6 1.6 0 0 0 1.6 1.3h8.3a1.6 1.6 0 0 0 1.6-1.2L21 8H6.1"/><circle cx="9.5" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
+        <span>Cart</span>
         <span class="badge" id="bagCount" hidden>0</span>
       </button>
       <button class="icon-btn menu-toggle" type="button" data-open="menu">
@@ -466,13 +446,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="rv">
       <p class="kicker">Atta deserves respect</p>
       <h2 id="h-habit" style="margin-top:12px">Eaten at every meal. Rarely questioned.</h2>
-      <p class="lede" style="margin-top:18px">Nobody keeps milk for a month. Yet a big bag of atta often sits in the kitchen for weeks, and it was milled long before you opened it.</p>
+      <p class="lede" style="margin-top:18px">Nobody keeps milk for a month. Yet a big packet of atta often sits in the kitchen for weeks, and it was milled long before you opened it.</p>
       <div class="compare">
         <div><b>Milk</b><span>Bought fresh, used in a day or two.</span></div>
         <div><b>Atulyash atta</b><span>Milled the day before, used within the week.</span></div>
       </div>
     </div>
-    <div class="age-card rv">
+    <div class="rv">
+    <div class="cameo" data-cameo="habit" data-pose="lean" data-at="right"></div>
+    <div class="age-card">
       <h3 id="age-q">When did you buy the atta in your kitchen now?</h3>
       <div class="age-opts" role="group" aria-labelledby="age-q">
         <button class="chip" type="button" aria-pressed="false" data-age="7" data-age-text="up to a week">This week</button>
@@ -483,7 +465,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <p class="age-empty" id="ageEmpty">Tap one to compare.</p>
       <div class="age-result" id="ageResult" aria-live="polite" hidden>
         <div class="bar-row">
-          <div class="bar-label"><b>Your bag, in your kitchen</b><span id="ageText">about 2 weeks</span></div>
+          <div class="bar-label"><b>Your atta, in your kitchen</b><span id="ageText">about 2 weeks</span></div>
           <div class="bar-track"><div class="bar-fill yours" id="barYours"></div></div>
         </div>
         <div class="bar-row">
@@ -492,6 +474,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         </div>
         <p class="age-note small">That is only the time in your kitchen. It was milled, packed and shipped before you bought it, and most packets do not say when it was milled.</p>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -517,7 +500,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <p class="lede" style="margin-top:16px">Bring the packet from your kitchen. Open each question and tick the ones your packet answers.</p>
       </div>
     </div>
-    <div class="q-list" id="qList"></div>
+    <div class="cameo" data-cameo="questions" data-pose="peek" data-at="left"></div>
+    <div class="q-list" id="qList" style="margin-top:0"></div>
     <div class="tally" aria-live="polite">
       <div><span class="small muted">Your packet answers</span><br><strong id="tally">0 of 6</strong></div>
       <a class="btn btn-solid btn-sm" href="#way">See how Atulyash answers</a>
@@ -527,7 +511,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <section class="way" id="way" data-veer="way" aria-labelledby="h-way">
   <img class="way-band" src="img/village.webp" alt="Illustration of the Atulyash village: green fields, trees and mud houses" width="1800" height="970">
-  <div class="wrap sec" style="padding-top:56px">
+  <div class="cameo" data-cameo="way" data-pose="side-right"></div>
+  <div class="wrap sec" style="padding-top:24px">
     <p class="kicker">The Atulyash way</p>
     <h2 id="h-way" style="margin-top:12px">Six decisions. One honest packet.</h2>
     <ol class="path" id="path">
@@ -536,8 +521,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <li><span class="dot">2</span><h3>Cleaned in stages</h3><p>Multi-stage cleaning before the grain reaches the chakki.</p></li>
       <li><span class="dot">3</span><h3>Natural stone</h3><p>Natural stone chakkis. No emery stone, no steel rollers.</p></li>
       <li><span class="dot">4</span><h3>Milled slowly</h3><p>Slow and gentle, to keep heat down.</p></li>
-      <li><span class="dot">5</span><h3>Small batches</h3><p>Chokar kept in. Packed with minimal handling.</p></li>
-      <li><span class="dot">6</span><h3>To your door</h3><p>Milled the day before, delivered the next morning.</p></li>
+      <li><span class="dot">5</span><h3>Chokar kept in</h3><p>Nothing removed, nothing added. Packed with minimal handling.</p></li>
+      <li><span class="dot">6</span><h3>To your door</h3><p>Milled in small batches the day before, delivered the next morning.</p></li>
     </ol>
     <a class="film-card rv" href="https://www.youtube.com/watch?v=3mXae8undRI" target="_blank" rel="noopener">
       <span class="film-thumb"><img src="img/film-process.webp" alt="" width="1000" height="562" loading="lazy"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Watch the film</span></span>
@@ -571,7 +556,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <p class="muted small" style="margin-top:10px">Her work inspires us to question more and treat everyday food with respect.</p>
       </div>
     </div>
-    <div class="films" role="list" aria-label="Films with Dr. Asha Kawatra" id="films"></div>
+    <div class="cameo" data-cameo="asha" data-pose="lie" data-at="right" style="margin-top:28px"></div>
+    <div class="films" role="list" style="margin-top:0" aria-label="Films with Dr. Asha Kawatra" id="films"></div>
   </div>
 </section>
 
@@ -593,7 +579,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       </div>
 
       <span class="field-label" id="qty-l">How much each time?</span>
-      <p class="field-hint">Packed in 1 kg and 2 kg packets.</p>
+      <p class="field-hint">Packed in 1 kg and 2 kg packets. Choose the total for each delivery.</p>
       <div class="qty" role="group" aria-labelledby="qty-l" id="qty"></div>
       <button class="link-btn" type="button" data-go="calc" style="margin-top:6px">Not sure? Work it out from your rotis</button>
 
@@ -602,7 +588,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <span class="small muted" id="modeLine" style="text-align:right">every week</span>
       </div>
       <p class="small muted" style="margin-top:10px" id="delivLine">Weekly deliveries are free. No automatic billing.</p>
-      <button class="btn btn-solid btn-block add-btn" type="button" id="addBtn"><span class="lbl" id="addLbl">Add to bag</span></button>
+      <button class="btn btn-solid btn-block add-btn" type="button" id="addBtn"><span class="lbl" id="addLbl">Add to cart</span></button>
 
       <div class="details" id="details"></div>
     </div>
@@ -624,13 +610,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <span class="field-label" id="ext-l">How often do you make parathas or pooris?</span>
         <div class="extras" role="group" aria-labelledby="ext-l" id="extras"></div>
       </div>
+      <div class="cameo" data-cameo="calc" data-pose="hang" data-at="left" style="--cameo-x:28px;--cameo-bg:var(--cream-50);--cameo-ink:var(--forest-900)"></div>
     </div>
     <div class="calc-out" aria-live="polite">
       <p class="small muted">You need about</p>
-      <p class="kg"><span id="kgOut">1.93</span> <small>kg a week</small></p>
-      <p class="small muted" style="margin-top:6px">About <span id="kg4">7.7</span> kg over 4 weeks</p>
+      <p class="kg"><span id="kgOut">1.9</span> <small>kg a week</small></p>
+      <p class="small muted" style="margin-top:6px">About <span id="kg4">8</span> kg over 4 weeks</p>
       <button class="btn btn-solid btn-block" type="button" id="usePlan" style="margin-top:22px">Choose 2 kg every week</button>
-      <p class="calc-how" id="calcHow">8 rotis × 30 g × 7 days, plus 15% for extras. One medium roti uses about 30 g of atta. This is an estimate.</p>
+      <p class="calc-how" id="calcHow">8 rotis × 30 g × 7 days, plus 15% for parathas and pooris. One medium roti uses about 30 g of atta. This is an estimate.</p>
     </div>
   </div>
 </section>
@@ -645,12 +632,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <ul class="app-list">
       <li><b>Plan</b>See what is coming.</li>
       <li><b>Adjust</b>Change an eligible delivery.</li>
-      <li><b>Track</b>Follow each fresh batch.</li>
+      <li><b>Track</b>See when your atta arrives.</li>
     </ul>
   </div>
 </section>
 
-<section class="sec help" id="help" data-veer="help" aria-labelledby="h-help">
+<section class="sec help" id="help" aria-labelledby="h-help" style="padding-top:8px">
+  <div class="cameo" data-cameo="help" data-pose="side-left" style="margin-bottom:24px"></div>
   <div class="wrap help-in">
     <div>
       <h2 id="h-help">Questions before you order</h2>
@@ -674,7 +662,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <h2 id="h-start" style="margin-top:12px">Bring home atta in its purest form.</h2>
       <p class="lede" style="margin-top:16px">Milled fresh and delivered every week, so it reaches you close to when it is eaten.</p>
       <div class="hero-ctas">
-        <button class="btn btn-solid" type="button" data-quick="once">Start with one fresh 2 kg batch</button>
+        <button class="btn btn-solid" type="button" data-quick="once">Start with one 2 kg pack</button>
         <button class="btn btn-line" type="button" data-quick="weekly">Get it every week</button>
       </div>
     </div>
@@ -692,9 +680,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <p>Bringing respect, discipline and freshness back to the atta we eat every day.</p>
     </div>
     <div class="ftr-cols">
-      <div><h4>Explore</h4><ul><li><a href="#way">The Atulyash way</a></li><li><a href="#habit">Weekly freshness</a></li><li><a href="#questions">Ask what matters</a></li><li><a href="#asha">Dr. Asha's films</a></li><li><a href="#shop">Shop</a></li></ul></div>
-      <div><h4>Contact</h4><ul><li><a href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp</a></li><li><span style="display:inline-flex;min-height:44px;align-items:center">+91 98185 88996</span></li></ul></div>
-      <div><h4>Policies</h4><ul>
+      <div><h3>Explore</h3><ul><li><a href="#way">The Atulyash way</a></li><li><a href="#habit">Why fresh</a></li><li><a href="#questions">Ask what matters</a></li><li><a href="#asha">Dr. Asha's films</a></li><li><a href="#shop">Shop</a></li></ul></div>
+      <div><h3>Contact</h3><ul><li><a href="https://wa.me/919818588996" target="_blank" rel="noopener">WhatsApp</a></li><li><span style="display:inline-flex;min-height:44px;align-items:center">+91 98185 88996</span></li></ul></div>
+      <div><h3>Policies</h3><ul>
         <li><a href="https://atulyash.com/legal/terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a></li>
         <li><a href="https://atulyash.com/legal/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
         <li><a href="https://atulyash.com/legal/refund.html" target="_blank" rel="noopener">Cancellation &amp; Refunds</a></li>
@@ -713,13 +701,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </a>
 </div>
 
-<div class="veer" id="veer" aria-live="polite">
-  <div class="veer-bubble" id="veerBubble" role="status"><span id="veerText"></span><button type="button" id="veerHide">Hide Veer</button></div>
-  <button class="veer-me" type="button" id="veerMe" aria-label="Veer, your guide. Tap to hear from him.">
-    <span class="body" id="veerFrames"></span>
-  </button>
-</div>
-<button class="veer-tab" type="button" id="veerTab"><img src="img/veer/face.webp" alt="">Bring back Veer</button>
 
 <div class="backdrop" id="backdrop" hidden></div>
 
@@ -772,13 +753,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <!-- Bag and checkout -->
 <div class="sheet" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-h" hidden>
   <div class="sheet-grab" aria-hidden="true"></div>
-  <div class="sheet-hd"><h2 id="bag-h">My bag</h2><button class="x-btn" type="button" data-close aria-label="Close bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="sheet-hd"><h2 id="bag-h">My cart</h2><button class="x-btn" type="button" data-close aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div class="sheet-bd" id="bagBody"></div>
   <div class="sheet-ft" id="bagFoot"></div>
 </div>
 
 <script src="app.js"></script>
-
-
 </body>
 </html>

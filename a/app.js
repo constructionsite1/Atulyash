@@ -8,7 +8,7 @@ var KG_PRICE=120;
 /* Image fallbacks (Veer poses) */
 $$('img[data-fallback]').forEach(function(img){img.addEventListener('error',function(){if(img.dataset.fallback&&img.src.indexOf(img.dataset.fallback)<0){img.src=img.dataset.fallback}},{once:true})});
 
-/* Header border on scroll; the phone bottom bar stays put (Veer lives in it) */
+/* Header border on scroll; the phone bottom bar stays put */
 var hdr=$('#hdr'), bar=$('#bar'), hero=$('.hero'), shopSec=$('#shop');
 function onScroll(){
   hdr.classList.toggle('scrolled',window.scrollY>8);
@@ -28,6 +28,9 @@ if(!reduce && 'IntersectionObserver' in window){
   var rvio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');rvio.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
   $$('.rv').forEach(function(el){if(el.getBoundingClientRect().top>window.innerHeight){el.classList.add('pre');rvio.observe(el)}});
 }
+
+/* Errors are announced and linked to the field they belong to */
+function showErr(input,el,msg){if(!el)return;if(!el.id)el.id='err'+Math.random().toString(36).slice(2,7);el.setAttribute('role','alert');el.textContent=msg;if(input){if(msg){input.setAttribute('aria-invalid','true');input.setAttribute('aria-describedby',el.id)}else{input.removeAttribute('aria-invalid');input.removeAttribute('aria-describedby')}}}
 
 /* Freshness comparison */
 $$('[data-age]').forEach(function(b){b.addEventListener('click',function(){
@@ -52,7 +55,7 @@ function accordion(container,items,render){
 
 /* Six questions + compromises */
 var QS=[
- {t:'The wheat',q:'Is the wheat named, and from one origin?',often:'Wheat quality varies a lot. When different lots or varieties are blended, the atta can change from bag to bag.',way:'Single-origin MP Sharbati wheat. No blending with other varieties.'},
+ {t:'The wheat',q:'Is the wheat named, and from one origin?',often:'Wheat quality varies a lot. When different lots or varieties are blended, the atta can change from packet to packet.',way:'Single-origin MP Sharbati wheat. No blending with other varieties.'},
  {t:'The cleaning',q:'Was the grain cleaned thoroughly before milling?',often:'Whatever is not cleaned away goes into the chakki with the wheat.',way:'Multi-stage cleaning before every batch.'},
  {t:'The mill',q:'Natural stone, emery stone or steel rollers?',often:'"Stone-ground" does not always mean natural stone. Most chakkis, including neighbourhood ones, use emery stones made by bonding abrasive particles into discs. Large mills use steel rollers.',way:'Natural stone chakkis only.'},
  {t:'The speed',q:'Was it milled slowly, or fast for more output?',often:'Speed creates friction, friction creates heat, and heat can affect the grain’s natural oils, aroma and character.',way:'We mill slowly, so the process stays gentle and controlled.'},
@@ -91,7 +94,7 @@ function renderShop(){
   $$('[data-kg]').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.kg===shop.kg?'true':'false')});
   $('#price').textContent=rupee(shop.kg*KG_PRICE);
   $('#modeLine').textContent=shop.mode==='weekly'?'every week':'one time';
-  $('#delivLine').textContent=shop.mode==='weekly'?'Weekly deliveries are free. No automatic billing.':'Any delivery charge for a one-time pack is shown in your bag before you pay.';
+  $('#delivLine').textContent=shop.mode==='weekly'?'Weekly deliveries are free. No automatic billing.':'Any delivery charge for a one-time pack is shown in your cart before you pay.';
 }
 renderShop();
 var DETAILS=[
@@ -103,18 +106,18 @@ if($('#details')) accordion($('#details'),DETAILS,{head:function(it){return '<sp
 
 /* Bag state */
 var bag=[], user=null, step='bag', chosenDay=null;
-function bagCount(){return bag.reduce(function(s,i){return s+1},0)}
+function bagKg(){return bag.reduce(function(s,i){return s+i.kg},0)}
 function addToBag(mode,kg){
   var ex=bag.filter(function(i){return i.mode===mode&&i.kg===kg})[0];
   if(!ex) bag.push({mode:mode,kg:kg});
   var c=$('#bagCount'); c.hidden=false; c.textContent=bag.length; c.classList.add('bump'); setTimeout(function(){c.classList.remove('bump')},260);
-  $('#barCta').textContent='View bag ('+bag.length+')'; $('#barCta').setAttribute('href','#'); $('#barCta').dataset.open='bag';
+  $('#barCta').textContent='View cart · '+bagKg()+' kg'; $('#barCta').setAttribute('href','#'); $('#barCta').dataset.open='bag';
 }
 $('#addBtn').addEventListener('click',function(){
   var btn=this,lbl=$('#addLbl'); addToBag(shop.mode,shop.kg);
-  btn.classList.add('swap'); setTimeout(function(){lbl.textContent='Added to bag';btn.classList.remove('swap')},200);
-  setTimeout(function(){btn.classList.add('swap');setTimeout(function(){lbl.textContent='Add to bag';btn.classList.remove('swap')},200)},2200);
-  veerSay('added',true);
+  btn.classList.add('swap'); setTimeout(function(){lbl.textContent='Added to cart';btn.classList.remove('swap')},200);
+  setTimeout(function(){btn.classList.add('swap');setTimeout(function(){lbl.textContent='Add to cart';btn.classList.remove('swap')},200)},2200);
+  veerSay('added');
 });
 $$('[data-quick]').forEach(function(b){b.addEventListener('click',function(){addToBag(b.dataset.quick,2);step='bag';openSheet('bag',b)})});
 
@@ -122,20 +125,20 @@ function itemPrice(i){return i.kg*KG_PRICE}
 function renderBag(){
   var body=$('#bagBody'), foot=$('#bagFoot'), h=$('#bag-h');
   if(!bag.length){
-    h.textContent='My bag';
-    body.innerHTML='<div class="empty"><img src="img/sack.webp" alt=""><p><b>Your bag is empty.</b><br><span class="muted">Begin with one fresh batch.</span></p><a class="btn btn-solid" href="#shop" data-close>Choose a quantity</a></div><div class="sample-note">Included with every pack: natural-stone milled, natural chokar kept in, delivery date confirmed first.</div>';
+    h.textContent='My cart';
+    body.innerHTML='<div class="empty"><img src="img/sack.webp" alt=""><p><b>Your cart is empty.</b><br><span class="muted">Start with one 2 kg pack of fresh atta.</span></p><a class="btn btn-solid" href="#shop" data-close>Choose a quantity</a></div><div class="sample-note">Included with every pack: natural-stone milled, natural chokar kept in, delivery date confirmed first.</div>';
     foot.innerHTML=''; foot.hidden=true; return;
   }
   foot.hidden=false;
   var sub=bag.reduce(function(s,i){return s+itemPrice(i)},0), onceKg=bag.filter(function(i){return i.mode==='once'}).length;
   var welcome=Math.min(100,sub);
   if(step==='bag'){
-    h.textContent='My bag ('+bag.length+')';
+    h.textContent='My cart';
     body.innerHTML=bag.map(function(i,ix){return '<div class="line-item"><img src="img/pack.webp" alt=""><div><b>Atulyash Atta, '+i.kg+' kg</b><span class="small muted">'+(i.mode==='weekly'?'Every week · free delivery':'One time')+'</span><br><button class="rm" type="button" data-rm="'+ix+'">Remove</button></div><b>'+rupee(itemPrice(i))+'</b></div>'}).join('')+
       '<div class="sum"><div><span>Subtotal</span><span>'+rupee(sub)+'</span></div><div><span>Welcome saving</span><span>−'+rupee(welcome)+'</span></div><div><span>Delivery</span><span>'+(onceKg?'Shown at next step':'Free')+'</span></div><div class="tot"><span>To pay</span><span>'+rupee(sub-welcome)+'</span></div></div>'+
       '<details class="profile" style="margin-top:14px"><summary>Have a coupon?</summary><div style="display:flex;gap:8px;margin-top:10px"><label class="visually-hidden" for="coupon">Coupon code</label><input class="input" id="coupon" style="font-size:18px" placeholder="Coupon code"><button class="btn btn-line btn-sm" type="button" id="applyC" style="min-height:56px">Apply</button></div><p class="small muted" id="cMsg" style="margin-top:8px"></p></details>'+
       '<p class="sample-note">Design sample. No real order is placed.</p>';
-    foot.innerHTML='<button class="btn btn-solid btn-block" type="button" id="toDelivery">'+(user?'Choose delivery day':'Continue')+'</button><p class="small muted" style="text-align:center;margin-top:8px">Questions? Call +91 98185 88996</p>';
+    foot.innerHTML='<button class="btn btn-solid btn-block" type="button" id="toDelivery">'+(user?'Choose delivery day':'Sign in to choose delivery day')+'</button><p class="small muted" style="text-align:center;margin-top:8px">Questions? Call +91 98185 88996</p>';
     $$('[data-rm]',body).forEach(function(b){b.addEventListener('click',function(){bag.splice(+b.dataset.rm,1);updateBadge();renderBag()})});
     var ap=$('#applyC'); if(ap) ap.addEventListener('click',function(){$('#cMsg').textContent='Coupons are checked at payment on the real site.'});
     $('#toDelivery').addEventListener('click',function(){step=user?'day':'signin';renderBag()});
@@ -148,15 +151,15 @@ function renderBag(){
     if(!chosenDay) chosenDay=days[0].toDateString();
     body.innerHTML='<div class="step-pane on"><p class="muted">We mill your atta the day before and deliver in the morning.</p><div class="days" role="group" aria-label="Delivery day">'+days.map(function(dt){var k=dt.toDateString();return '<button class="chip" type="button" data-day="'+k+'" aria-pressed="'+(k===chosenDay)+'">'+dt.toLocaleDateString('en-IN',{weekday:'short'})+'<small>'+dt.toLocaleDateString('en-IN',{day:'numeric',month:'short'})+'</small></button>'}).join('')+'</div><p class="small muted" style="margin-top:14px">Delivering to the address on your account. You can change it at the next step on the real site.</p><p class="sample-note">Design sample. Dates are examples.</p></div>';
     $$('[data-day]',body).forEach(function(b){b.addEventListener('click',function(){chosenDay=b.dataset.day;$$('[data-day]',body).forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')})})});
-    foot.innerHTML='<button class="btn btn-solid btn-block" type="button" id="toPay">Continue to payment</button><button class="link-btn" type="button" id="backBag" style="width:100%;justify-content:center">Back to bag</button>';
+    foot.innerHTML='<button class="btn btn-solid btn-block" type="button" id="toPay">Continue to payment</button><button class="link-btn" type="button" id="backBag" style="width:100%;justify-content:center">Back to cart</button>';
     $('#toPay').addEventListener('click',function(){step='pay';renderBag()});
     $('#backBag').addEventListener('click',function(){step='bag';renderBag()});
   } else if(step==='pay'){
     h.textContent='Payment';
     var total=sub-welcome;
-    body.innerHTML='<div class="step-pane on"><div class="sum" style="margin-top:0"><div><span>Delivery</span><span>'+new Date(chosenDay).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})+'</span></div><div><span>Atulyash wallet balance</span><span>'+rupee(0)+'</span></div><div class="tot"><span>Add to wallet and pay</span><span>'+rupee(total)+'</span></div></div><p class="muted small" style="margin-top:14px">Orders are paid from your Atulyash wallet. Add money with UPI, card or net banking, and the order is placed straight after.</p><p class="sample-note">Design sample. No payment is taken.</p></div>';
-    foot.innerHTML='<button class="btn btn-solid btn-block" type="button" id="payNow">Add '+rupee(total)+' and place order</button><button class="link-btn" type="button" id="backDay" style="width:100%;justify-content:center">Change delivery day</button>';
-    $('#payNow').addEventListener('click',function(){step='done';renderBag();veerSay('ordered',true)});
+    body.innerHTML='<div class="step-pane on"><div class="sum" style="margin-top:0"><div><span>Delivery</span><span>'+new Date(chosenDay).toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'})+'</span></div><div><span>Atulyash wallet balance</span><span>'+rupee(0)+'</span></div><div class="tot"><span>To pay</span><span>'+rupee(total)+'</span></div></div><p class="muted small" style="margin-top:14px">You pay by UPI, card or net banking. The money goes into your Atulyash wallet and pays for this order straight away.</p><p class="sample-note">Design sample. No payment is taken.</p></div>';
+    foot.innerHTML='<button class="btn btn-solid btn-block" type="button" id="payNow">Pay '+rupee(total)+' and place order</button><button class="link-btn" type="button" id="backDay" style="width:100%;justify-content:center">Change delivery day</button>';
+    $('#payNow').addEventListener('click',function(){step='done';renderBag()});
     $('#backDay').addEventListener('click',function(){step='day';renderBag()});
   } else if(step==='done'){
     h.textContent='Order placed';
@@ -165,7 +168,7 @@ function renderBag(){
     $('#finish').addEventListener('click',function(){bag=[];step='bag';chosenDay=null;updateBadge();closeSheet()});
   }
 }
-function updateBadge(){var c=$('#bagCount');c.textContent=bag.length;c.hidden=!bag.length;var cta=$('#barCta');if(bag.length){cta.textContent='View bag ('+bag.length+')'}else{cta.textContent='Order fresh atta';cta.setAttribute('href','#shop');delete cta.dataset.open}}
+function updateBadge(){var c=$('#bagCount');c.textContent=bag.length;c.hidden=!bag.length;var cta=$('#barCta');if(bag.length){cta.textContent='View cart · '+bagKg()+' kg'}else{cta.textContent='Order fresh atta';cta.setAttribute('href','#shop');delete cta.dataset.open}}
 
 /* Sign in (SMS code) */
 function renderSignIn(body,foot,onDone){
@@ -175,9 +178,9 @@ function renderSignIn(body,foot,onDone){
   var mob=$('#mob',body), btn=$('#siBtn',foot), stage=1, boxes=$$('.otp input',body);
   setTimeout(function(){mob.focus()},320);
   btn.addEventListener('click',function(){
-    if(stage===1){var v=mob.value.replace(/\D/g,'');if(v.length!==10||!/^[6-9]/.test(v)){$('#mobErr',body).textContent='Enter a 10-digit mobile number starting with 6, 7, 8 or 9.';mob.focus();return}
-      $('#mobErr',body).textContent='';stage=2;$('#si1',body).classList.remove('on');$('#si2',body).classList.add('on');$('#sentTo',body).textContent='Code sent to +91 '+v.slice(0,5)+' '+v.slice(5)+'.';btn.textContent='Verify and continue';setTimeout(function(){boxes[0].focus()},50)}
-    else{var code=boxes.map(function(b){return b.value}).join('');if(!/^\d{6}$/.test(code)){$('#otpErr',body).textContent='Enter all 6 digits of the code.';return}
+    if(stage===1){var v=mob.value.replace(/\D/g,'');if(v.length!==10||!/^[6-9]/.test(v)){showErr(mob,$('#mobErr',body),'Enter a 10-digit mobile number starting with 6, 7, 8 or 9.');mob.focus();return}
+      showErr(mob,$('#mobErr',body),'');stage=2;$('#si1',body).classList.remove('on');$('#si2',body).classList.add('on');$('#sentTo',body).textContent='Code sent to +91 '+v.slice(0,5)+' '+v.slice(5)+'.';btn.textContent='Verify and continue';setTimeout(function(){boxes[0].focus()},50)}
+    else{var code=boxes.map(function(b){return b.value}).join('');if(!/^\d{6}$/.test(code)){showErr(boxes[0],$('#otpErr',body),'Enter all 6 digits of the code.');return}
       user={mobile:mob.value.replace(/\D/g,'')};refreshAcct();onDone()}
   });
   boxes.forEach(function(b,i){
@@ -203,11 +206,11 @@ function renderAcct(){
 var NCR=['110','120','121','122','124','201'];
 $('#pinForm').addEventListener('submit',function(e){
   e.preventDefault(); var v=$('#pinIn').value.replace(/\D/g,''), res=$('#pinRes');
-  if(v.length!==6){$('#pinErr').textContent='Enter all 6 digits of your PIN code.';res.innerHTML='';return}
-  $('#pinErr').textContent='';
+  if(v.length!==6){showErr($('#pinIn'),$('#pinErr'),'Enter all 6 digits of your PIN code.');res.innerHTML='';$('#pinIn').focus();return}
+  showErr($('#pinIn'),$('#pinErr'),'');
   if(NCR.indexOf(v.slice(0,3))>-1){res.innerHTML='<div class="ok-msg"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 22px;margin-top:2px"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><div><b>Yes, we deliver to '+v+'.</b><br>Choose your atta and pick a delivery day at checkout.</div></div><a class="btn btn-solid btn-block" href="#shop" data-close style="margin-top:14px">Choose my atta</a>'}
   else{res.innerHTML='<div class="no-msg"><b>We do not deliver to '+v+' yet.</b><br>Leave your number and we will tell you when we do.</div><label class="field-label" for="notifyMob">Mobile number</label><input class="input" id="notifyMob" inputmode="numeric" maxlength="10" style="margin-top:10px"><label class="q-check" style="margin-top:6px"><input type="checkbox" id="notifyOk"> I agree to be contacted about delivery in my area.</label><button class="btn btn-solid btn-block" type="button" id="notifyBtn">Notify me</button><p class="err" id="notifyMsg"></p>';
-    $('#notifyBtn').addEventListener('click',function(){var m=$('#notifyMob').value.replace(/\D/g,'');if(m.length!==10){$('#notifyMsg').textContent='Enter a 10-digit mobile number.';return}if(!$('#notifyOk').checked){$('#notifyMsg').textContent='Please tick the box so we can contact you.';return}$('#notifyMsg').style.color='var(--forest-900)';$('#notifyMsg').textContent='Thank you. We will let you know. (Design sample: nothing was saved.)'})}
+    $('#notifyBtn').addEventListener('click',function(){var m=$('#notifyMob').value.replace(/\D/g,'');if(m.length!==10){showErr($('#notifyMob'),$('#notifyMsg'),'Enter a 10-digit mobile number.');return}if(!$('#notifyOk').checked){$('#notifyMsg').textContent='Please tick the box so we can contact you.';return}$('#notifyMsg').style.color='var(--forest-900)';$('#notifyMsg').textContent='Thank you. We will let you know. (Design sample: nothing was saved.)'})}
   bindClosers(res);
 });
 $('#pinIn').addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').slice(0,6)});
@@ -219,34 +222,34 @@ $('#locBtn').addEventListener('click',function(){
 
 /* Roti calculator */
 var calc={rotis:8,extra:15};
-var EXTRAS=[[15,'Sometimes'],[20,'Weekly'],[25,'Often'],[30,'Most days']];
+var EXTRAS=[[15,'Rarely'],[20,'Once a week'],[25,'A few times a week'],[30,'Most days']];
 var extEl=$('#extras');
-EXTRAS.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='chip';b.dataset.extra=x[0];b.innerHTML=x[1]+'<small>+'+x[0]+'%</small>';extEl.appendChild(b);b.addEventListener('click',function(){calc.extra=x[0];renderCalc()})});
+EXTRAS.forEach(function(x){var b=document.createElement('button');b.type='button';b.className='chip';b.dataset.extra=x[0];b.textContent=x[1];extEl.appendChild(b);b.addEventListener('click',function(){calc.extra=x[0];renderCalc()})});
 $('#rotMinus').addEventListener('click',function(){calc.rotis=Math.max(1,calc.rotis-1);renderCalc()});
 $('#rotPlus').addEventListener('click',function(){calc.rotis=Math.min(60,calc.rotis+1);renderCalc()});
 var shownKg=null;
 function animateNum(el,from,to){
-  if(reduce||from===null){el.textContent=to.toFixed(2);return}
-  var t0=performance.now(),dur=320;(function f(t){var p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=(from+(to-from)*e).toFixed(2);if(p<1)requestAnimationFrame(f)})(t0);
+  if(reduce||from===null){el.textContent=to.toFixed(1);return}
+  var t0=performance.now(),dur=320;(function f(t){var p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=(from+(to-from)*e).toFixed(1);if(p<1)requestAnimationFrame(f)})(t0);
 }
 function calcPlan(){var kg=calc.rotis*30*7*(1+calc.extra/100)/1000;var plan=[2,4,6,8].filter(function(p){return p>=kg})[0]||8;return {kg:kg,plan:plan,over:kg>8}}
 function renderCalc(){
   $$('[data-extra]').forEach(function(b){b.setAttribute('aria-pressed',+b.dataset.extra===calc.extra?'true':'false')});
-  $('#rotOut').innerHTML=calc.rotis+'<small>rotis a day</small>';
+  $('#rotOut').innerHTML=calc.rotis+'<small>'+(calc.rotis===1?'roti':'rotis')+' a day</small>';$('#rotMinus').disabled=calc.rotis<=1;$('#rotPlus').disabled=calc.rotis>=60;
   var r=calcPlan(); animateNum($('#kgOut'),shownKg,r.kg); shownKg=r.kg;
-  $('#kg4').textContent=(r.kg*4).toFixed(1);
+  $('#kg4').textContent=Math.round(r.kg*4);
   $('#usePlan').textContent='Choose '+r.plan+' kg every week';
-  $('#calcHow').textContent=calc.rotis+' rotis × 30 g × 7 days, plus '+calc.extra+'% for extras. One medium roti uses about 30 g of atta. This is an estimate.'+(r.over?' For more than 8 kg a week, call us and we will set it up.':'');
+  $('#calcHow').textContent=calc.rotis+' '+(calc.rotis===1?'roti':'rotis')+' × 30 g × 7 days, plus '+calc.extra+'% for parathas and pooris. One medium roti uses about 30 g of atta. This is an estimate.'+(r.over?' For more than 8 kg a week, call us and we will set it up.':'');
 }
 renderCalc();
-$('#usePlan').addEventListener('click',function(){var r=calcPlan();shop.mode='weekly';shop.kg=r.plan;renderShop();document.getElementById('shop').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(function(){veerSay('planSet',true)},700)});
+$('#usePlan').addEventListener('click',function(){var r=calcPlan();shop.mode='weekly';shop.kg=r.plan;renderShop();document.getElementById('shop').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(function(){veerSay('planSet')},700)});
 $$('[data-go="calc"]').forEach(function(b){b.addEventListener('click',function(){document.getElementById('calc').scrollIntoView({behavior:reduce?'auto':'smooth'})})});
 
 /* Help */
 var HELP=[
  {h:'Do you deliver to my area?',b:'We deliver with our own riders. Enter your PIN code to check. <button class="link-btn" type="button" data-open="pin">Check my PIN code</button>'},
  {h:'When will it reach me?',b:'You choose a delivery day at checkout, and it is confirmed before you pay. Your atta is milled the day before and delivered in the morning.'},
- {h:'How do I pay?',b:'Orders are paid from your Atulyash wallet. You add money with UPI, card or net banking at checkout.'},
+ {h:'How do I pay?',b:'You pay by UPI, card or net banking at checkout. The money goes into your Atulyash wallet and pays for the order.'},
  {h:'Is the weekly plan billed automatically?',b:'No. There is no automatic billing. Weekly deliveries are free.'},
  {h:'How should I store fresh atta?',b:'Keep it in a clean, dry, airtight container away from heat and sunlight, and use it within the week. That is why we deliver weekly.'},
  {h:'Will my rotis feel different?',b:'Atta with its chokar kept in has a little more texture and a fuller wheat taste. Most families adjust in a few days. If you are unsure, start with one 2 kg pack.'}
@@ -272,7 +275,7 @@ function openSheet(id,from){
   var s=document.getElementById(id); if(!s) return; lastFocus=from||document.activeElement; openId=id;
   if(id==='bag') renderBag(); if(id==='account') renderAcct();
   s.hidden=false; backdrop.hidden=false; document.body.classList.add('sheet-open'); document.body.style.overflow='hidden';
-  bar.classList.remove('show'); setBarH(); veer.classList.add('away');
+  bar.classList.remove('show'); setBarH();
   requestAnimationFrame(function(){requestAnimationFrame(function(){s.classList.add('open');backdrop.classList.add('open')})});
   setTimeout(function(){var f=s.querySelector('input,button:not([data-close]),a[href]');if(f&&id!=='bag'&&id!=='account')f.focus();else s.querySelector('[data-close]').focus()},60);
 }
@@ -282,7 +285,7 @@ function closeSheet(instant){
   document.body.classList.remove('sheet-open'); document.body.style.overflow='';
   var done=function(){s.hidden=true;s.classList.remove('closing');if(!openId)backdrop.hidden=true};
   if(instant||reduce) done(); else setTimeout(done,250);
-  if(!veerHidden) veer.classList.remove('away'); onScroll();
+  onScroll();
   if(lastFocus&&lastFocus.focus&&!instant) lastFocus.focus();
 }
 function bindClosers(root){$$('[data-close]',root).forEach(function(el){if(el._bc)return;el._bc=1;el.addEventListener('click',function(){closeSheet()})})}
@@ -303,71 +306,117 @@ $$('.sheet').forEach(function(s){
   s.addEventListener('touchend',function(){if(y0===null)return;var v=Math.abs(dy)/(Date.now()-t0);s.style.transition='';s.style.transform='';if(dy>120||(dy>24&&v>0.11))closeSheet();y0=null});
 });
 
-/* Veer companion */
-var veer=$('#veer'), bubble=$('#veerBubble'), vText=$('#veerText'), veerMe=$('#veerMe'), veerTab=$('#veerTab');
-var veerHidden=false, said={}, hideT=null;
-try{veerHidden=localStorage.getItem('atl-veer-hidden')==='1'}catch(e){}
-/* Frame set: every file shares one canvas size, scale and foot line */
-var FRAMES=['idle','blink','talk','wave','point','packet','roti','thumbs'], frameEl={}, pose='idle', blinkT=null, talkT=null;
-FRAMES.forEach(function(n){var im=document.createElement('img');im.className='frame';im.alt='';im.src='img/veer/'+n+'.webp';im.decoding='async';$('#veerFrames').appendChild(im);frameEl[n]=im});
-frameEl.idle.classList.add('on');
-function show(n,fade){FRAMES.forEach(function(k){var el=frameEl[k];el.classList.toggle('fade',!!fade&&!reduce);el.classList.toggle('on',k===n)})}
-function setPose(p){if(p===pose)return;pose=p;show(p,true)}
-function blinkLoop(){clearTimeout(blinkT);blinkT=setTimeout(function(){if(pose==='idle'&&!talkT&&!reduce){show('blink');setTimeout(function(){if(pose==='idle'&&!talkT)show('idle')},130)}blinkLoop()},2600+Math.random()*2600)}
-function talk(ms){if(reduce||pose!=='idle')return;var t0=Date.now(),open=false;clearInterval(talkT);talkT=setInterval(function(){if(Date.now()-t0>ms||pose!=='idle'){clearInterval(talkT);talkT=null;if(pose==='idle')show('idle');return}open=!open;show(open?'talk':'idle')},150)}
-blinkLoop();
+/* Veer appears five or six times down the page, each time in a space kept free for him:
+   leaning or lying on top of a card, hanging under one, peeking up from behind one, or
+   leaning in from the screen edge. He never sits over text, pictures or controls.
+   Every pose is drawn at one scale (u = one hundredth of his head width), so he is the same size every time. */
+var CAMEO_CSS='.cameo{--u:.46px;--cw:calc(var(--w) * var(--u));--ch:calc(var(--h) * var(--u));position:relative;height:max(112px,calc(var(--ch) + 10px));overflow:hidden;pointer-events:none}'+
+ '.cameo.side{margin-left:calc(-1 * var(--cameo-bleed,0px));margin-right:calc(-1 * var(--cameo-bleed,0px))}'+
+ '.cameo-veer{position:absolute;bottom:0;width:var(--cw);height:var(--ch);padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;transform:translateY(105%);transition:transform 640ms cubic-bezier(.34,1.45,.64,1)}'+
+ '.cameo-veer img{position:absolute;inset:0;width:100%;height:100%;opacity:0}'+
+ '.cameo-veer img.on{opacity:1}'+
+ '.cameo[data-at="left"] .cameo-veer{left:var(--cameo-x,16px)}.cameo[data-at="right"] .cameo-veer{right:var(--cameo-x,16px)}'+
+ '.cameo.top .cameo-veer{bottom:auto;top:0;transform:translateY(-105%)}'+
+ '.cameo.side .cameo-veer{transition-timing-function:cubic-bezier(.23,1,.32,1);transition-duration:720ms}'+
+ '.cameo.side[data-at="left"] .cameo-veer{left:0;transform:translateX(-105%) rotate(-12deg);transform-origin:left bottom}'+
+ '.cameo.side[data-at="right"] .cameo-veer{right:0;transform:translateX(105%) rotate(12deg);transform-origin:right bottom}'+
+ '.cameo.peek .cameo-veer{transform:none}'+
+ '.cameo.in .cameo-veer,.cameo.side.in[data-at] .cameo-veer{transform:none}'+
+ '.cameo-veer.hop{animation:cameoHop 460ms cubic-bezier(.23,1,.32,1)}'+
+ '@keyframes cameoHop{0%{translate:0 0}35%{translate:0 -8px}70%{translate:0 2px}100%{translate:0 0}}'+
+ '.cameo-say{position:absolute;top:50%;margin:0;width:max-content;max-width:min(320px,calc(100% - var(--cw) - var(--cameo-x,16px) - 30px));padding:10px 14px;border-radius:16px;background:var(--cameo-bg,#11372e);color:var(--cameo-ink,#fffdf8);font-size:16px;line-height:1.4;opacity:0;transform:translateY(-50%) scale(.92);transition:opacity 240ms ease,transform 320ms cubic-bezier(.23,1,.32,1)}'+
+ '.cameo-say::after{content:"";position:absolute;top:50%;width:12px;height:12px;background:inherit;transform:translateY(-50%) rotate(45deg)}'+
+ '.cameo.side .cameo-say{max-width:min(320px,calc(100% - var(--cw) - 40px))}'+
+ '.cameo[data-at="left"] .cameo-say{left:calc(var(--cameo-x,16px) + var(--cw) + 14px)}.cameo[data-at="left"] .cameo-say::after{left:-5px}'+
+ '.cameo[data-at="right"] .cameo-say{right:calc(var(--cameo-x,16px) + var(--cw) + 14px)}.cameo[data-at="right"] .cameo-say::after{right:-5px}'+
+ '.cameo.side[data-at="left"] .cameo-say{left:calc(var(--cw) + 14px)}.cameo.side[data-at="right"] .cameo-say{right:calc(var(--cw) + 14px)}'+
+ '.cameo.talking .cameo-say{opacity:1;transform:translateY(-50%)}'+
+ '@media (max-width:599px){.cameo.wide{height:calc(var(--ch) + 84px)}.cameo.wide .cameo-say{top:6px;left:var(--cameo-x,16px)!important;right:auto!important;max-width:calc(100% - 2 * var(--cameo-x,16px));transform:scale(.92);transform-origin:left bottom}.cameo.wide.talking .cameo-say{transform:none}.cameo.wide .cameo-say::after{top:auto;bottom:-5px;left:40px!important;right:auto!important;transform:rotate(45deg)}}'+
+ '@media (min-width:900px){.cameo{--u:.56px}}'+
+ '@media (prefers-reduced-motion:reduce){.cameo-veer,.cameo-say{transition:none!important}.cameo-veer.hop{animation:none}}';
+var cst=document.createElement('style'); cst.textContent=CAMEO_CSS; document.head.appendChild(cst);
+/* w and h are each pose's size in head-width units; frames of one pose share one canvas */
+var POSES=Object.assign({
+  lean:{w:194,h:182,frames:['lean','lean-blink','lean-talk'],blink:'lean-blink',talk:'lean-talk'},
+  peek:{w:233,h:186,frames:['peek-up','peek-up-wave'],then:'peek-up-wave'},
+  lie:{w:416,h:177,frames:['lie','lie-kick'],loop:'lie-kick'},
+  hang:{w:227,h:516,top:true,frames:['hang','hang-swing'],loop:'hang-swing'},
+  'side-left':{w:140,h:227,side:'left',frames:['peek-left']},
+  'side-right':{w:131,h:203,side:'right',frames:['peek-right']}
+},window.ATL_POSES||{});
 var LINES=Object.assign({
-  hero:['wave','Namaste! I am Veer. I will walk with you. Tap me any time.'],
-  habit:['point','Pick when you bought your bag. I am curious too.'],
-  habitPick:['idle','See the difference? Fresh atta should be counted in days.'],
-  questions:['packet','Bring your packet from the kitchen. Let us see what it tells you.'],
-  way:['point','This is how every bag of ours is made, one step at a time.'],
-  asha:['idle','Dr. Asha explains this far better than I can. The films are short.'],
-  shop:['point','Not sure how much? The roti calculator just below works it out.'],
-  calc:['idle','Count everyone at home, even the little ones.'],
-  help:['idle','Still unsure? Call or WhatsApp us. We are happy to help.'],
-  start:['roti','Fresh atta, soft rotis. Shall we begin?'],
-  added:['thumbs','Added to your bag. Open the bag when you are ready.'],
-  planSet:['thumbs','I have set your plan. Check it and add it to your bag.'],
-  ordered:['thumbs','Wonderful. Your atta will be milled fresh for you.']
+  habit:'Be honest. I will not tell anyone.',
+  habitPick:'See? Fresh atta is counted in days.',
+  questions:'No packet near you? Just read along.',
+  way:'Psst. This is how every pack is made.',
+  asha:'Dr. Asha explains it best. The films are short.',
+  calc:'Count everyone at home, even the little ones.',
+  help:'Still unsure? Call or WhatsApp us.',
+  added:'Added to your cart.',
+  planSet:'Plan set. Now add it to your cart.'
 },window.ATL_LINES||{});
-/* Tips Veer offers when tapped, after the line for the section you are in */
 var TIPS=window.ATL_TIPS||[
-  'Tap Bag at the top to see what you have chosen.',
-  'Weekly deliveries are free, and there is no automatic billing.',
+  'Tap Cart at the top to see your order.',
+  'Weekly delivery is free. No automatic billing.',
   'Your delivery date is confirmed before you pay.',
-  'Questions? WhatsApp us on +91 98185 88996.'
+  'WhatsApp us on +91 98185 88996.'
 ], tipI=0;
-function veerSay(key,force,text,poseName){
-  if(veerHidden||openId) return;
-  if(!text){ if(said[key]&&!force) return; var l=LINES[key]; if(!l) return; said[key]=1; poseName=l[0]; text=l[1] }
-  vText.textContent=text; setPose(poseName||'idle'); bubble.classList.add('show'); shownAt=Date.now();
-  if(pose==='idle') talk(Math.min(2400,600+text.length*25));
-  if(!reduce&&pose!=='idle'){veerMe.classList.remove('hop');void veerMe.offsetWidth;veerMe.classList.add('hop')}
-  clearTimeout(hideT); hideT=setTimeout(hideBubble,Math.max(6000,text.length*90));
-}
-function hideBubble(){clearTimeout(hideT);bubble.classList.remove('show');setTimeout(function(){if(!bubble.classList.contains('show'))setPose('idle')},300)}
-/* Tapping the bubble closes it; tapping elsewhere also tucks it away so it never blocks a control */
-bubble.addEventListener('click',function(e){if(!e.target.closest('#veerHide'))hideBubble()});
-document.addEventListener('pointerdown',function(e){if(bubble.classList.contains('show')&&!e.target.closest('.veer')&&Date.now()-shownAt>600)hideBubble()},true);
-function applyVeer(){veer.classList.toggle('away',veerHidden);veerTab.classList.toggle('show',veerHidden);document.body.classList.toggle('veer-off',veerHidden)}
-applyVeer();
-$('#veerHide').addEventListener('click',function(){hideBubble();veerHidden=true;try{localStorage.setItem('atl-veer-hidden','1')}catch(e){}applyVeer()});
-veerTab.addEventListener('click',function(){veerHidden=false;try{localStorage.removeItem('atl-veer-hidden')}catch(e){}applyVeer();said={};veerSay('hero',true)});
-/* A tap always gets an answer: the line for this section first, then useful tips in turn */
-var lastTapKey=null;
-veerMe.addEventListener('click',function(){
-  var l=LINES[current];
-  if(l&&lastTapKey!==current){lastTapKey=current;veerSay(current,true);return}
-  veerSay(null,true,TIPS[tipI++%TIPS.length],'idle');
+var cameos=$$('.cameo[data-cameo]').map(function(el){
+  var pose=POSES[el.dataset.pose]||POSES.lean, key=el.dataset.cameo;
+  if(pose.side){el.classList.add('side');el.dataset.at=pose.side}
+  if(pose.top) el.classList.add('top');
+  if(pose.w>=300) el.classList.add('wide');
+  el.style.setProperty('--w',pose.w); el.style.setProperty('--h',pose.h);
+  var btn=document.createElement('button'); btn.type='button'; btn.className='cameo-veer'; btn.setAttribute('aria-label','Veer. Tap for a tip.');
+  var imgs={}; pose.frames.forEach(function(n,i){var im=document.createElement('img');im.alt='';im.src='img/veer/'+n+'.webp';im.decoding='async';if(!i)im.classList.add('on');btn.appendChild(im);imgs[n]=im});
+  var say=document.createElement('p'); say.className='cameo-say'; say.textContent=LINES[key]||'';
+  el.appendChild(btn); el.appendChild(say);
+  var c={el:el,btn:btn,say:say,pose:pose,imgs:imgs,key:key,t:[],blinkT:null,talkT:null,loopT:null};
+  btn.addEventListener('click',function(){
+    if(!el.classList.contains('in')) enter(c);
+    say.textContent=c.tapped||!LINES[key]?TIPS[tipI++%TIPS.length]:LINES[key]; c.tapped=true;
+    el.classList.add('talking'); hop(c); talk(c);
+  });
+  return c;
 });
-/* Veer stays with you the whole way. When you reach a new section he says its line once, shortly after you arrive */
-var current='hero', sayT=null, shownAt=0;
-if('IntersectionObserver' in window){
-  var vio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.target.dataset.veer!==current){current=e.target.dataset.veer;lastTapKey=null;clearTimeout(sayT);sayT=setTimeout(function(){veerSay(current)},700)}})},{threshold:0,rootMargin:'-40% 0px -40% 0px'});
-  $$('[data-veer]').forEach(function(s){vio.observe(s)});
+function base(c){return c.el.classList.contains('in')&&c.pose.then?c.pose.then:c.pose.frames[0]}
+function frame(c,n){Object.keys(c.imgs).forEach(function(k){c.imgs[k].classList.toggle('on',k===n)})}
+function hop(c){if(reduce)return;c.btn.classList.remove('hop');void c.btn.offsetWidth;c.btn.classList.add('hop')}
+function talk(c){var t=c.pose.talk;if(!t||reduce)return;var n=0;clearInterval(c.talkT);c.talkT=setInterval(function(){n++;frame(c,n%2?t:base(c));if(n>9){clearInterval(c.talkT);c.talkT=null;frame(c,base(c))}},150)}
+function blinkLoop(c){var b=c.pose.blink;if(!b||reduce)return;clearTimeout(c.blinkT);c.blinkT=setTimeout(function(){if(!c.talkT){frame(c,b);setTimeout(function(){if(!c.talkT)frame(c,base(c))},140)}blinkLoop(c)},2400+Math.random()*2600)}
+/* Swinging legs or kicking feet: two frames, an unhurried beat */
+function legLoop(c){var l=c.pose.loop;if(!l||reduce)return;var on=false;clearInterval(c.loopT);c.loopT=setInterval(function(){on=!on;frame(c,on?l:c.pose.frames[0])},620)}
+function enter(c){
+  var el=c.el; c.t.forEach(clearTimeout); c.t=[];
+  if(reduce){el.classList.add('in','talking');frame(c,base(c));return}
+  if(c.pose.then){ /* rises just far enough to peek over the edge, then pops up and waves */
+    el.classList.add('peek');
+    c.t.push(setTimeout(function(){el.classList.remove('peek');el.classList.add('in');frame(c,c.pose.then);hop(c)},1300));
+    c.t.push(setTimeout(function(){el.classList.add('talking')},1700));
+  } else {
+    c.t.push(setTimeout(function(){el.classList.add('in')},60));
+    c.t.push(setTimeout(function(){el.classList.add('talking');talk(c);legLoop(c)},640));
+  }
+  blinkLoop(c);
 }
-setTimeout(function(){if(window.scrollY<200)veerSay('hero')},1200);
+/* Out of view he ducks back, so he can surprise you again on the way back up */
+function leave(c){var el=c.el;c.t.forEach(clearTimeout);c.t=[];clearTimeout(c.blinkT);clearInterval(c.talkT);clearInterval(c.loopT);c.talkT=null;
+  el.style.setProperty('transition','none');el.classList.remove('in','peek','talking');frame(c,c.pose.frames[0]);c.tapped=false;
+  if(LINES[c.key])c.say.textContent=LINES[c.key];void el.offsetWidth;el.style.removeProperty('transition')}
+if('IntersectionObserver' in window){
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){var c=cameos.filter(function(x){return x.el===e.target})[0];if(!c)return;
+    if(e.isIntersecting&&e.intersectionRatio>=.85){if(!c.el.classList.contains('in')&&!c.el.classList.contains('peek'))enter(c)}
+    else if(!e.isIntersecting){leave(c)}})},{threshold:[0,.85]});
+  cameos.forEach(function(c){cio.observe(c.el)});
+} else cameos.forEach(enter);
+/* After you do something (pick an answer, add to cart, set a plan), the Veer in view answers */
+function veerSay(key){
+  var line=LINES[key]; if(!line) return; var vh=window.innerHeight;
+  var c=cameos.filter(function(x){var r=x.el.getBoundingClientRect();return r.top>=0&&r.bottom<=vh})[0];
+  if(!c) return; if(!c.el.classList.contains('in')) enter(c);
+  c.say.textContent=line; c.el.classList.add('talking'); hop(c); talk(c);
+}
+
 
 onScroll();
 })();
