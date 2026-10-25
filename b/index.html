@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<title>Atulyash Batch Ticket</title>
+<title>Atulyash Mill Label</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -280,7 +280,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .done-mark{width:64px;height:64px;border-radius:50%;border:3px solid var(--forest);color:var(--forest);display:flex;align-items:center;justify-content:center}
 .done-mark svg{width:30px;height:30px}
 .veer{position:fixed;right:max(10px, env(safe-area-inset-right,0px));bottom:calc(var(--bar-h) + 12px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:flex-end;gap:6px;pointer-events:none;transition:bottom 380ms var(--ease-drawer),transform 380ms var(--ease-drawer),opacity 240ms ease}
-.veer.away,.veer.dodge{transform:translateX(130%);opacity:0}
+.veer.away{transform:translateX(130%);opacity:0}
 .veer-bubble{pointer-events:auto;max-width:min(220px, calc(100vw - 124px));padding:10px 12px;border-radius:6px;background:var(--card);color:var(--ink);border:2px solid var(--forest);font-size:15px;line-height:1.4;box-shadow:0 10px 26px rgba(22,38,31,.18);transform-origin:bottom right;opacity:0;transform:scale(.94) translateY(6px);transition:opacity 220ms var(--ease-out),transform 260ms var(--ease-out);margin-bottom:24px}
 .veer-bubble.show{opacity:1;transform:none}
 .veer-bubble button{display:block;margin-top:4px;padding:0;min-height:32px;background:none;border:0;color:var(--stamp);font-size:14px;font-weight:700;text-decoration:underline;cursor:pointer}
@@ -299,6 +299,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rv{transition:transform 700ms var(--ease-out)}
 .rv.pre{transform:translateY(22px)}
 
+/* Phone: Veer lives at the left end of the bottom bar and talks from there, so he never covers the page or slides away */
+@media (max-width:899px){
+  .veer{left:var(--gutter-l);right:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 4px);flex-direction:column;align-items:flex-start;gap:8px}
+  .veer-me{width:66px;height:72px}
+  .veer-me::before{display:none}
+  .veer-bubble{max-width:min(300px, calc(100vw - 40px));margin-bottom:0;transform-origin:bottom left;font-size:16px}
+  .bar{padding-left:calc(var(--gutter-l) + 74px)}
+  body.veer-off .bar{padding-left:var(--gutter-l)}
+}
 @media (min-width:900px){
   body{font-size:19px}
   .wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}
@@ -359,7 +368,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="wrap hdr-in">
     <a class="hdr-logo" href="#top" aria-label="Atulyash home"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"></a>
     <nav class="hdr-nav" aria-label="Main">
-      <a href="#habit">The date</a><a href="#questions">Read your packet</a><a href="#way">The stone</a><a href="#asha">Dr. Asha</a><a href="#shop">Shop</a>
+      <a href="#habit">Why fresh</a><a href="#questions">Ask what matters</a><a href="#way">Our way</a><a href="#asha">Dr. Asha</a><a href="#shop">Shop</a>
     </nav>
     <div class="hdr-tools">
       <button class="icon-btn hide-sm" type="button" data-open="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span id="acctLabel">Sign in</span></button>
@@ -375,15 +384,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="wrap hero-in">
     <div>
       <p class="label">Atta deserves respect</p>
-      <h1 id="h-hero">Every bag of atta was milled on a date. Do you know yours?</h1>
-      <p class="lede">Ours is milled slowly on natural stone, the day before it reaches your door. Every week.</p>
+      <h1 id="h-hero">When was your atta milled? Most packets never say.</h1>
+      <p class="lede">Ours is milled slowly on natural stone the day before it reaches your door. Fresh, every week.</p>
       <div class="hero-ctas">
-        <a class="btn btn-solid" href="#shop">Fill your batch ticket</a>
+        <a class="btn btn-solid" href="#shop">See packs and prices</a>
         <button class="btn btn-line" type="button" data-open="pin">Check delivery to my area</button>
       </div>
     </div>
-    <div class="ticket" aria-label="What every Atulyash batch tells you">
-      <div class="ticket-hd"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"><span class="label">Batch ticket</span></div>
+    <div class="ticket" aria-label="What goes into every Atulyash pack">
+      <div class="ticket-hd"><img src="img/wordmark.webp" alt="Atulyash" width="600" height="147"><span class="label">In every pack</span></div>
       <ul class="ticket-rows print">
         <li><span class="k">Wheat</span><span class="v">MP Sharbati, one origin</span></li>
         <li><span class="k">Cleaned</span><span class="v">In several stages</span></li>
@@ -425,9 +434,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <section class="sec" id="questions" data-veer="questions" aria-labelledby="h-q" style="padding-top:24px">
   <div class="wrap q-wrap">
     <div class="rv">
-      <p class="label">Read your packet</p>
+      <p class="label">Ask what matters</p>
       <h2 id="h-q" style="margin-top:12px">Before you buy atta, ask what matters.</h2>
-      <p class="lede" style="margin-top:16px">Hold your packet next to our ticket. Open each line and tick the ones your packet answers.</p>
+      <p class="lede" style="margin-top:16px">Bring the packet from your kitchen. Open each question and tick the ones your packet answers.</p>
       <div class="tally" aria-live="polite">
         <span class="tally-stamp" id="tallyStamp">Your packet<strong id="tally">0 of 6</strong>answered</span>
         <a class="btn btn-solid btn-sm" href="#way">How we answer</a>
@@ -499,7 +508,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <div class="wrap shop-grid">
     <div class="shop-left">
       <p class="label">Atulyash Whole Wheat Atta</p>
-      <h2 id="h-shop" style="margin-top:12px">Fill your batch ticket.</h2>
+      <h2 id="h-shop" style="margin-top:12px">Choose your atta.</h2>
       <p class="muted" style="margin-top:12px">100% MP Sharbati, slow-milled on natural stone, chokar kept in. Nothing added.</p>
       <div class="shop-pack"><img src="img/pack.webp" alt="Atulyash Whole Wheat Atta pack" width="900" height="1334" loading="lazy"></div>
     </div>
@@ -515,7 +524,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <button class="link-btn" type="button" data-go="calc">Not sure? Work it out from your rotis</button>
 
       <div class="ticket order-ticket" aria-live="polite">
-        <div class="ticket-hd"><span class="label">Your batch</span><span class="label" id="tkMode">Weekly</span></div>
+        <div class="ticket-hd"><span class="label">Your order</span><span class="label" id="tkMode">Weekly</span></div>
         <ul class="ticket-rows">
           <li><span class="k">Atta</span><span class="v" id="tkKg">2 kg, every week</span></li>
           <li><span class="k">Milled</span><span class="v">The day before your delivery</span></li>
@@ -555,7 +564,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <section class="sec-tight" id="app" aria-labelledby="h-app">
   <div class="wrap app-row">
     <div><p class="label">Coming soon on Android and iOS</p><h2 id="h-app" style="font-size:clamp(28px,6vw,38px);margin-top:10px">The Atulyash app</h2><p class="muted" style="margin-top:8px">Every weekly delivery, in one place.</p></div>
-    <ul class="app-list"><li><b>Plan</b>See what is coming.</li><li><b>Adjust</b>Change an eligible delivery.</li><li><b>Track</b>Follow each fresh batch.</li></ul>
+    <ul class="app-list"><li><b>Plan</b>See what is coming.</li><li><b>Adjust</b>Change an eligible delivery.</li><li><b>Track</b>Follow each delivery.</li></ul>
   </div>
 </section>
 
@@ -579,7 +588,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <p class="label">Experience Atulyash</p>
       <h2 id="h-start" style="margin-top:12px">Bring home atta in its purest form.</h2>
       <p class="lede" style="margin-top:14px">Milled fresh and delivered every week, so it reaches you close to when it is eaten.</p>
-      <div class="hero-ctas"><button class="btn btn-solid" type="button" data-quick="once">Start with one fresh 2 kg batch</button><button class="btn btn-line" type="button" data-quick="weekly">Get it every week</button></div>
+      <div class="hero-ctas"><button class="btn btn-solid" type="button" data-quick="once">Start with one fresh 2 kg pack</button><button class="btn btn-line" type="button" data-quick="weekly">Get it every week</button></div>
     </div>
     <img src="img/veer-roti.webp" alt="Veer holding a fresh roti" width="520" height="932" loading="lazy">
   </div>
@@ -661,12 +670,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div>
 
 <script>
-/* Design B hooks for the shared script: the order ticket mirrors the choices, the tally thumps like a stamp */
+/* Design B hooks for the shared script: the order card mirrors the choices, the tally thumps like a stamp */
 window.ATL_LINES={
-  hero:['wave','Namaste! I am Veer. Every batch of ours comes with a ticket like this.'],
-  questions:['packet','Hold your packet next to our ticket. What does yours say?'],
+  hero:['wave','Namaste! I am Veer. This card shows what goes into every pack of ours.'],
+  questions:['packet','Get the packet from your kitchen. What does it tell you?'],
   way:['point','Keep scrolling and watch the stone turn. Slowly, always.'],
-  shop:['point','Fill in your ticket. I will check it with you.']
+  shop:['point','Pick weekly or just once, then how much. Your order shows below.']
 };
 window.ATL_onShop=function(s){
   var m=document.getElementById('tkMode'), k=document.getElementById('tkKg');

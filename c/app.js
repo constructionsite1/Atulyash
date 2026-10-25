@@ -8,12 +8,11 @@ var KG_PRICE=120;
 /* Image fallbacks (Veer poses) */
 $$('img[data-fallback]').forEach(function(img){img.addEventListener('error',function(){if(img.dataset.fallback&&img.src.indexOf(img.dataset.fallback)<0){img.src=img.dataset.fallback}},{once:true})});
 
-/* Header border on scroll, bottom bar after hero */
+/* Header border on scroll; the phone bottom bar stays put (Veer lives in it) */
 var hdr=$('#hdr'), bar=$('#bar'), hero=$('.hero'), shopSec=$('#shop');
 function onScroll(){
   hdr.classList.toggle('scrolled',window.scrollY>8);
-  var sr=shopSec.getBoundingClientRect(), inShop=sr.top<window.innerHeight*0.6&&sr.bottom>window.innerHeight*0.4;
-  var show=hero.getBoundingClientRect().bottom<80 && !inShop && !document.body.classList.contains('sheet-open');
+  var show=!document.body.classList.contains('sheet-open');
   if(bar.classList.contains('show')!==show){bar.classList.toggle('show',show);setBarH()}
   drawPath();
 }
@@ -332,56 +331,43 @@ var LINES=Object.assign({
   planSet:['thumbs','I have set your plan. Check it and add it to your bag.'],
   ordered:['thumbs','Wonderful. Your atta will be milled fresh for you.']
 },window.ATL_LINES||{});
-/* True when the bubble would sit on a button, link or field; the line then waits for the next pause */
-function bubbleBlocked(){
-  var r=bubble.getBoundingClientRect(), pts=[];
-  for(var x=0;x<=4;x++)for(var y=0;y<=2;y++)pts.push([r.left+4+(r.width-8)*x/4,r.top+4+(r.height-8)*y/2]);
-  bubble.style.visibility='hidden';
-  var hit=pts.some(function(p){var el=document.elementFromPoint(p[0],p[1]);return el&&!el.closest('.veer,.bar')&&el.closest('button,a,input,label,summary,select,textarea,[role=button]')});
-  bubble.style.visibility='';
-  return hit;
+/* Tips Veer offers when tapped, after the line for the section you are in */
+var TIPS=window.ATL_TIPS||[
+  'Tap Bag at the top to see what you have chosen.',
+  'Weekly deliveries are free, and there is no automatic billing.',
+  'Your delivery date is confirmed before you pay.',
+  'Questions? WhatsApp us on +91 98185 88996.'
+], tipI=0;
+function veerSay(key,force,text,poseName){
+  if(veerHidden||openId) return;
+  if(!text){ if(said[key]&&!force) return; var l=LINES[key]; if(!l) return; said[key]=1; poseName=l[0]; text=l[1] }
+  vText.textContent=text; setPose(poseName||'idle'); bubble.classList.add('show'); shownAt=Date.now();
+  if(pose==='idle') talk(Math.min(2400,600+text.length*25));
+  if(!reduce&&pose!=='idle'){veerMe.classList.remove('hop');void veerMe.offsetWidth;veerMe.classList.add('hop')}
+  clearTimeout(hideT); hideT=setTimeout(hideBubble,Math.max(6000,text.length*90));
 }
-function veerSay(key,force){
-  if(veerHidden) return; if(said[key]&&!force) return; var l=LINES[key]; if(!l) return;
-  vText.textContent=l[1]; if(!force&&bubbleBlocked()) return; said[key]=1;
-  setPose(l[0]); bubble.classList.add('show'); shownAt=Date.now();
-  if(l[0]==='idle') talk(1400);
-  if(!reduce&&l[0]!=='idle'){veerMe.classList.remove('hop');void veerMe.offsetWidth;veerMe.classList.add('hop')}
-  clearTimeout(hideT); hideT=setTimeout(function(){bubble.classList.remove('show');setTimeout(function(){setPose('idle')},300)},5000);
-}
-/* Any tap elsewhere tucks the bubble away, so it never blocks a control */
-document.addEventListener('pointerdown',function(e){if(bubble.classList.contains('show')&&!e.target.closest('.veer')&&Date.now()-shownAt>300)bubble.classList.remove('show')},true);
-function applyVeer(){veer.classList.toggle('away',veerHidden);veerTab.classList.toggle('show',veerHidden)}
+function hideBubble(){clearTimeout(hideT);bubble.classList.remove('show');setTimeout(function(){if(!bubble.classList.contains('show'))setPose('idle')},300)}
+/* Tapping the bubble closes it; tapping elsewhere also tucks it away so it never blocks a control */
+bubble.addEventListener('click',function(e){if(!e.target.closest('#veerHide'))hideBubble()});
+document.addEventListener('pointerdown',function(e){if(bubble.classList.contains('show')&&!e.target.closest('.veer')&&Date.now()-shownAt>600)hideBubble()},true);
+function applyVeer(){veer.classList.toggle('away',veerHidden);veerTab.classList.toggle('show',veerHidden);document.body.classList.toggle('veer-off',veerHidden)}
 applyVeer();
-$('#veerHide').addEventListener('click',function(){veerHidden=true;bubble.classList.remove('show');try{localStorage.setItem('atl-veer-hidden','1')}catch(e){}applyVeer()});
-veerTab.addEventListener('click',function(){veerHidden=false;try{localStorage.removeItem('atl-veer-hidden')}catch(e){}applyVeer();said={};veerSay('hero')});
+$('#veerHide').addEventListener('click',function(){hideBubble();veerHidden=true;try{localStorage.setItem('atl-veer-hidden','1')}catch(e){}applyVeer()});
+veerTab.addEventListener('click',function(){veerHidden=false;try{localStorage.removeItem('atl-veer-hidden')}catch(e){}applyVeer();said={};veerSay('hero',true)});
+/* A tap always gets an answer: the line for this section first, then useful tips in turn */
+var lastTapKey=null;
 veerMe.addEventListener('click',function(){
-  if(bubble.classList.contains('show')){bubble.classList.remove('show');return}
-  var cur=current||'hero'; veerSay(cur,true);
+  var l=LINES[current];
+  if(l&&lastTapKey!==current){lastTapKey=current;veerSay(current,true);return}
+  veerSay(null,true,TIPS[tipI++%TIPS.length],'idle');
 });
-/* Veer only talks when you pause; scrolling again tucks the bubble away so it never sits on what you are reading */
-var current='hero', idleT=null, shownAt=0;
+/* Veer stays with you the whole way. When you reach a new section he says its line once, shortly after you arrive */
+var current='hero', sayT=null, shownAt=0;
 if('IntersectionObserver' in window){
-  var vio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){current=e.target.dataset.veer}})},{threshold:0,rootMargin:'-45% 0px -45% 0px'});
+  var vio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.target.dataset.veer!==current){current=e.target.dataset.veer;lastTapKey=null;clearTimeout(sayT);sayT=setTimeout(function(){veerSay(current)},700)}})},{threshold:0,rootMargin:'-40% 0px -40% 0px'});
   $$('[data-veer]').forEach(function(s){vio.observe(s)});
 }
-/* Veer steps aside when a button or link sits under him, and comes back once it scrolls away */
-var dodgeT=null, home=null;
-function dodge(){
-  /* measure where Veer stands when he is in place, since a dodged Veer is off screen */
-  if(!/\b(dodge|away|inscene)\b/.test(veer.className)) home=veerMe.getBoundingClientRect();
-  var r=home; if(!r||!r.width) return;
-  veer.style.visibility='hidden';
-  var hit=[[.3,.4],[.7,.4],[.5,.8]].some(function(p){var el=document.elementFromPoint(r.left+r.width*p[0],r.top+r.height*p[1]);return el&&!el.closest('.bar')&&el.closest('button,a,input,label,summary,select,textarea')});
-  veer.style.visibility='';
-  veer.classList.toggle('dodge',hit);
-}
-window.addEventListener('scroll',function(){
-  if(bubble.classList.contains('show')&&Date.now()-shownAt>900){bubble.classList.remove('show')}
-  clearTimeout(idleT); idleT=setTimeout(function(){if(!openId)veerSay(current)},900);
-  clearTimeout(dodgeT); dodgeT=setTimeout(dodge,120);
-},{passive:true});
-setTimeout(function(){if(window.scrollY<200)veerSay('hero')},1400);
+setTimeout(function(){if(window.scrollY<200)veerSay('hero')},1200);
 
 onScroll();
 })();

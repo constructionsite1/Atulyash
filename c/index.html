@@ -271,8 +271,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .done-mark{width:64px;height:64px;border-radius:50%;background:var(--forest);color:var(--card);display:flex;align-items:center;justify-content:center}
 .done-mark svg{width:30px;height:30px}
 .veer{position:fixed;right:max(10px, env(safe-area-inset-right,0px));bottom:calc(var(--bar-h) + 12px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;align-items:flex-end;gap:6px;pointer-events:none;transition:bottom 380ms var(--ease-drawer),transform 380ms var(--ease-drawer),opacity 240ms ease}
-.veer.away,.veer.inscene,.veer.dodge{transform:translateX(130%);opacity:0}
-.veer.inscene *{pointer-events:none!important}
+.veer.away{transform:translateX(130%);opacity:0}
 .veer-bubble{pointer-events:auto;max-width:min(220px, calc(100vw - 124px));padding:10px 14px;border-radius:18px 18px 4px 18px;background:var(--card);color:var(--ink);font-size:15px;line-height:1.4;box-shadow:0 10px 26px rgba(31,42,36,.18);transform-origin:bottom right;opacity:0;transform:scale(.94) translateY(6px);transition:opacity 220ms var(--ease-out),transform 260ms var(--ease-out);margin-bottom:24px}
 .veer-bubble.show{opacity:1;transform:none}
 .veer-bubble button{display:block;margin-top:4px;padding:0;min-height:32px;background:none;border:0;color:var(--terra);font-size:14px;font-weight:800;text-decoration:underline;cursor:pointer}
@@ -290,6 +289,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rv{transition:transform 700ms var(--ease-out)}
 .rv.pre{transform:translateY(22px)}
 
+/* Phone: Veer lives at the left end of the bottom bar and talks from there, so he never covers the page or slides away */
+@media (max-width:899px){
+  .veer{left:var(--gutter-l);right:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 4px);flex-direction:column;align-items:flex-start;gap:8px}
+  .veer-me{width:66px;height:72px}
+  .veer-me::before{display:none}
+  .veer-bubble{max-width:min(300px, calc(100vw - 40px));margin-bottom:0;transform-origin:bottom left;font-size:16px}
+  .bar{padding-left:calc(var(--gutter-l) + 74px)}
+  body.veer-off .bar{padding-left:var(--gutter-l)}
+}
 @media (min-width:900px){
   body{font-size:19px}
   .wrap{padding-left:max(48px, env(safe-area-inset-left,0px));padding-right:max(48px, env(safe-area-inset-right,0px))}
@@ -642,21 +650,18 @@ window.ATL_LINES={
 </script>
 <script src="app.js"></script>
 <script>
-/* Chapter progress, gentle zoom on each scene, and Veer steps aside while he is already in the picture */
+/* Chapter progress and a gentle zoom on each scene */
 (function(){
   var chapters=[].slice.call(document.querySelectorAll('[data-chapter]')), name=document.getElementById('progName'), bar=document.getElementById('progBar');
-  var scenes=[].slice.call(document.querySelectorAll('.scene')), veer=document.getElementById('veer');
+  var scenes=[].slice.call(document.querySelectorAll('.scene'));
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, ticking=false, last=-1;
   function upd(){
     ticking=false; var vh=innerHeight, idx=0;
     chapters.forEach(function(c,i){if(c.getBoundingClientRect().top<vh*0.45)idx=i});
     if(idx!==last){last=idx;name.innerHTML='<b>'+(idx+1)+' of '+chapters.length+'</b> · '+chapters[idx].getAttribute('data-chapter')}
     var max=document.documentElement.scrollHeight-vh; bar.style.setProperty('--p',max>0?Math.min(1,scrollY/max).toFixed(3):0);
-    var inScene=false;
     scenes.forEach(function(f){var r=f.getBoundingClientRect(); if(r.bottom<0||r.top>vh)return;
-      var vis=(Math.min(r.bottom,vh)-Math.max(r.top,0))/vh; if(vis>0.3)inScene=true;
       if(!reduce){var p=Math.min(1,Math.max(0,(vh-r.top)/(vh+r.height)));f.querySelector('img').style.setProperty('--s',(1.07-0.07*Math.min(1,p*1.6)).toFixed(4))}});
-    veer.classList.toggle('inscene',inScene);
   }
   addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});
   addEventListener('resize',upd); upd();
