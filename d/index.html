@@ -343,6 +343,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .tally-stamp{font-family:var(--sans);font-size:15px;letter-spacing:0;text-transform:none;padding:0 12px}
 @media (max-width:899px){.stone-pin{position:relative;top:auto}}
 
+/* Design D: the tally sits under the questions, after you tick */
+.tally-after{margin-top:24px;justify-content:flex-start;gap:24px}
+.tally-stamp strong{white-space:nowrap}
 /* Design D: A's freshness tag, A's timeline on the chakki block, ticks always shown, store badges */
 .mill-tag{display:inline-block;margin:0;padding:9px 14px;border:3px double var(--stamp);border-radius:6px;font-family:var(--sans);font-size:16px;font-weight:600;line-height:1.35;color:var(--stamp);transform:rotate(-3deg);transform-origin:left center;animation:tagIn 520ms var(--ease-out) 300ms both}
 @keyframes tagIn{from{opacity:0;transform:rotate(-3deg) scale(1.12)}to{opacity:1;transform:rotate(-3deg) scale(1)}}
@@ -442,12 +445,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="rv">
       <h2 id="h-q">Before you buy atta, ask what matters.</h2>
       <p class="lede" style="margin-top:16px">Bring the packet from your kitchen and tick each question it answers. Open one to see why it matters.</p>
-      <div class="tally" aria-live="polite">
+    </div>
+    <div><div class="cameo" data-cameo="questions" data-pose="lean" data-at="right"></div><div class="q-list" id="qList" style="margin-top:0"></div>
+      <div class="tally tally-after" aria-live="polite">
         <span class="tally-stamp" id="tallyStamp">Your packet answers<strong id="tally">0 of 6</strong></span>
         <a class="btn btn-solid btn-sm" href="#way">See how Atulyash answers</a>
       </div>
     </div>
-    <div><div class="cameo" data-cameo="questions" data-pose="lean" data-at="right"></div><div class="q-list" id="qList" style="margin-top:0"></div></div>
   </div>
 </section>
 
