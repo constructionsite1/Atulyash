@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500&family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&family=Young+Serif&family=Fraunces:opsz,wght@9..144,500&family=IBM+Plex+Mono:wght@600&display=swap">
 <style>
-/* Staging index: three homepage directions side by side, each opens as a full page */
+/* Staging index: four homepage directions side by side, each opens as a full page */
 :root{--forest:#11372e;--cream:#fffdf8;--paper:#f7f1e6;--ink:#18231f;--muted:#4f5a54;--rule:rgba(17,55,46,.14);--rust:#953b24;--ease-out:cubic-bezier(.23,1,.32,1);color-scheme:light}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -43,7 +43,7 @@ h1{font-family:'Newsreader',Georgia,serif;font-weight:500;font-size:clamp(34px,7
 /* C preview: the storybook */
 .pc img{width:100%;height:100%;object-fit:cover}
 footer{padding:0 0 48px;font-size:15px;color:var(--muted)}
-@media (min-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:reduce){.opt{transition:none}}
 </style>
 </head>
@@ -51,7 +51,7 @@ footer{padding:0 0 48px;font-size:15px;color:var(--muted)}
 <div class="wrap">
   <header><img src="a/img/wordmark.webp" alt="Atulyash" width="600" height="147"></header>
   <h1>Homepage directions for review</h1>
-  <p class="intro">Three designs for the atulyash.com homepage. Each one has the full site: shop, bag, sign-in, delivery check, roti calculator, Dr. Asha's films and help. Open each one on your phone too.</p>
+  <p class="intro">Four designs for the atulyash.com homepage. Each one has the full site: shop, cart, sign-in, delivery check, roti calculator, Dr. Asha's films and help. Open each one on your phone too.</p>
   <span class="note">Design samples. Sign-in, payment and the PIN check are not connected, and no order is placed.</span>
 
   <div class="grid">
@@ -66,6 +66,10 @@ footer{padding:0 0 48px;font-size:15px;color:var(--muted)}
     <a class="opt" href="c/">
       <div class="prev pc" aria-hidden="true"><img src="c/img/scene/scene-1-doorstep-720.webp" alt="" width="720" height="480"></div>
       <div class="body"><span class="tag">Option C</span><h2>A morning in the kitchen</h2><p>One family morning in seven illustrated chapters, from the doorbell to the dinner table, with Veer popping up to guide you.</p><span class="open">Open design C</span></div>
+    </a>
+    <a class="opt" href="d/">
+      <div class="prev pb" aria-hidden="true"><div class="tk"><div><span>Wheat</span><b>MP Sharbati</b></div><div><span>Stone</span><b>Natural chakki</b></div><div><span>Milled</span><b>Day before</b></div></div></div>
+      <div class="body"><span class="tag">Option D</span><h2>A and B combined</h2><p>B's look and words, with A's freshness tag, A's step timeline beside the turning millstone, tick boxes on every question and the app store badges.</p><span class="open">Open design D</span></div>
     </a>
   </div>
   <footer>Staging only. The live site stays at atulyash.com.</footer>

@@ -46,7 +46,7 @@ $$('[data-age]').forEach(function(b){b.addEventListener('click',function(){
 function accordion(container,items,render){
   items.forEach(function(it,i){
     var id=container.id+'-'+i, wrap=document.createElement('div'); wrap.className='q-item';
-    wrap.innerHTML='<button class="q-btn" type="button" aria-expanded="false" aria-controls="'+id+'">'+render.head(it,i)+'<span class="q-sign" aria-hidden="true"></span></button><div class="q-panel" id="'+id+'" role="region"><div><div class="q-body">'+render.body(it,i)+'</div></div></div>';
+    wrap.innerHTML='<button class="q-btn" type="button" aria-expanded="false" aria-controls="'+id+'">'+render.head(it,i)+'<span class="q-sign" aria-hidden="true"></span></button><div class="q-panel" id="'+id+'" role="region"><div><div class="q-body">'+render.body(it,i)+'</div></div></div>'+(render.after?render.after(it,i):'');
     container.appendChild(wrap);
     var btn=wrap.querySelector('.q-btn'), panel=wrap.querySelector('.q-panel');
     btn.addEventListener('click',function(){var open=btn.getAttribute('aria-expanded')==='true';btn.setAttribute('aria-expanded',open?'false':'true');panel.classList.toggle('open',!open)});
@@ -65,8 +65,10 @@ var QS=[
 var qList=$('#qList'), checks=[];
 if(qList) accordion(qList,QS,{
   head:function(it,i){return '<span class="q-num">'+(i+1)+'</span><span><span class="q-topic">'+it.t+'</span><span class="q-text">'+it.q+'</span></span>'},
-  body:function(it,i){return '<p class="often">'+it.often+'</p><div class="q-way"><b>At Atulyash</b>'+it.way+'</div><label class="q-check"><input type="checkbox" data-q="'+i+'"> My packet tells me this</label>'}
+  body:function(it,i){return '<p class="often">'+it.often+'</p><div class="q-way"><b>At Atulyash</b>'+it.way+'</div>'+(window.ATL_TICK_OUT?'':tick(i))},
+  after:window.ATL_TICK_OUT?function(it,i){return '<div class="q-tick">'+tick(i)+'</div>'}:null
 });
+function tick(i){return '<label class="q-check"><input type="checkbox" data-q="'+i+'"> My packet tells me this</label>'}
 $$('input[data-q]').forEach(function(c){c.addEventListener('change',function(){
   var n=$$('input[data-q]').filter(function(x){return x.checked}).length; $('#tally').textContent=n+' of 6'; if(window.ATL_onTally) window.ATL_onTally(n);
 })});
@@ -261,7 +263,7 @@ if($('#copyNum')) $('#copyNum').addEventListener('click',function(){var b=this,n
 var path=$('#path'), pathLine=$('.path-line i'), steps=$$('#path li');
 if(!pathLine) path=null;
 function drawPath(){
-  if(!path) return; var r=path.getBoundingClientRect(), vh=window.innerHeight, desk=window.innerWidth>=900;
+  if(!path) return; var r=path.getBoundingClientRect(), vh=window.innerHeight, desk=window.innerWidth>=900&&!path.classList.contains('path-v');
   var p=desk?Math.min(1,Math.max(0,(vh*0.85-r.top)/(vh*0.5))):Math.min(1,Math.max(0,(vh*0.7-r.top)/r.height));
   if(reduce) p=r.top<vh?1:0;
   pathLine.style.setProperty('--p',p.toFixed(3));
