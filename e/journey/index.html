@@ -28,12 +28,11 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
 .pause svg{width:14px;height:14px}
 .stage{position:relative;margin-top:12px}
 .stage svg{display:block;width:100%;height:auto;overflow:visible}
-.paper{position:fixed;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.4;z-index:5}
+.paper{position:fixed;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.25;z-index:5}
 .hand{font:400 19px var(--hand);fill:var(--olive)}
 .arrow{fill:none;stroke:var(--olive);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .end{margin:8px 0 0;font:400 22px/1.3 var(--hand);color:var(--olive);text-align:center}
 </style>
-
 </head>
 <body>
 <div class="wrap">
@@ -50,24 +49,19 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
   </div>
 
   <div class="stage" id="stage">
-  <svg id="w" viewBox="0 0 400 1940" role="img" aria-label="Sharbati wheat floats in the air. Its grains drift through a cleaning sieve while dust and husk float away, fall from a wooden hopper into a turning stone chakki, and come out as a ribbon of brown atta with bran in it. The ribbon pours into an Atulyash pack. A rider then carries the pack along a winding road to a front door, where the pack is left at the door.">
+  <svg id="w" viewBox="0 0 400 1940" role="img" aria-label="Sharbati wheat floats in the air. Its grains drift through a cleaning sieve while dust and husk float away, fall from a wooden hopper into a turning stone chakki, and come out as fresh brown atta with bran in it, which pours into a bowl and is packed in an Atulyash pack. A rider then carries the pack along a winding road to a front door, where the pack is left at the door.">
     <defs>
       <symbol id="wheat" overflow="visible">
-        <path d="M0 0C2 50-2 100 0 150" fill="none" stroke="#3F7F3A" stroke-width="3.5" stroke-linecap="round"/>
-        <path d="M0 70C18 55 34 50 46 28C32 52 15 63 0 80Z" fill="#449342"/>
-        <path d="M0 100C-16 86-33 82-44 60C-29 84-13 95 0 110Z" fill="#3A7D38"/>
-        <path d="M0 2V-92" stroke="#B8862F" stroke-width="2"/>
-        <g fill="#CC9E4A">
-          <ellipse cx="-7" cy="-14" rx="6" ry="11" transform="rotate(-28 -7 -14)"/><ellipse cx="7" cy="-14" rx="6" ry="11" transform="rotate(28 7 -14)" fill="#B98A36"/>
-          <ellipse cx="-7" cy="-31" rx="6" ry="11" transform="rotate(-28 -7 -31)"/><ellipse cx="7" cy="-31" rx="6" ry="11" transform="rotate(28 7 -31)" fill="#B98A36"/>
-          <ellipse cx="-7" cy="-48" rx="6" ry="11" transform="rotate(-28 -7 -48)"/><ellipse cx="7" cy="-48" rx="6" ry="11" transform="rotate(28 7 -48)" fill="#B98A36"/>
-          <ellipse cx="-6" cy="-65" rx="5.5" ry="10" transform="rotate(-26 -6 -65)"/><ellipse cx="6" cy="-65" rx="5.5" ry="10" transform="rotate(26 6 -65)" fill="#B98A36"/>
-          <ellipse cx="0" cy="-86" rx="5" ry="10"/>
-        </g>
+        <path d="M0 2V150" stroke="#3F8A3D" stroke-width="3.4" stroke-linecap="round"/>
+        <path class="tx" d="M-1 132C-4 104-20 84-42 70C-28 92-14 108-4 140Z" fill="#449342"/>
+        <path class="tx" d="M1 118C5 92 20 72 42 60C30 82 16 98 4 126Z" fill="#3B8739"/>
+        <path d="M0 4V-80" stroke="#C9962F" stroke-width="2"/>
+        <path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -12) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -12) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -30) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -30) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -48) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -48) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -65) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -65) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(0 -84)"/>
       </symbol>
       <symbol id="grain" overflow="visible"><ellipse rx="4.6" ry="2.8" fill="#CC9E4A"/><path d="M-4 .6Q0 2.6 4 .6" stroke="#A97B2E" stroke-width="1" fill="none"/></symbol>
       <pattern id="mesh" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0H6M0 0V6" stroke="#B98A50" stroke-width=".9"/></pattern>
-      <clipPath id="topFace"><circle r="120"/></clipPath>
+      <clipPath id="topFace"><circle r="112"/></clipPath>
+      <pattern id="grainTex" width="128" height="128" patternUnits="userSpaceOnUse"><image id="grainImg" width="128" height="128"/></pattern>
     </defs>
 
     <!-- notes (handwritten) -->
@@ -75,10 +69,10 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
       <text class="hand" x="205" y="36" text-anchor="middle" transform="rotate(-3 205 36)">pure MP Sharbati wheat</text>
       <text class="hand" x="14" y="470" transform="rotate(-2 14 470)">cleaned in<tspan x="14" dy="23">several stages</tspan></text>
       <text class="hand" x="388" y="602" text-anchor="end" transform="rotate(3 388 602)">dust and husk<tspan x="388" dy="23">float away</tspan></text>
-      <text class="hand" x="14" y="744" transform="rotate(-3 14 744)">stone chakki,<tspan x="14" dy="23">turning slow</tspan></text>
-      <text class="hand" x="14" y="1078" transform="rotate(2 14 1078)">chokar (bran)<tspan x="14" dy="23">stays in</tspan></text>
-      <text class="hand" x="14" y="1136" transform="rotate(-2 14 1136)">straight into<tspan x="14" dy="23">your pack</tspan></text>
-      <text class="hand" x="392" y="1362" text-anchor="end" transform="rotate(3 392 1362)">nothing added,<tspan x="392" dy="23">nothing removed</tspan></text>
+      <text class="hand" x="14" y="808" transform="rotate(-3 14 808)">stone chakki,<tspan x="14" dy="23">turning slow</tspan></text>
+      <text class="hand" x="392" y="1090" text-anchor="end" transform="rotate(2 392 1090)">chokar (bran)<tspan x="392" dy="23">stays in</tspan></text>
+      <text class="hand" x="14" y="1176" transform="rotate(-2 14 1176)">packed in<tspan x="14" dy="23">small batches</tspan></text>
+      <text class="hand" x="388" y="1376" text-anchor="end" transform="rotate(3 388 1376)">nothing added,<tspan x="388" dy="23">nothing removed</tspan></text>
       <text class="hand" x="388" y="1474" text-anchor="end" transform="rotate(-2 388 1474)">milled the day before,<tspan x="388" dy="23">at your door the next</tspan></text>
       <text class="hand" x="152" y="1594" transform="rotate(-3 152 1594)">our own riders</text>
       <text class="hand" x="262" y="1922" text-anchor="middle" transform="rotate(2 262 1922)">your home</text>
@@ -91,64 +85,70 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
 
     <!-- 2 sieve -->
     <g id="sieve">
-      <ellipse cx="0" cy="6" rx="98" ry="26" fill="#8A5E36"/>
-      <ellipse cx="0" cy="0" rx="98" ry="26" fill="#A9784A"/>
+      <ellipse class="tx" cx="0" cy="6" rx="98" ry="26" fill="#8A5E36"/>
+      <ellipse class="tx" cx="0" cy="0" rx="98" ry="26" fill="#A9784A"/>
       <ellipse cx="0" cy="0" rx="86" ry="20" fill="#F2E6CF"/>
       <ellipse cx="0" cy="0" rx="86" ry="20" fill="url(#mesh)"/>
     </g>
     <g id="dust"></g>
 
-    <!-- 3 hopper + stone -->
+    <!-- 3 hopper + stone + bowl -->
     <g id="hopper">
-      <polygon points="-75,0 75,0 30,90 -30,90" fill="#B5482A"/>
-      <polygon points="40,0 75,0 30,90 14,90" fill="#94381F"/>
-      <rect x="-80" y="-8" width="160" height="12" rx="2" fill="#CC9E4A"/>
-      <rect x="-18" y="90" width="36" height="16" fill="#94381F"/>
-      <g fill="#CC9E4A"><ellipse cx="-42" cy="-12" rx="9" ry="5.5"/><ellipse cx="-22" cy="-17" rx="9" ry="5.5"/><ellipse cx="0" cy="-19" rx="9" ry="5.5"/><ellipse cx="22" cy="-16" rx="9" ry="5.5"/><ellipse cx="42" cy="-11" rx="9" ry="5.5"/><ellipse cx="-30" cy="-6" rx="9" ry="5.5"/><ellipse cx="-8" cy="-9" rx="9" ry="5.5"/><ellipse cx="14" cy="-8" rx="9" ry="5.5"/><ellipse cx="34" cy="-4" rx="9" ry="5.5"/></g>
-      <g fill="#B98A36"><ellipse cx="-12" cy="-26" rx="8" ry="5"/><ellipse cx="10" cy="-27" rx="8" ry="5"/></g>
+      <polygon class="tx" points="-88,-38 88,-38 102,6 -102,6" fill="#E0A445"/>
+      <polygon class="tx" points="-78,-30 78,-30 88,0 -88,0" fill="#A9461F"/>
+      <clipPath id="hopIn"><polygon points="-78,-30 78,-30 88,0 -88,0"/></clipPath>
+      <g clip-path="url(#hopIn)"><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(-7.0 -16.0) rotate(-8)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(52.5 -18.6) rotate(-4)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(16.9 -21.5) rotate(-31)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(-60.6 -7.4) rotate(22)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(14.1 -18.1) rotate(25)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(17.1 -22.0) rotate(53)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(-64.7 -21.4) rotate(16)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(41.2 -16.1) rotate(55)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(2.8 -15.1) rotate(-79)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(-61.4 -10.2) rotate(80)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(73.4 -6.9) rotate(-39)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(38.2 -13.0) rotate(-69)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(39.4 -14.9) rotate(-18)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(67.8 -6.7) rotate(-46)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(63.2 -21.1) rotate(77)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(-15.2 -23.8) rotate(-48)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(25.9 -17.7) rotate(-27)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(68.7 -8.4) rotate(-58)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(30.6 -23.0) rotate(48)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(-47.7 -11.9) rotate(1)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(71.8 -8.1) rotate(23)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(-56.8 -14.4) rotate(-80)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(53.9 -4.5) rotate(-31)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(57.0 -18.2) rotate(79)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(15.1 -14.7) rotate(78)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(-42.4 -17.4) rotate(-27)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(-30.1 -21.9) rotate(-47)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(20.2 -24.2) rotate(-21)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(-6.9 -8.9) rotate(53)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(-53.9 -15.1) rotate(-55)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(60.4 -7.3) rotate(36)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(-50.5 -10.7) rotate(-49)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(66.6 -6.1) rotate(-67)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(-67.0 -20.0) rotate(74)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#E2B04E" transform="translate(-38.7 -9.5) rotate(-13)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#C9962F" transform="translate(59.9 -13.2) rotate(-52)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(32.6 -21.7) rotate(-3)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(22.7 -13.1) rotate(-35)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(61.8 -18.3) rotate(-69)"/><ellipse class="tx" rx="3.8" ry="8.5" fill="#D9A441" transform="translate(-13.1 -20.9) rotate(-52)"/></g>
+      <polygon class="tx" points="-102,6 102,6 58,94 -58,94" fill="#D0602B"/>
+      <polygon class="tx" points="66,6 102,6 58,94 44,94" fill="#B5501F"/>
+      <rect class="tx" x="-30" y="94" width="60" height="18" fill="#C8582A"/>
+      <rect x="-14" y="106" width="28" height="6" fill="#3E2A1A"/>
     </g>
     <g id="fallGrains"></g>
-    <ellipse id="stoneShadow" cx="200" cy="1036" rx="112" ry="10" fill="#E9E1D0"/>
+    <ellipse id="stoneShadow" cx="200" cy="1030" rx="118" ry="9" fill="#ECE4D4"/>
+    <ellipse cx="346" cy="1044" rx="36" ry="5" fill="#ECE4D4"/>
     <g id="stone">
-      <!-- bottom stone -->
-      <path d="M-120 64V126A120 30 0 0 0 120 126V64Z" fill="#7F7A70"/>
-      <path d="M60 64V150A120 30 0 0 0 120 126V64Z" fill="#6E695F"/>
-      <ellipse cx="0" cy="64" rx="120" ry="30" fill="#5E5A51"/>
-      <!-- spout -->
-      <path d="M112 62H152V82H112Z" fill="#6E695F"/><path d="M146 60H158V84H146Z" fill="#5E5A51"/>
-      <!-- top stone -->
-      <path d="M-120 0V58A120 30 0 0 0 120 58V0Z" fill="#9A958A"/>
-      <path d="M62 0V82A120 30 0 0 0 120 58V0Z" fill="#87827A"/>
-      <g id="sideMarks" stroke="#827D73" stroke-width="3" stroke-linecap="round"></g>
-      <g transform="scale(1 .25)">
-        <circle r="120" fill="#AAA59A"/>
-        <g clip-path="url(#topFace)"><g id="furrows" stroke="#958F84" stroke-width="5" stroke-linecap="round">
-          <path d="M0 0L118 -20M0 0L60 102M0 0L-88 80M0 0L-110 -48M0 0L18 -118M30 -12L112 40M-22 26L-44 110M-30 -18L-116 10M14 -32L80 -88"/>
-        </g></g>
-        <circle r="26" fill="#3E3B35"/>
+      <path class="tx" d="M-112 64V118A112 26 0 0 0 112 118V64Z" fill="#8B867C"/>
+      <path class="tx" d="M70 64V137A112 26 0 0 0 112 118V64Z" fill="#7F7A70"/>
+      <ellipse cx="0" cy="64" rx="112" ry="26" fill="#625E56"/>
+      <rect class="tx" x="100" y="22" width="44" height="20" fill="#8B867C"/>
+      <ellipse cx="144" cy="32" rx="5" ry="10" fill="#7A756C"/><ellipse cx="145" cy="32" rx="3" ry="7" fill="#45413A"/>
+      <path class="tx" d="M-112 0V58A112 26 0 0 0 112 58V0Z" fill="#9C978C"/>
+      <path class="tx" d="M70 0V77A112 26 0 0 0 112 58V0Z" fill="#8F8A7F"/>
+      <g id="sideMarks" stroke="#86817A" stroke-width="2.6" stroke-linecap="round"></g>
+      <g transform="scale(1 .232)">
+        <circle class="tx" r="112" fill="#ABA699"/>
+        <g clip-path="url(#topFace)"><g id="furrows"><circle cx="56" cy="-34" r="3.7" fill="#928C80"/><circle cx="62" cy="97" r="5.6" fill="#928C80"/><circle cx="61" cy="64" r="5.2" fill="#928C80"/><circle cx="-55" cy="4" r="4.1" fill="#928C80"/><circle cx="-94" cy="-94" r="3.8" fill="#928C80"/><circle cx="-48" cy="39" r="5.9" fill="#928C80"/><circle cx="-11" cy="87" r="6.0" fill="#928C80"/><circle cx="91" cy="-27" r="3.7" fill="#928C80"/><circle cx="-55" cy="-61" r="3.6" fill="#928C80"/><circle cx="25" cy="80" r="5.5" fill="#928C80"/><circle cx="-4" cy="31" r="5.4" fill="#928C80"/><circle cx="-83" cy="32" r="5.7" fill="#928C80"/><circle cx="56" cy="50" r="4.4" fill="#928C80"/><circle cx="-64" cy="58" r="4.0" fill="#928C80"/></g></g>
+        <circle r="24" fill="#2F2C27"/>
       </g>
     </g>
-
-    <!-- atta ribbon -->
-    <!-- atta: a soft powdery stream (haze + fine particles), not a solid tube -->
-    <path id="haze3" fill="none" stroke="#D9BC97" stroke-width="26" stroke-linecap="round" opacity=".14"/>
-    <path id="haze2" fill="none" stroke="#D3B28A" stroke-width="15" stroke-linecap="round" opacity=".2"/>
-    <path id="ribbon" fill="none" stroke="#C9A27A" stroke-width="6" stroke-linecap="round" opacity=".12"/>
+    <!-- atta: a short powdery pour from the spout into the bowl -->
+    <path id="haze3" fill="none" stroke="#D9BC97" stroke-width="16" stroke-linecap="round" opacity=".16"/>
+    <path id="haze2" fill="none" stroke="#D3B28A" stroke-width="9" stroke-linecap="round" opacity=".24"/>
+    <path id="ribbon" fill="none" stroke="#C9A27A" stroke-width="4" stroke-linecap="round" opacity=".22"/>
     <g id="powder"></g>
+    <g id="bowl">
+      <path class="tx" d="M-42 0C-42 28-22 40 0 40C22 40 42 28 42 0Z" fill="#B87536"/>
+      <path class="tx" d="M18 0C18 24 10 37 0 40C22 40 42 28 42 0Z" fill="#9C602F"/>
+      <rect x="-15" y="37" width="30" height="7" rx="2" fill="#9C602F"/>
+      <ellipse cx="0" cy="0" rx="42" ry="9" fill="#D08C45"/>
+      <ellipse cx="0" cy=".5" rx="37" ry="6.5" fill="#7E4E24"/>
+      <path class="tx" d="M-34 1.5Q-4-16 34 1.5Q0 7-34 1.5Z" fill="#C9A27A"/>
+      <circle cx="14.4" cy="0.8" r="1" fill="#7A4E2A"/><circle cx="-5.0" cy="-3.2" r="1" fill="#7A4E2A"/><circle cx="21.4" cy="-0.9" r="1" fill="#7A4E2A"/><circle cx="-15.8" cy="-5.1" r="1" fill="#7A4E2A"/><circle cx="-16.7" cy="0.3" r="1" fill="#7A4E2A"/><circle cx="14.7" cy="-5.0" r="1" fill="#7A4E2A"/><circle cx="15.7" cy="0.9" r="1" fill="#7A4E2A"/><circle cx="7.5" cy="-3.5" r="1" fill="#7A4E2A"/><circle cx="2.3" cy="-5.1" r="1" fill="#7A4E2A"/>
+    </g>
 
     <!-- 4 pack -->
     <g id="pack"><image href="img/pack-m.webp" x="-65" y="0" width="130" height="213"/></g>
 
     <!-- 5 delivery: island, road, house, rider -->
     <g id="island">
-      <path d="M144 1802Q168 1852 228 1870Q262 1884 302 1866Q358 1842 380 1802Z" fill="#A9784A"/>
+      <path class="tx" d="M144 1802Q168 1852 228 1870Q262 1884 302 1866Q358 1842 380 1802Z" fill="#A9784A"/>
       <path d="M300 1866Q358 1842 380 1802H330Q330 1846 300 1866Z" fill="#8A5E36"/>
-      <ellipse cx="262" cy="1802" rx="118" ry="20" fill="#449342"/>
+      <ellipse class="tx" cx="262" cy="1802" rx="118" ry="20" fill="#449342"/>
       <path id="road" d="M-30 1462C140 1440 70 1716 186 1804Q212 1818 268 1818" fill="none" stroke="#C9A27A" stroke-width="18" stroke-linecap="round"/>
       <path d="M-30 1462C140 1440 70 1716 186 1804Q212 1818 268 1818" fill="none" stroke="#FCFAF5" stroke-width="2" stroke-dasharray="10 10" opacity=".9"/>
-      <rect x="210" y="1700" width="110" height="102" fill="#F3E3C7"/>
+      <rect class="tx" x="210" y="1700" width="110" height="102" fill="#F3E3C7"/>
       <rect x="298" y="1700" width="22" height="102" fill="#E5D0AC"/>
-      <polygon points="198,1704 332,1704 265,1650" fill="#9A3B22"/>
+      <polygon class="tx" points="198,1704 332,1704 265,1650" fill="#9A3B22"/>
       <polygon points="265,1650 332,1704 300,1704" fill="#7E2F1B"/>
       <rect x="222" y="1720" width="24" height="20" fill="#CFE0EA"/><rect x="222" y="1728" width="24" height="3" fill="#A9784A"/>
       <rect x="250" y="1742" width="34" height="60" fill="#E9B95A"/>
@@ -157,20 +157,20 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
       <image id="doorPack" href="img/pack-m.webp" x="288" y="1786" width="13" height="21" opacity="0"/>
     </g>
     <g id="rider">
-      <rect x="-40" y="-60" width="25" height="23" rx="3" fill="#2A530F"/><rect x="-40" y="-60" width="25" height="5" rx="2" fill="#3C6E1F"/>
+      <rect class="tx" x="-40" y="-60" width="25" height="23" rx="3" fill="#2A530F"/><rect x="-40" y="-60" width="25" height="5" rx="2" fill="#3C6E1F"/>
       <rect x="-33" y="-51" width="11" height="9" rx="1.5" fill="#CC9E4A"/>
-      <path d="M-34-12C-36-25-28-33-13-33H4L6-16H-31Z" fill="#CC9E4A"/>
+      <path class="tx" d="M-34-12C-36-25-28-33-13-33H4L6-16H-31Z" fill="#CC9E4A"/>
       <path d="M-34-12C-35-18-34-22-31-26L4-26 6-16H-31Z" fill="#B98A36"/>
       <path d="M-27-33Q-25-38-14-38H2Q5-37 3-33Z" fill="#2B302C"/>
       <rect x="2" y="-18" width="16" height="4" rx="1" fill="#5E5A51"/>
-      <path d="M15-14L19-45Q20-49 24-49H28L25-14Z" fill="#CC9E4A"/>
+      <path class="tx" d="M15-14L19-45Q20-49 24-49H28L25-14Z" fill="#CC9E4A"/>
       <path d="M13-14Q24-23 35-14Z" fill="#B98A36"/>
       <path d="M23-49L19-60" stroke="#3B453F" stroke-width="3" stroke-linecap="round"/>
       <path d="M12-60H25" stroke="#2B302C" stroke-width="3.2" stroke-linecap="round"/>
       <circle cx="28" cy="-46" r="2.6" fill="#F4E3A1"/>
       <path d="M-9-41L8-39L9-21" stroke="#3B4A40" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       <ellipse cx="13" cy="-18" rx="5.5" ry="3" fill="#2B302C"/>
-      <path d="M-15-40Q-16-59-5-67Q4-70 7-63L3-40Z" fill="#2A530F"/>
+      <path class="tx" d="M-15-40Q-16-59-5-67Q4-70 7-63L3-40Z" fill="#2A530F"/>
       <path d="M-15-40Q-16-52-11-60L-6-40Z" fill="#24470D"/>
       <path d="M1-63L9-55L15-59" stroke="#24470D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       <circle cx="15.5" cy="-59.5" r="3" fill="#A86F48"/>
@@ -201,13 +201,20 @@ const lerp=(a,b,t)=>a+(b-a)*t, ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
   for(let i=0;i<d.data.length;i+=4){const v=255-Math.random()*26;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255;}
   g.putImageData(d,0,0);$('paper').style.background=`url(${c.toDataURL()})`;$('paper').style.backgroundSize='140px';})();
 
+/* style-7 texture: speckles inside every shape marked .tx (the copy moves with its shape) */
+(()=>{const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d'),d=g.createImageData(128,128);
+  for(let i=0;i<d.data.length;i+=4){const r=Math.random();if(r<.16){d.data[i]=48;d.data[i+1]=34;d.data[i+2]=20;d.data[i+3]=30+Math.random()*46;}
+    else if(r>.94){d.data[i]=d.data[i+1]=d.data[i+2]=255;d.data[i+3]=56;}}
+  g.putImageData(d,0,0);$('grainImg').setAttribute('href',c.toDataURL());
+  document.querySelectorAll('.tx').forEach(el=>{const k=el.cloneNode(false);k.removeAttribute('class');k.removeAttribute('id');k.setAttribute('fill','url(#grainTex)');el.after(k);});})();
+
 /* 1. wheat: floating stalks at different depths */
 const stalks=[[92,182,1,-12],[178,150,.82,7],[302,196,1.05,11],[252,116,.6,-5],[46,330,.7,16],[352,338,.66,-12],[140,300,.55,-3]]
   .map(([x,y,s,r],i)=>({x,y,s,r,i,el:mk('use',{href:'#wheat',opacity:s<.7?.75:1},$('field'))}));
 const earTip=st=>{const a=st.cur.r*Math.PI/180;return [st.cur.x+Math.sin(a)*-48*st.s*-1,st.cur.y-48*st.s*Math.cos(a)];};
 
 /* loose grains drifting from the ears to the sieve */
-const SIEVE={x:200,y:522}, HOP={x:200,y:700};
+const SIEVE={x:200,y:522}, HOP={x:200,y:742};
 const loose=[...Array(11)].map((_,i)=>({el:mk('use',{href:'#grain'},$('looseGrains')),st:i%stalks.length,t:i/11,dur:5.5+(i%4)*.7,seed:i*2.3}));
 /* grains falling from the sieve into the hopper, and from the hopper into the stone */
 const fall=[...Array(6)].map((_,i)=>({el:mk('use',{href:'#grain'},$('fallGrains')),t:i/6}));
@@ -220,12 +227,12 @@ const marks=[...Array(12)].map((_,i)=>({el:mk('path',{d:''},$('sideMarks')),a:i/
 
 /* bran specks riding the ribbon */
 const POW=['#C9A27A','#D8B892','#BF9468','#E4CCA8'];
-const powder=[...Array(90)].map((_,i)=>{const bran=i%6===0;return {el:mk('circle',{r:bran?1.5:(.7+((i*37)%10)/10*1.6).toFixed(2),fill:bran?'#7A4E2A':POW[i%4],opacity:bran?.95:(.55+((i*53)%10)/22).toFixed(2)},$('powder')),
+const powder=[...Array(70)].map((_,i)=>{const bran=i%6===0;return {el:mk('circle',{r:bran?1.5:(.7+((i*37)%10)/10*1.6).toFixed(2),fill:bran?'#7A4E2A':POW[i%4],opacity:bran?.95:(.55+((i*53)%10)/22).toFixed(2)},$('powder')),
   u:(i*0.6180339)%1, sp:.11+((i*29)%10)/10*.09, off:((i*71)%21-10)/10, seed:i*1.37};});
 
 /* arrows: a hand-drawn curve with a small loop, drawn in once */
-const ARROWS=[[150,46,104,104,18,1],[70,500,112,516,-10,0],[330,588,322,548,16,1],[60,778,104,858,-16,1],
-  [96,1098,262,1104,-26,1],[70,1164,150,1196,14,0],[306,1340,246,1318,-12,1],[336,1508,270,1738,26,1],[156,1606,110,1612,10,0],[262,1900,262,1874,12,0]];
+const ARROWS=[[150,46,104,104,18,1],[70,500,112,516,-10,0],[330,588,322,548,16,1],[60,842,96,924,-16,1],
+  [318,1074,356,1012,14,1],[72,1210,134,1220,12,0],[300,1360,262,1326,-12,1],[336,1508,270,1738,26,1],[156,1606,110,1612,10,0],[262,1900,262,1874,12,0]];
 const arrowEls=ARROWS.map(([x1,y1,x2,y2,b,loop])=>{
   const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,px=-uy,py=ux,pts=[];
   for(let k=0;k<=48;k++){const t=k/48;let x=x1+dx*t+px*b*Math.sin(Math.PI*t),y=y1+dy*t+py*b*Math.sin(Math.PI*t);
@@ -259,36 +266,37 @@ function render(T){
     const op=t<.08?t/.08:t>.94?(1-t)/.06:1;
     g.el.setAttribute('transform',`translate(${cx.toFixed(1)} ${cy.toFixed(1)}) rotate(${(T*40+g.seed*50)%360})`);g.el.setAttribute('opacity',op.toFixed(2));
   });
-  // sieve -> hopper
-  const hx=HOP.x+nz(T*.38,21)*4, hy=HOP.y+nz(T*.46,22)*5;
-  $('hopper').setAttribute('transform',`translate(${hx.toFixed(1)} ${hy.toFixed(1)})`);
-  fall.forEach((g,i)=>{const t=(T/2.6+g.t)%1, e=t*t; const x=lerp(sx,hx,e)+Math.sin(t*6+i)*6, y=lerp(sy+18,hy-14,e);
+  // hopper sits on the stone; both float together, gently
+  const fo=nz(T*.35,31)*4, hx=HOP.x, hy=HOP.y+fo, ox=200, oy=880+fo;
+  $('hopper').setAttribute('transform',`translate(${hx} ${hy.toFixed(1)})`);
+  fall.forEach((g,i)=>{const t=(T/2.6+g.t)%1, e=t*t; const x=lerp(sx,hx+(i-2.5)*14,e)+Math.sin(t*6+i)*6, y=lerp(sy+18,hy-16,e);
     g.el.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(T*90+i*60)%360})`);g.el.setAttribute('opacity',(t>.9?(1-t)*10:1).toFixed(2));});
   // dust and husk peel off the sieve and drift away
   dust.forEach(d=>{const t=(T/4.2+d.t)%1, x=sx+d.side*(70+t*130), y=sy+6+t*40+nz(T*.6,d.seed)*16-Math.sin(t*3)*14;
     d.el.setAttribute('transform',`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(t*240+d.seed*40)%360})`);d.el.setAttribute('opacity',(Math.sin(t*Math.PI)*.9).toFixed(2));});
   // stone
-  const ox=200, oy=860+nz(T*.35,31)*4;
   $('stone').setAttribute('transform',`translate(${ox} ${oy.toFixed(1)})`);
-  const sh=1-(oy-856)/40; $('stoneShadow').setAttribute('rx',(112*sh).toFixed(1));
+  $('stoneShadow').setAttribute('rx',(118-fo*1.5).toFixed(1));
   const rot=T*22; $('furrows').setAttribute('transform',`rotate(${rot.toFixed(1)})`);
-  marks.forEach(m=>{const a=m.a+rot*Math.PI/180, c=Math.cos(a); if(c<.15){m.el.setAttribute('d','');return;}
-    const x=Math.sin(a)*112, y=m.y0+Math.cos(a)*24*0; m.el.setAttribute('d',`M${x.toFixed(1)} ${(m.y0+6).toFixed(1)}v${(m.h*c).toFixed(1)}`);m.el.setAttribute('opacity',c.toFixed(2));});
-  drop.forEach((g,i)=>{const t=(T/1.4+g.t)%1; g.el.setAttribute('transform',`translate(${(hx+Math.sin(t*5+i)*2).toFixed(1)} ${lerp(hy+108,oy-4,t*t).toFixed(1)}) rotate(${(T*120+i*90)%360})`);g.el.setAttribute('opacity',(t>.85?(1-t)/.15:1).toFixed(2));});
-  // ribbon of atta: silky, gently wandering, spout -> pack mouth
-  const px=176+nz(T*.33,41)*6, py=1186+nz(T*.4,42)*6;
-  $('pack').setAttribute('transform',`translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${(nz(T*.3,43)*2).toFixed(2)})`);
-  const s0=[ox+156,oy+72], c1=[400+nz(T*.5,44)*8,oy+110], c2=[392+nz(T*.45,45)*12,oy+190], p1=[318+nz(T*.4,46)*12,oy+226+nz(T*.5,47)*8],
-        c4=[px+8+nz(T*.5,48)*14,py-80], p2=[px,py+10];
-  const d=`M${s0}C${c1} ${c2} ${p1}S${c4} ${p2}`.replace(/(\d+\.\d)\d+/g,'$1');
+  marks.forEach(m=>{const a=m.a+rot*Math.PI/180, c=Math.cos(a); if(c<.2){m.el.setAttribute('d','');return;}
+    const x=Math.sin(a)*106; m.el.setAttribute('d',`M${x.toFixed(1)} ${(m.y0+4).toFixed(1)}v${(3+m.h*.3*c).toFixed(1)}`);m.el.setAttribute('opacity',(c*.8).toFixed(2));});
+  drop.forEach((g,i)=>{const t=(T/1.1+g.t)%1; g.el.setAttribute('transform',`translate(${(hx+Math.sin(t*5+i)*2).toFixed(1)} ${lerp(hy+113,oy-2,t*t).toFixed(1)}) rotate(${(T*120+i*90)%360})`);g.el.setAttribute('opacity',(t>.8?(1-t)/.2:1).toFixed(2));});
+  // bowl just below the spout; atta pours in as fine powder
+  const bx=346, by=996+fo*.8;
+  $('bowl').setAttribute('transform',`translate(${bx} ${by.toFixed(1)})`);
+  const d=`M${ox+145} ${(oy+34).toFixed(1)}C${ox+154} ${(oy+52).toFixed(1)} ${bx+4} ${(by-36).toFixed(1)} ${bx} ${(by-4).toFixed(1)}`;
   ribbon.setAttribute('d',d);h2.setAttribute('d',d);h3.setAttribute('d',d);
-  const rl=ribbon.getTotalLength(), N=60, pts=[];
+  const rl=ribbon.getTotalLength(), N=30, pts=[];
   for(let j=0;j<=N;j++){const q=ribbon.getPointAtLength(j/N*rl);pts.push(q.x,q.y);}
-  powder.forEach(g=>{const u=(g.u+T*g.sp)%1, f=u*N, j=Math.min(N-1,f|0), fr=f-j;
+  powder.forEach(g=>{const u=(g.u+T*g.sp*2.2)%1, f=u*N, j=Math.min(N-1,f|0), fr=f-j;
     const x=pts[j*2]+(pts[j*2+2]-pts[j*2])*fr, y=pts[j*2+1]+(pts[j*2+3]-pts[j*2+1])*fr;
-    const spread=4+Math.sin(u*Math.PI)*13;  // the stream loosens in the middle, tightens at spout and pack
-    g.el.setAttribute('cx',(x+g.off*spread+nz(T*1.3,g.seed)*2.5).toFixed(1));
-    g.el.setAttribute('cy',(y+nz(T*1.1,g.seed+3)*spread*.6).toFixed(1));});
+    const spread=2+u*6;  // the pour widens a little as it falls
+    g.el.setAttribute('cx',(x+g.off*spread+nz(T*1.3,g.seed)*1.5).toFixed(1));
+    g.el.setAttribute('cy',(y+nz(T*1.1,g.seed+3)*2).toFixed(1));
+    g.el.setAttribute('opacity',(u>.9?(1-u)*8:.85).toFixed(2));});
+  // pack floats below
+  const px=200+nz(T*.33,41)*5, py=1126+nz(T*.4,42)*5;
+  $('pack').setAttribute('transform',`translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${(nz(T*.3,43)*1.6).toFixed(2)})`);
   // delivery loop (10 s)
   const L=10, k=(T%L)/L, travel=Math.min(1,k/.6), te=ease(travel);
   const stop=roadLen-74, p=road.getPointAtLength(te*stop), q=road.getPointAtLength(Math.min(roadLen,te*stop+2));
@@ -313,6 +321,5 @@ new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis)drawArrows();sync(
 render(T);sync();
 })();
 </script>
-
 </body>
 </html>
