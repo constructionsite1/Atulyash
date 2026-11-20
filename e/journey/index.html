@@ -2,539 +2,263 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Atulyash Grain Journey</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@500;600&display=swap">
 <style>
-/* Layout: phone first. A pinned full-screen stage with the illustrated world on top and the caption card below;
-   from 900px the caption card moves to a left column and the world sits on the right. One committed light look. */
+/* Phone first. Three stations in one always-running line (SVG + SMIL, no libraries).
+   Phone: stations stacked with a flowing connector between them. From 900px: three in a row. */
 :root{
   --ground:#FCFAF5; --card:#FFFFFF; --ink:#16261F; --muted:#5B6B60;
-  --olive:#2A530F; --leaf:#449342; --gold:#CC9E4A; --rust:#9A3B22; --line:#E7E1D3;
-  --display:"Young Serif", Georgia, "Times New Roman", serif;
-  --body:"Figtree", "Segoe UI", system-ui, sans-serif;
-  color-scheme:light;
+  --olive:#2A530F; --gold:#CC9E4A; --line:#E7E1D3;
+  --display:"Young Serif",Georgia,serif; --body:"Figtree","Segoe UI",system-ui,sans-serif;
 }
-*{box-sizing:border-box}
 [hidden]{display:none!important}
-html,body{background:var(--ground);color:var(--ink)}
-body{font-family:var(--body);font-weight:500;font-size:18px;line-height:1.55;margin:0}
-h1,h2,p{margin:0}
-h1,h2{font-family:var(--display);font-weight:400;color:var(--olive);text-wrap:balance}
-button,a.btn{font:inherit}
-:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
-
-.pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.intro{padding-block:48px 36px;max-width:720px;margin:0 auto;display:grid;gap:14px}
-.intro h1{font-size:clamp(2.3rem,9vw,3.8rem);line-height:1.04}
-.intro p{color:var(--muted)}
-.intro .note{font-size:.95rem;border-left:0;padding-top:10px;border-top:1px solid var(--line)}
-
-/* the journey */
-#journey{position:relative;height:860svh}
-.stage{position:sticky;top:0;height:100svh;overflow:hidden;background:#FBEFC9}
-.world{position:absolute;left:0;top:0;width:400px;height:4320px;transform-origin:0 0;will-change:transform}
-.world > svg,.world > .mid{position:absolute;left:0;top:0;width:400px;height:4320px;overflow:visible}
-.mid > *{position:absolute}
-#chakki{left:50px;top:1580px;width:300px;height:300px}
-#chakkiFallback{left:50px;top:1580px;width:300px;height:300px;display:none}
-#packGhost,#packFill{left:95px;top:2245px;width:210px;height:auto}
-#packGhost{opacity:.2;filter:grayscale(1)}
-#packFill{clip-path:inset(100% 0 0 0)}
-#miniPack{left:262px;top:3120px;width:86px;transform:rotate(7deg)}
-.cal{left:70px;top:2930px;width:230px;height:270px;perspective:900px}
-.cal .page,.cal .leaf{position:absolute;inset:0;border-radius:14px;background:#fff;border:1px solid #E5DDCB;box-shadow:0 18px 30px -22px rgba(42,83,15,.45);display:grid;align-content:center;justify-items:center;gap:4px;text-align:center;padding:30px 16px 16px}
-.cal .leaf{transform-origin:50% 0;backface-visibility:hidden;transform:rotateX(0deg)}
-.cal .rings{position:absolute;top:-10px;left:0;right:0;display:flex;justify-content:center;gap:110px;z-index:3}
-.cal .rings i{width:14px;height:26px;border-radius:8px;background:#B9A57A;border:3px solid #8E7A51}
-.cal .band{position:absolute;top:0;left:0;right:0;height:42px;border-radius:14px 14px 0 0;background:#2A530F}
-.cal .band.rust{background:#9A3B22}
-.cal small{font-family:var(--body);font-weight:700;font-size:15px;color:#fff;position:absolute;top:10px;left:0;right:0}
-.cal b{font-family:var(--display);font-weight:400;font-size:64px;line-height:1;color:var(--olive);margin-top:14px}
-.cal span{font-size:20px;font-weight:600;color:var(--ink)}
-#veer{left:268px;top:4096px;width:150px;height:auto}
-.bubble{left:118px;top:3996px;width:220px;background:#fff;border:2px solid #2A530F;border-radius:18px;padding:10px 14px;font-weight:600;font-size:17px;line-height:1.3;color:var(--ink)}
-.bubble::after{content:"";position:absolute;right:46px;bottom:-12px;width:18px;height:18px;background:#fff;border-right:2px solid #2A530F;border-bottom:2px solid #2A530F;transform:rotate(45deg)}
-
-/* chrome over the stage */
-.rail{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:0;padding-top:max(10px,env(safe-area-inset-top,0px));padding-bottom:10px}
-.rail ol{list-style:none;margin:0;padding:0;display:flex;align-items:center;flex:1;justify-content:space-between;position:relative;max-width:420px}
-.rail ol::before,.rail .fill{content:"";position:absolute;left:22px;right:22px;top:50%;height:3px;background:rgba(42,83,15,.18);border-radius:3px}
-.rail .fill{background:var(--gold);right:auto;width:0}
-.rail button{position:relative;width:44px;height:44px;border-radius:50%;border:0;background:transparent;cursor:pointer;display:grid;place-items:center;padding:0}
-.rail button span{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid rgba(42,83,15,.35);color:var(--olive);font-weight:700;font-size:15px;transition:background .3s,color .3s,border-color .3s}
-.rail button.done span{border-color:var(--gold);background:#FFF7E6}
-.rail button[aria-current="step"] span{background:var(--olive);border-color:var(--olive);color:#fff}
-
-.card{position:absolute;left:0;right:0;bottom:0;z-index:5;background:var(--card);border-radius:24px 24px 0 0;box-shadow:0 -14px 40px -28px rgba(22,38,31,.5);padding-top:18px;padding-bottom:max(18px,env(safe-area-inset-bottom,0px));display:grid;gap:8px}
-.step{font-size:15px;font-weight:600;color:var(--muted)}
-.card h2{font-size:clamp(1.6rem,6.6vw,2.1rem);line-height:1.1}
-.card .body{min-height:3.1em}
-.swap{transition:opacity .25s ease}
-.swap.out{opacity:0}
-.ctrl{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.btn{min-height:48px;padding:0 20px;border-radius:12px;border:2px solid var(--olive);background:var(--olive);color:#fff;font-weight:700;font-size:17px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;text-decoration:none}
-.btn.ghost{background:#fff;color:var(--olive)}
-.btn .ico{width:14px;height:14px;display:inline-block}
-.tagline{font-family:var(--display);color:var(--olive);font-size:1.5rem;line-height:1.15}
-
-.labels{position:absolute;inset:0;z-index:4;pointer-events:none}
-.labels button{position:absolute;pointer-events:auto;border:0;background:#fff;color:var(--olive);font-weight:700;font-size:16px;padding:6px 12px;border-radius:10px;min-height:44px;box-shadow:0 8px 20px -14px rgba(22,38,31,.6);transform:translateY(-50%);cursor:pointer;opacity:0;white-space:nowrap}
-.labels button::before{content:"";position:absolute;left:-14px;top:50%;width:14px;height:2px;background:var(--gold)}
-
-.outro{padding-block:64px 80px;max-width:720px;margin:0 auto;display:grid;gap:14px}
-.outro h2{font-size:clamp(2.2rem,9vw,3.6rem);line-height:1.04}
-.outro p{color:var(--muted)}
-
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ground);color:var(--ink)}
+body{font:500 18px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 16px 56px}
+.note{font-size:15px;color:var(--muted);margin:0 0 28px;max-width:60ch}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:28px}
+h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0;max-width:16ch}
+.lede{margin:12px 0 0;max-width:46ch}
+.pause{flex:none;min-height:44px;padding:0 16px;border:1.5px solid var(--olive);border-radius:999px;background:var(--card);
+  color:var(--olive);font:600 16px var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.pause:focus-visible{outline:3px solid var(--olive);outline-offset:3px}
+.pause svg{width:14px;height:14px}
+.line{display:grid;grid-template-columns:1fr}
+.station{margin:0}
+.pic{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.pic svg{display:block;width:100%;height:auto}
+.station h3{font:400 26px/1.2 var(--display);color:var(--olive);margin:18px 0 6px;display:flex;gap:12px;align-items:baseline}
+.n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--olive);color:#fff;font:600 17px/34px var(--body);text-align:center;transform:translateY(-3px)}
+.station p{margin:0;max-width:40ch}
+.join{display:block;width:40px;height:56px;margin:8px auto}
+.join path{stroke:var(--gold);stroke-width:3;fill:none;stroke-dasharray:4 9;stroke-linecap:round;animation:flow 1s linear infinite}
+.join .h{display:none}
+@keyframes flow{to{stroke-dashoffset:-13}}
+.paused .join path{animation-play-state:paused}
 @media (min-width:900px){
-  .rail{left:max(40px,env(safe-area-inset-left,0px));right:auto;width:400px;top:auto;bottom:auto;padding:0;margin-top:calc(50svh - 230px)}
-  .card{left:max(40px,env(safe-area-inset-left,0px));right:auto;bottom:auto;top:calc(50svh - 160px);width:400px;border-radius:24px;box-shadow:0 20px 50px -30px rgba(22,38,31,.45);padding:26px 26px}
-  .card h2{font-size:2.3rem}
+  .wrap{padding:72px 32px}
+  .line{grid-template-columns:1fr 48px 1fr 48px 1fr;align-items:start}
+  .join{width:48px;height:40px;margin:clamp(80px,9vw,100px) 0 0}
+  .join .v{display:none}
+  .join .h{display:inline}
 }
-@media (prefers-reduced-motion:reduce){.swap{transition:none}.rail button span{transition:none}}
+@media (prefers-reduced-motion:reduce){.join path{animation:none}}
 </style>
 
 </head>
 <body>
-<section class="intro pad">
-  <h1>How your atta reaches you</h1>
-  <p>Follow one grain of MP Sharbati wheat from the field to your tawa. Scroll slowly, tap a step number, or press Play and watch.</p>
-  <p class="note">Draft for review (website E, step 2). The drawings are illustrations, not photos of the Atulyash mill. Step details are still to be checked with the founder.</p>
-</section>
+<div class="wrap">
+  <p class="note">Draft for review (website E). The drawings are illustrations, not photos of the Atulyash mill. Step details are still to be checked with the founder.</p>
 
-<section id="journey" aria-label="The journey of a grain, from field to kitchen">
-  <div class="stage" id="stage">
-    <div class="world" id="world" aria-hidden="true">
-      <svg id="back" viewBox="0 0 400 4320" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="mid">
-        <canvas id="chakki" width="600" height="600"></canvas>
-        <svg id="chakkiFallback" viewBox="0 0 300 300"></svg>
-        <img id="packGhost" src="img/pack.webp" alt="">
-        <img id="packFill" src="img/pack.webp" alt="">
-        <div class="cal" id="cal">
-          <div class="rings"><i></i><i></i></div>
-          <div class="page"><div class="band rust"></div><small>Next day</small><b>Day 2</b><span>At your door</span></div>
-          <div class="leaf" id="leaf"><div class="band"></div><small>Today</small><b>Day 1</b><span>Milled on the stone</span></div>
-        </div>
-        <img id="miniPack" src="img/pack.webp" alt="">
-        <img id="veer" src="img/veer.webp" alt="">
-        <div class="bubble" id="bubble">Veer ne poocha. Aapne kabhi poocha?</div>
-      </div>
-      <svg id="front" viewBox="0 0 400 4320" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div class="head">
+    <div>
+      <h2>From wheat to your door</h2>
+      <p class="lede">How your atta is made, packed and brought to you.</p>
     </div>
-
-    <div class="labels" id="labels"></div>
-
-    <nav class="rail pad" aria-label="Steps of the journey">
-      <ol id="rail"><div class="fill" id="railFill"></div></ol>
-    </nav>
-
-    <div class="card pad" id="card" aria-live="polite">
-      <p class="step swap" id="stepNo">Step 1 of 6</p>
-      <h2 class="swap" id="capTitle">Sharbati wheat from Madhya Pradesh</h2>
-      <p class="body swap" id="capBody">Every pack is 100% MP Sharbati wheat. Never mixed, never blended.</p>
-      <div class="ctrl">
-        <button class="btn" id="play" type="button"><svg class="ico" viewBox="0 0 14 14" aria-hidden="true"><path id="playIco" d="M2 1l11 6-11 6z" fill="currentColor"/></svg><span id="playTxt">Play the journey</span></button>
-        <button class="btn ghost" id="next" type="button">Next step</button>
-        <a class="btn" id="order" href="https://atulyash.com/" target="_blank" rel="noopener" hidden>Order on atulyash.com</a>
-      </div>
-    </div>
+    <button class="pause" id="pause" type="button" aria-pressed="false">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="currentColor"/></svg>
+      <span>Pause</span>
+    </button>
   </div>
-</section>
 
-<section class="outro pad">
-  <h2>Atta in its purest form</h2>
-  <p>Freshly milled. Delivered weekly. This journey will sit in the middle of the new homepage, between the opening question and the six packet questions.</p>
-</section>
+  <div class="line" id="line">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- 1. Clean and mill -->
+    <figure class="station">
+      <div class="pic">
+        <svg viewBox="0 0 340 220" role="img" aria-label="Wheat grains drop through a shaking sieve, slide into a wooden hopper and are ground by a turning stone chakki. Brown atta pours out into a tray.">
+          <defs>
+            <pattern id="mesh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0H5M0 0V5" stroke="#A9784A" stroke-width=".8"/></pattern>
+            <clipPath id="runnerTop"><circle r="53"/></clipPath>
+          </defs>
+          <rect width="340" height="220" fill="#FBF3DF"/>
+          <rect y="200" width="340" height="20" fill="#EFE3C6"/>
+          <!-- wheat -->
+          <g fill="none" stroke="#B8862F" stroke-width="2.4" stroke-linecap="round">
+            <g><animateTransform attributeName="transform" type="rotate" values="-3 34 200;3 34 200;-3 34 200" dur="4s" repeatCount="indefinite"/>
+              <path d="M34 200V86"/><g fill="#E8B84A" stroke="none"><ellipse cx="30" cy="80" rx="4" ry="8"/><ellipse cx="38" cy="74" rx="4" ry="8"/><ellipse cx="30" cy="66" rx="4" ry="8"/><ellipse cx="38" cy="60" rx="4" ry="8"/><ellipse cx="34" cy="52" rx="3.5" ry="7"/></g></g>
+            <g><animateTransform attributeName="transform" type="rotate" values="2 58 200;-3 58 200;2 58 200" dur="4.6s" repeatCount="indefinite"/>
+              <path d="M58 200V76"/><g fill="#E8B84A" stroke="none"><ellipse cx="54" cy="70" rx="4" ry="8"/><ellipse cx="62" cy="64" rx="4" ry="8"/><ellipse cx="54" cy="56" rx="4" ry="8"/><ellipse cx="62" cy="50" rx="4" ry="8"/><ellipse cx="58" cy="42" rx="3.5" ry="7"/></g></g>
+            <path d="M46 200V120M22 200V140M70 200V132" stroke="#C99A44"/>
+          </g>
+          <!-- chute from sieve to hopper -->
+          <path d="M120 92L222 104" stroke="#8A5E36" stroke-width="7" stroke-linecap="round"/>
+          <!-- sieve on legs -->
+          <path d="M98 74V200M162 74V200" stroke="#8A5E36" stroke-width="3"/>
+          <g><animateTransform attributeName="transform" type="translate" values="0 0;3 0;-3 0;0 0" dur=".45s" repeatCount="indefinite"/>
+            <ellipse cx="130" cy="72" rx="40" ry="10" fill="url(#mesh)" stroke="#8A5E36" stroke-width="4"/>
+          </g>
+          <!-- dust and husk falling away -->
+          <g fill="#B9AE98">
+            <circle r="1.8"><animateMotion path="M100 80q-6 30-10 110" dur="1.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.6s" repeatCount="indefinite"/></circle>
+            <circle r="1.4"><animateMotion path="M160 80q8 30 12 110" dur="1.9s" begin=".6s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="1.9s" begin=".6s" repeatCount="indefinite"/></circle>
+            <rect width="4" height="1.6" rx=".8" fill="#D9C08A"><animateMotion path="M110 80q-10 40-18 110" dur="2.2s" begin="1.1s" repeatCount="indefinite" rotate="auto"/><animate attributeName="opacity" values="1;0" dur="2.2s" begin="1.1s" repeatCount="indefinite"/></rect>
+          </g>
+          <!-- grains: ear, onto sieve, down the chute, into the hopper -->
+          <g fill="#CC9E4A">
+            <ellipse rx="3.4" ry="2.2"><animateMotion path="M60 52Q96 20 126 66L130 88L218 100L234 108" dur="2.4s" repeatCount="indefinite" rotate="auto"/></ellipse>
+            <ellipse rx="3.4" ry="2.2"><animateMotion path="M36 60Q90 16 132 66L130 88L218 100L234 108" dur="2.4s" begin=".8s" repeatCount="indefinite" rotate="auto"/></ellipse>
+            <ellipse rx="3.4" ry="2.2"><animateMotion path="M60 46Q100 18 136 66L130 88L218 100L234 108" dur="2.4s" begin="1.6s" repeatCount="indefinite" rotate="auto"/></ellipse>
+          </g>
+          <!-- hopper -->
+          <polygon points="206,96 262,96 244,126 226,126" fill="#C58E57" stroke="#8A5E36" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M213 101H255" stroke="#E8B84A" stroke-width="4" stroke-linecap="round"/>
+          <path d="M235 126V138" stroke="#CC9E4A" stroke-width="2.5" stroke-dasharray="2 3"><animate attributeName="stroke-dashoffset" values="0;-10" dur=".6s" repeatCount="indefinite"/></path>
+          <!-- base stone -->
+          <path d="M180 162V186A55 14 0 0 0 290 186V162Z" fill="#7C776C"/>
+          <ellipse cx="235" cy="162" rx="55" ry="14" fill="#8C877C"/>
+          <!-- runner stone (turning) -->
+          <path d="M182 142V160A53 13 0 0 0 288 160V142Z" fill="#9A958A"/>
+          <g transform="translate(235 142) scale(1 .245)">
+            <circle r="53" fill="#B3AEA2"/>
+            <g clip-path="url(#runnerTop)">
+              <g stroke="#8C877C" stroke-width="3">
+                <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="5s" repeatCount="indefinite"/>
+                <path d="M0 0L53 -10M0 0L30 44M0 0L-40 35M0 0L-48 -22M0 0L8 -53M14 -5L50 18M-10 12L-20 50M-14 -8L-52 4M6 -14L36 -40"/>
+              </g>
+            </g>
+            <circle r="11" fill="#5D584F"/>
+          </g>
+          <!-- spout and atta into tray -->
+          <path d="M288 176H306V186" stroke="#7C776C" stroke-width="6" fill="none" stroke-linejoin="round"/>
+          <path d="M306 188V200" stroke="#C9A27A" stroke-width="5" stroke-dasharray="3 3"><animate attributeName="stroke-dashoffset" values="0;-12" dur=".5s" repeatCount="indefinite"/></path>
+          <path d="M286 204h42l-4 10h-34z" fill="#A9784A"/>
+          <path d="M292 204q14-12 30 0z" fill="#C9A27A"/>
+          <g fill="#7A4E2A"><circle cx="302" cy="201" r=".9"/><circle cx="309" cy="198" r=".9"/><circle cx="315" cy="202" r=".9"/></g>
+        </svg>
+      </div>
+      <h3><span class="n">1</span>Cleaned and milled on stone</h3>
+      <p>Sharbati wheat from Madhya Pradesh is cleaned in several stages, then ground slowly on a natural stone chakki. The chokar (bran) stays in.</p>
+    </figure>
+
+    <svg class="join" viewBox="0 0 48 56" aria-hidden="true"><path class="v" d="M24 4V52"/><path class="h" d="M4 20H44"/></svg>
+
+    <!-- 2. Pack -->
+    <figure class="station">
+      <div class="pic">
+        <svg viewBox="0 0 340 220" role="img" aria-label="Fresh atta pours from the chakki into an Atulyash pack on a moving belt. Each pack fills up and moves along to join the full ones.">
+          <defs>
+            <clipPath id="fillClip"><rect x="92" width="56" y="190" height="0">
+              <animate attributeName="y" values="190;190;98;98" keyTimes="0;.36;.9;1" dur="3.4s" repeatCount="indefinite"/>
+              <animate attributeName="height" values="0;0;92;92" keyTimes="0;.36;.9;1" dur="3.4s" repeatCount="indefinite"/>
+            </rect></clipPath>
+            <g id="empty"><rect width="56" height="92" rx="5" fill="#F4EBD8" stroke="#C9B89A" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M8 10h40" stroke="#E3D5BA" stroke-width="3" stroke-linecap="round"/></g>
+          </defs>
+          <rect width="340" height="220" fill="#F3EEE4"/>
+          <!-- pipe from the chakki -->
+          <path d="M0 30H112Q120 30 120 38V58" stroke="#7C776C" stroke-width="10" fill="none"/>
+          <circle cx="40" cy="30" r="3" fill="#5D584F"/>
+          <!-- stream, only while a pack fills -->
+          <g opacity="0">
+            <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.33;.37;.88;.92;1" dur="3.4s" repeatCount="indefinite"/>
+            <path d="M120 62V100" stroke="#C9A27A" stroke-width="7" stroke-dasharray="5 3"><animate attributeName="stroke-dashoffset" values="0;-16" dur=".45s" repeatCount="indefinite"/></path>
+            <g fill="#7A4E2A"><circle cx="119" cy="72" r=".9"/><circle cx="121" cy="86" r=".9"/></g>
+          </g>
+          <!-- belt -->
+          <rect x="0" y="190" width="340" height="10" fill="#4E5A52"/>
+          <path d="M0 195H340" stroke="#6E7A72" stroke-width="2" stroke-dasharray="8 12">
+            <animate attributeName="stroke-dashoffset" values="0;-80;-80" keyTimes="0;.3;1" dur="3.4s" repeatCount="indefinite"/>
+          </path>
+          <g fill="#3B453F"><circle cx="20" cy="207" r="6"/><circle cx="120" cy="207" r="6"/><circle cx="220" cy="207" r="6"/><circle cx="320" cy="207" r="6"/></g>
+          <!-- packs move along one place each cycle -->
+          <g>
+            <animateTransform attributeName="transform" type="translate" values="0 0;80 0;80 0" keyTimes="0;.3;1" dur="3.4s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .25 1;0 0 1 1"/>
+            <use href="#empty" x="-68" y="98"/>
+            <use href="#empty" x="12" y="98"/>
+            <image href="img/pack-s.webp" x="92" y="98" width="56" height="92"/>
+            <image href="img/pack-s.webp" x="172" y="98" width="56" height="92"/>
+            <image href="img/pack-s.webp" x="252" y="98" width="56" height="92"/>
+          </g>
+          <!-- the pack under the spout, filling from the bottom -->
+          <image href="img/pack-s.webp" x="92" y="98" width="56" height="92" clip-path="url(#fillClip)"/>
+        </svg>
+      </div>
+      <h3><span class="n">2</span>Packed in small batches</h3>
+      <p>The atta goes from the chakki straight into your pack. Nothing added, nothing removed.</p>
+    </figure>
+
+    <svg class="join" viewBox="0 0 48 56" aria-hidden="true"><path class="v" d="M24 4V52"/><path class="h" d="M4 20H44"/></svg>
+
+    <!-- 3. Deliver -->
+    <figure class="station">
+      <div class="pic">
+        <svg viewBox="0 0 340 220" role="img" aria-label="An Atulyash rider brings a pack down the street to a front door. The door opens, Veer peeks out, the pack is left at the door and the rider heads off.">
+          <rect width="340" height="220" fill="#E6EFE9"/>
+          <!-- city behind -->
+          <g fill="#D3E0D7"><rect x="10" y="96" width="34" height="84"/><rect x="50" y="70" width="26" height="110"/><rect x="82" y="104" width="40" height="76"/><rect x="128" y="86" width="30" height="94"/><rect x="164" y="112" width="44" height="68"/></g>
+          <circle cx="118" cy="146" r="20" fill="#9FC79B"/><path d="M118 164V182" stroke="#8A5E36" stroke-width="4"/>
+          <!-- house -->
+          <rect x="236" y="92" width="96" height="90" fill="#F6E7CF"/>
+          <path d="M228 96L284 58L340 96Z" fill="#9A3B22"/>
+          <rect x="250" y="108" width="22" height="20" fill="#CFE0EA" stroke="#A9784A" stroke-width="2"/>
+          <rect x="268" y="128" width="38" height="54" fill="#5A3A22"/>
+          <image href="img/veer-s.webp" x="270" y="132" width="36" height="47" opacity="0">
+            <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.58;.62;.86;.9;1" dur="8s" repeatCount="indefinite"/>
+          </image>
+          <rect x="268" y="128" width="38" height="54" fill="#8A5E36">
+            <animate attributeName="width" values="38;38;7;7;38;38" keyTimes="0;.54;.6;.86;.92;1" dur="8s" repeatCount="indefinite"/>
+          </rect>
+          <!-- pack left at the door -->
+          <image href="img/pack-s.webp" x="310" y="160" width="14" height="23" opacity="0">
+            <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.66;.68;.97;1" dur="8s" repeatCount="indefinite"/>
+          </image>
+          <!-- road -->
+          <rect y="182" width="340" height="38" fill="#C9C6BC"/>
+          <path d="M0 202H340" stroke="#F4F1E8" stroke-width="3" stroke-dasharray="16 14"/>
+          <!-- rider -->
+          <g>
+            <animateTransform attributeName="transform" type="translate" values="-90 0;196 0;196 0;430 0" keyTimes="0;.5;.78;1" dur="8s" repeatCount="indefinite" calcMode="spline" keySplines=".3 0 .3 1;0 0 1 1;.5 0 .9 .6"/>
+            <rect x="8" y="148" width="24" height="22" rx="3" fill="#2A530F"/>
+            <image href="img/pack-s.webp" x="14" y="150" width="12" height="20">
+              <animate attributeName="opacity" values="1;1;0;0;1" keyTimes="0;.66;.68;.99;1" dur="8s" repeatCount="indefinite"/>
+            </image>
+            <path d="M6 176Q10 166 26 166H46L54 150H60L52 170Q62 168 66 176Z" fill="#CC9E4A"/>
+            <path d="M54 150L58 138" stroke="#3B453F" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="16" cy="180" r="8" fill="#2B302C"/><circle cx="16" cy="180" r="3" fill="#C9C6BC"/>
+            <circle cx="58" cy="180" r="8" fill="#2B302C"/><circle cx="58" cy="180" r="3" fill="#C9C6BC"/>
+            <path d="M30 166L36 144Q38 138 44 140L52 146" stroke="#2A530F" stroke-width="7" stroke-linecap="round" fill="none"/>
+            <path d="M34 166L44 168" stroke="#3B453F" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="40" cy="132" r="7.5" fill="#9A3B22"/>
+            <path d="M44 132h4" stroke="#2B302C" stroke-width="3" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <h3><span class="n">3</span>At your door the next day</h3>
+      <p>Milled one day, delivered the next by our own riders, across South and North Delhi. Order once, or get it every week.</p>
+    </figure>
+
+  </div>
+</div>
+
 <script>
-(function(){
-const NS='http://www.w3.org/2000/svg';
-const $=id=>document.getElementById(id);
-const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
-const lerp=(a,b,t)=>a+(b-a)*t;
-const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;      // one curve for every move, no overshoot
-const outC=t=>1-Math.pow(1-t,3);
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const N=7, C=k=>k/N;                                      // six steps plus the closing overview
-function kf(list,p){                                      // keyframes [[p,value]], eased between
-  if(p<=list[0][0])return list[0][1];
-  for(let i=1;i<list.length;i++){const [p1,v1]=list[i],[p0,v0]=list[i-1];
-    if(p<=p1){const t=ease((p-p0)/((p1-p0)||1));
-      return Array.isArray(v0)?v0.map((a,j)=>lerp(a,v1[j],t)):lerp(v0,v1,t);}}
-  return list[list.length-1][1];
-}
-function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
-let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
-
-/* ---------------- copy ---------------- */
-const STEPS=[
- ['Field','Sharbati wheat from Madhya Pradesh','Every pack is 100% MP Sharbati wheat. Never mixed, never blended.'],
- ['Cleaning','Cleaned in several stages','Dust and husk are cleaned away before the wheat goes anywhere near the stone.'],
- ['Stone','Slow-milled on natural stone','Ground at a low, steady speed on a natural stone chakki. The chokar (bran) stays in.'],
- ['Packing','Packed in small batches','From the chakki straight into your pack. Nothing added, nothing removed.'],
- ['Day before','Milled the day before','Day 1, your atta is milled. Day 2, it reaches your kitchen.'],
- ['Your door','Brought by our own riders','Delivered to homes in South and North Delhi. Once, or every week if you like.'],
- ['Whole journey','Field to roti','One grain, from the field to your tawa. Tap any step to see it again.']
-];
-const CENTRES=[470,1040,1720,2400,3070,3950];
-
-/* ---------------- back layer ---------------- */
-const back=$('back'), front=$('front');
-back.innerHTML=`<defs>
- <linearGradient id="bg" x1="0" y1="0" x2="0" y2="4320" gradientUnits="userSpaceOnUse">
-  <stop offset="0" stop-color="#FBEFC9"/><stop offset=".088" stop-color="#F6DC93"/>
-  <stop offset=".165" stop-color="#ECDDB0"/><stop offset=".19" stop-color="#EEF3EC"/><stop offset=".32" stop-color="#E9EDE3"/>
-  <stop offset=".35" stop-color="#E8E2D5"/><stop offset=".485" stop-color="#EEE4D3"/><stop offset=".52" stop-color="#F6ECDD"/>
-  <stop offset=".655" stop-color="#F9F2E6"/><stop offset=".685" stop-color="#FCFAF5"/><stop offset=".805" stop-color="#F3F6EE"/>
-  <stop offset=".83" stop-color="#E3EDDC"/><stop offset=".915" stop-color="#E3EDDC"/><stop offset=".935" stop-color="#F4E6CF"/><stop offset="1" stop-color="#EFDCBC"/>
- </linearGradient>
- <linearGradient id="fieldG" x1="0" y1="420" x2="0" y2="720" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#EECB72"/><stop offset="1" stop-color="#D9A646"/></linearGradient>
- <radialGradient id="halo"><stop offset="0" stop-color="#FFF6DD" stop-opacity=".9"/><stop offset="1" stop-color="#FFF6DD" stop-opacity="0"/></radialGradient>
- <pattern id="mesh" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0H7M0 0V7" stroke="#A3865A" stroke-width=".9"/></pattern>
- <linearGradient id="kitchen" x1="0" y1="4040" x2="0" y2="4270" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FBE3B0"/><stop offset="1" stop-color="#F2C77B"/></linearGradient>
- <clipPath id="traceClip"><rect id="traceRect" x="0" y="0" width="400" height="470"/></clipPath>
-</defs>
-<rect x="-1600" width="3600" height="4320" fill="url(#bg)"/>
-<circle cx="300" cy="170" r="110" fill="url(#halo)"/><circle cx="300" cy="170" r="42" fill="#FFF3D2"/>
-<g id="clouds" fill="#fff" opacity=".75"><g id="cloud1"><ellipse cx="80" cy="120" rx="46" ry="14"/><ellipse cx="104" cy="110" rx="26" ry="14"/></g><g id="cloud2"><ellipse cx="220" cy="270" rx="38" ry="11"/><ellipse cx="236" cy="262" rx="20" ry="11"/></g></g>
-<g id="trees" fill="#C2AE62" opacity=".55"></g>
-<rect x="-1600" y="425" width="3600" height="300" fill="url(#fieldG)"/>
-<g id="wheat"></g>
-<g id="sieves"></g>
-<ellipse cx="200" cy="1858" rx="150" ry="22" fill="#5C4B33" opacity=".14"/>
-<g clip-path="url(#traceClip)"><path id="trace" d="M205 470 L200 800 L200 3560" fill="none" stroke="#CC9E4A" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round" opacity=".7"/></g>
-<g id="map"></g>
-<g id="house"></g>`;
-
-// distant trees along the horizon
-const trees=back.querySelector('#trees');
-for(let x=-700;x<1100;x+=14+rnd()*16){const r=6+rnd()*9;el('ellipse',{cx:x,cy:428-r*.6,rx:r,ry:r*.8},trees);}
-
-// wheat field: three rows, back to front
-const wheat=back.querySelector('#wheat');
-const stalks=[];
-function stalk(x,base,h,sc,col,stem,hero){
-  const g=el('g',{},wheat);
-  const top=base-h, hb=top+44*sc;
-  el('path',{d:`M${x} ${base} Q${x+4*sc} ${base-h*.5} ${x} ${hb}`,stroke:stem,'stroke-width':2.2*sc,fill:'none','stroke-linecap':'round'},g);
-  if(rnd()>.4)el('path',{d:`M${x+1} ${base-h*.42} q${12*sc} ${-14*sc} ${22*sc} ${-10*sc}`,stroke:stem,'stroke-width':1.6*sc,fill:'none'},g);
-  for(let j=0;j<7;j++){const y=hb-j*6.2*sc;
-    for(const s of [-1,1]){
-      el('ellipse',{cx:x+s*3.3*sc,cy:y,rx:3.1*sc,ry:5.6*sc,fill:col,transform:`rotate(${s*24} ${x+s*3.3*sc} ${y})`},g);
-      el('line',{x1:x+s*4.5*sc,y1:y-4*sc,x2:x+s*(9+j)*sc,y2:y-(20+j*2)*sc,stroke:col,'stroke-width':.8*sc,opacity:.9},g);
-    }}
-  if(!hero)el('ellipse',{cx:x,cy:hb-44*sc,rx:3*sc,ry:5.4*sc,fill:col},g);
-  stalks.push({g,x,base,amp:1.2+rnd()*1.8,ph:rnd()*6,hero});
-  return g;
-}
-[[18,560,[60,82],.55,'#E2C27C','#C9A45A'],[14,640,[105,135],.75,'#DDAE57','#C08F3A'],[9,725,[175,235],1,'#D29A36','#AE7B26']].forEach(([n,base,[h0,h1],sc,col,stem],row)=>{
-  const m=Math.round(n*2.3);for(let i=0;i<m;i++){const x=-260+(i+.5)*(920/m)+(rnd()-.5)*14;
-    if(row===2&&Math.abs(x-205)<26)continue;
-    stalk(x,base+(rnd()-.5)*10,lerp(h0,h1,rnd()),sc,col,stem,false);}
-});
-const hero=stalk(205,725,268,1,'#D29A36','#AE7B26',true);
-const HERO=stalks[stalks.length-1]; HERO.amp=2.2; HERO.ph=1.3;
-const GRAIN_ON_HEAD=[205,725-268+44-44];   // tip of the hero ear (457)
-
-// sieves stacked like a cleaner, with side posts
-const sieves=back.querySelector('#sieves');
-const SY=[860,1010,1160];
-el('line',{x1:72,y1:830,x2:72,y2:1200,stroke:'#B48A55','stroke-width':5,'stroke-linecap':'round'},sieves);
-el('line',{x1:328,y1:830,x2:328,y2:1200,stroke:'#B48A55','stroke-width':5,'stroke-linecap':'round'},sieves);
-const sieveG=SY.map((y,i)=>{const g=el('g',{},sieves);const rx=128-i*6;
-  el('ellipse',{cx:200,cy:y+5,rx:rx,ry:20,fill:'#7A5A31',opacity:.25},g);
-  el('ellipse',{cx:200,cy:y,rx:rx,ry:19,fill:'#EDE2C8'},g);
-  el('ellipse',{cx:200,cy:y,rx:rx,ry:19,fill:'url(#mesh)'},g);
-  el('ellipse',{cx:200,cy:y,rx:rx,ry:19,fill:'none',stroke:'#8E6B3D','stroke-width':6},g);
-  el('path',{d:`M${200-rx} ${y} Q200 ${y+30} ${200+rx} ${y}`,fill:'none',stroke:'#6F5129','stroke-width':3,opacity:.5},g);
-  return g;});
-
-// map: blocks, roads, trees
-const map=back.querySelector('#map');
-el('rect',{x:20,y:3560,width:360,height:400,rx:28,fill:'#CFE1C3'},map);
-for(const y of [3605,3800,3925])el('rect',{x:20,y:y-12,width:360,height:24,fill:'#FBF6EA'},map);
-for(const x of [120,280])el('rect',{x:x-12,y:3560,width:24,height:400,fill:'#FBF6EA'},map);
-for(let i=0;i<16;i++){const x=40+rnd()*320,y=3640+rnd()*280;if([120,280].some(v=>Math.abs(v-x)<26)||[3605,3800,3925].some(v=>Math.abs(v-y)<24))continue;
-  el('circle',{cx:x,cy:y,r:8+rnd()*6,fill:'#9CC48B'},map);}
-for(const [x,y] of [[50,3700],[180,3680],[330,3690],[60,3860],[200,3860],[340,3860]])el('rect',{x:x-14,y:y-12,width:28,height:22,rx:4,fill:'#F4E7CC',stroke:'#D8C59E'},map);
-const lbl=(t,x,y,a)=>{const e=el('text',{x,y,'text-anchor':a||'start','font-family':'Figtree, sans-serif','font-weight':700,'font-size':17,fill:'#2A530F'},map);e.textContent=t;};
-lbl('From the mill',36,3586);
-
-// house front with a doorway into the kitchen
-const house=back.querySelector('#house');
-el('rect',{x:-1600,y:4000,width:3600,height:320,fill:'#F1DDB8'},house);
-el('rect',{x:118,y:4028,width:164,height:252,rx:6,fill:'#C98F4E'},house);
-el('rect',{x:130,y:4040,width:140,height:230,fill:'url(#kitchen)'},house);
-el('rect',{x:130,y:4212,width:140,height:58,fill:'#D9A867'},house);
-el('rect',{x:150,y:4196,width:100,height:16,rx:4,fill:'#6B5440'},house);
-el('ellipse',{cx:200,cy:4196,rx:56,ry:12,fill:'#2F2924'},house);
-const roti=el('ellipse',{id:'roti',cx:200,cy:4189,rx:41,ry:9,fill:'#DDAE6C'},house);
-const spots=el('g',{fill:'#A8743A',opacity:.75},house);
-for(const [dx,dy] of [[-18,-1],[8,-3],[21,1],[-5,2],[-28,1]])el('ellipse',{cx:200+dx,cy:4189+dy,rx:3.6,ry:1.5},spots);
-const steam=el('g',{fill:'none',stroke:'#fff','stroke-width':3,'stroke-linecap':'round',opacity:0},house);
-for(const dx of [-14,0,14])el('path',{d:`M${200+dx} 4176 q-6 -12 0 -22 q6 -10 0 -22`},steam);
-el('rect',{x:146,y:4060,width:46,height:34,rx:4,fill:'#fff',opacity:.55},house);
-const doorL=el('rect',{x:130,y:4040,width:70,height:230,fill:'#2A530F',stroke:'#1D3B0A','stroke-width':2},house);
-const doorR=el('rect',{x:200,y:4040,width:70,height:230,fill:'#2A530F',stroke:'#1D3B0A','stroke-width':2},house);
-const knobs=el('g',{fill:'#CC9E4A'},house);el('circle',{cx:190,cy:4160,r:4},knobs);el('circle',{cx:210,cy:4160,r:4},knobs);
-el('rect',{x:108,y:4268,width:184,height:12,rx:3,fill:'#A97A43'},house);
-
-/* ---------------- front layer ---------------- */
-front.innerHTML=`<defs><linearGradient id="streamG" x1="0" y1="1895" x2="0" y2="2262" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#D4B48A" stop-opacity="1"/><stop offset="1" stop-color="#C49C70" stop-opacity=".85"/></linearGradient></defs>
-<g id="dust"></g>
-<g id="hopper">
- <path d="M135 1500 L265 1500 L214 1612 L186 1612 Z" fill="#B07A3C"/>
- <path d="M135 1500 L265 1500 L258 1514 L142 1514 Z" fill="#8E5E2B"/>
- <path d="M186 1612 L214 1612 L210 1626 L190 1626 Z" fill="#8E5E2B"/>
- <g fill="#CC9E4A"><ellipse cx="180" cy="1506" rx="5" ry="3"/><ellipse cx="200" cy="1504" rx="5" ry="3"/><ellipse cx="220" cy="1507" rx="5" ry="3"/><ellipse cx="190" cy="1500" rx="5" ry="3"/><ellipse cx="210" cy="1500" rx="5" ry="3"/></g>
-</g>
-<path d="M176 1852 L224 1852 L212 1898 L188 1898 Z" fill="#8E5E2B"/>
-<g id="stream" opacity="0"><path d="M189 1896 C191 2000 186 2120 180 2262 L220 2262 C214 2120 209 2000 211 1896 Z" fill="url(#streamG)"/><g id="specks"></g></g>
-<path id="route" d="M40 3605 L120 3605 L120 3800 L280 3800 L280 3986" fill="none" stroke="#CC9E4A" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-<g id="rider"><circle r="13" fill="#CC9E4A" stroke="#fff" stroke-width="4"/><circle r="4" fill="#fff"/></g>
-<g id="grain"><circle id="halo" r="20" fill="#CC9E4A" opacity=".22"/><ellipse rx="7.5" ry="11.5" fill="#CC9E4A" stroke="#9E7128" stroke-width="1.4"/><path d="M0 -8 Q2 0 0 8" stroke="#9E7128" stroke-width="1.2" fill="none"/></g>`;
-
-const dust=$('dust'), specks=$('specks');
-const DUST=SY.map((y,i)=>Array.from({length:16},(_,k)=>{
-  const husk=k%3===0, dir=k%2?1:-1;
-  const e=husk?el('ellipse',{rx:4.5,ry:1.5,fill:'#C2964F',opacity:0},dust):el('circle',{r:1.4+rnd()*1.6,fill:'#9D8B70',opacity:0},dust);
-  return {e,dir,spread:40+rnd()*70,drop:90+rnd()*90,rot:rnd()*180,husk};}));
-const SPECK=Array.from({length:84},(_,i)=>{const bran=i%5===0;
-  return {e:el('circle',{r:bran?1.6:2.3,fill:bran?'#7E5128':(i%2?'#D9BE96':'#CBA67A')},specks),off:rnd(),jit:(rnd()-.5)*18,sp:.8+rnd()*.5};});
-
-const route=$('route'), RL=route.getTotalLength();
-route.style.strokeDasharray=RL; route.style.strokeDashoffset=RL;
-const lblHome=el('text',{x:300,y:3978,'text-anchor':'start','font-family':'Figtree, sans-serif','font-weight':700,'font-size':17,fill:'#2A530F'},front);lblHome.textContent='Your home';lblHome.setAttribute('x',296);
-
-/* ---------------- chakki (Three.js, SVG fallback) ---------------- */
-let three=null;
-function stoneTexture(){
-  const c=document.createElement('canvas');c.width=c.height=1024;const g=c.getContext('2d');
-  g.fillStyle='#CDBF9F';g.fillRect(0,0,1024,1024);
-  let s=7;const r=()=>(s=(s*16807)%2147483647)/2147483647;
-  for(let i=0;i<26000;i++){const v=r();g.fillStyle=v>.5?`rgba(255,250,235,${.18*r()})`:`rgba(70,60,45,${.22*r()})`;g.fillRect(r()*1024,r()*1024,1+r()*2.2,1+r()*2.2);}
-  g.lineCap='round';
-  for(let a=0;a<10;a++){const base=a*Math.PI/5;                 // harp furrows in ten sections
-    for(let j=0;j<5;j++){const ang=base+.12+j*.06, r0=150+j*18, r1=470-j*30;
-      const x1=512+Math.cos(ang)*r0,y1=512+Math.sin(ang)*r0,x2=512+Math.cos(ang+.55)*r1,y2=512+Math.sin(ang+.55)*r1;
-      g.strokeStyle='rgba(110,98,74,.55)';g.lineWidth=16;g.beginPath();g.moveTo(x1+2,y1+2);g.lineTo(x2+2,y2+2);g.stroke();
-      g.strokeStyle='rgba(142,127,97,.9)';g.lineWidth=12;g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke();}}
-  const eye=g.createRadialGradient(512,512,10,512,512,95);eye.addColorStop(0,'#2E271F');eye.addColorStop(.75,'#4A4033');eye.addColorStop(1,'rgba(74,64,51,0)');
-  g.fillStyle=eye;g.beginPath();g.arc(512,512,95,0,7);g.fill();
-  const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=4;return t;
-}
-try{
-  if(!window.THREE)throw 0;
-  const canvas=$('chakki');
-  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
-  renderer.setPixelRatio(1);renderer.setSize(600,600,false);renderer.outputEncoding=THREE.sRGBEncoding;
-  const scene=new THREE.Scene();
-  const cam=new THREE.PerspectiveCamera(30,1,1,3000);cam.position.set(0,300,470);cam.lookAt(0,-6,0);
-  const side=new THREE.MeshStandardMaterial({color:0xA89A7C,roughness:1});
-  const sideDark=new THREE.MeshStandardMaterial({color:0x8C7F64,roughness:1});
-  const topM=new THREE.MeshStandardMaterial({map:stoneTexture(),roughness:.95});
-  const base=new THREE.Mesh(new THREE.CylinderGeometry(124,128,40,96),[sideDark,new THREE.MeshStandardMaterial({color:0xB9AC8E,roughness:1}),sideDark]);
-  base.position.y=-34;scene.add(base);
-  const tray=new THREE.Mesh(new THREE.CylinderGeometry(150,150,10,96),new THREE.MeshStandardMaterial({color:0xB07A3C,roughness:.9}));
-  tray.position.y=-58;scene.add(tray);
-  const runner=new THREE.Group();
-  const top=new THREE.Mesh(new THREE.CylinderGeometry(118,120,44,96),[side,topM,side]);runner.add(top);
-  const handle=new THREE.Mesh(new THREE.CylinderGeometry(7,8,58,24),new THREE.MeshStandardMaterial({color:0x7A4E22,roughness:.8}));
-  handle.position.set(88,50,0);runner.add(handle);
-  scene.add(runner);
-  scene.add(new THREE.AmbientLight(0xffffff,.72));
-  const sun=new THREE.DirectionalLight(0xfff1d6,.7);sun.position.set(-300,600,400);scene.add(sun);
-  three={renderer,scene,cam,runner};
-}catch(e){
-  $('chakki').style.display='none';const fb=$('chakkiFallback');fb.style.display='block';
-  fb.innerHTML=`<ellipse cx="150" cy="190" rx="132" ry="46" fill="#8C7F64"/><ellipse cx="150" cy="150" rx="120" ry="46" fill="#A89A7C"/>
-  <g transform="translate(150 140) scale(1 .38)"><g id="fbStone"><circle r="118" fill="#CDBF9F"/>${Array.from({length:10},(_,a)=>`<path d="M${Math.cos(a*.628)*40} ${Math.sin(a*.628)*40} L${Math.cos(a*.628+.5)*110} ${Math.sin(a*.628+.5)*110}" stroke="#8E7F61" stroke-width="9" stroke-linecap="round"/>`).join('')}<circle r="26" fill="#3A3128"/><rect x="80" y="-6" width="16" height="12" rx="4" fill="#7A4E22"/></g></g>`;
-}
-let stoneAngle=0;
-
-/* ---------------- layout ---------------- */
-const stage=$('stage'), world=$('world'), card=$('card'), railEl=$('rail'), section=$('journey');
-let L={};
-function layout(){
-  const W=stage.clientWidth,H=stage.clientHeight,desk=W>=900;
-  const railH=desk?0:64, capH=desk?0:card.offsetHeight;
-  const area=desk?{x:480,y:24,w:W-480-24,h:H-48}:{x:0,y:railH,w:W,h:H-railH-capH+18};
-  const s0=desk?Math.min(area.w/420,area.h/640):Math.min(area.w/400,area.h/560);
-  const sF=area.h*.9/4320;
-  L={W,H,desk,area,s0,sF};
-}
-
-/* ---------------- rail + labels ---------------- */
-const railBtns=STEPS.slice(0,6).map((s,i)=>{const li=document.createElement('li');const b=document.createElement('button');
-  b.type='button';b.setAttribute('aria-label',`Step ${i+1}: ${s[0]}`);b.innerHTML=`<span>${i+1}</span>`;b.onclick=()=>jump(i);li.appendChild(b);railEl.appendChild(li);return b;});
-const labels=$('labels');
-const labelBtns=STEPS.slice(0,6).map((s,i)=>{const b=document.createElement('button');b.type='button';b.textContent=`${i+1}  ${s[0]}`;b.tabIndex=-1;b.onclick=()=>jump(i);labels.appendChild(b);return b;});
-
-/* ---------------- scroll, play, jump ---------------- */
-function scrollable(){return section.offsetHeight-stage.clientHeight;}
-function progress(){const r=section.getBoundingClientRect();return clamp(-r.top/scrollable());}
-function topFor(p){return window.scrollY+section.getBoundingClientRect().top+p*scrollable();}
-function jump(k){stopPlay();const p=k>=6?.97:(k+.5)/N;window.scrollTo({top:topFor(p),behavior:reduce?'auto':'smooth'});}
-let playing=false,lastT=0,playPos=0;
-const playBtn=$('play');
-function setPlayUI(){$('playTxt').textContent=playing?'Pause':(progress()>.985?'Play again':'Play the journey');$('playIco').setAttribute('d',playing?'M2 1h3.5v12H2zM8.5 1H12v12H8.5z':'M2 1l11 6-11 6z');}
-function stopPlay(){if(playing){playing=false;setPlayUI();}}
-playBtn.onclick=()=>{
-  if(playing){stopPlay();return;}
-  if(progress()>.985)window.scrollTo({top:topFor(0),behavior:'auto'});
-  if(progress()<.001)window.scrollTo({top:topFor(.002),behavior:'auto'});
-  if(reduce){playing=true;setPlayUI();stepPlay();return;}
-  playing=true;lastT=0;playPos=window.scrollY;setPlayUI();
-};
-function stepPlay(){                                      // reduced motion: hop one step every 4 seconds
-  if(!playing)return;const k=Math.floor(progress()*N);
-  if(k>=6){stopPlay();return;}
-  window.scrollTo({top:topFor(k+1>=6?.97:(k+1.5)/N),behavior:'auto'});setTimeout(stepPlay,4000);
-}
-['wheel','touchstart','keydown'].forEach(ev=>addEventListener(ev,e=>{if(playBtn.contains(e.target))return;stopPlay();},{passive:true}));
-$('next').onclick=()=>{const k=Math.floor(progress()*N);jump(Math.min(6,k+1));};
-
-/* ---------------- render ---------------- */
-let curStep=-1;
-function setCaption(k){
-  if(k===curStep)return;curStep=k;
-  const nodes=[$('stepNo'),$('capTitle'),$('capBody')];
-  const apply=()=>{const s=STEPS[k];$('stepNo').textContent=k<6?`Step ${k+1} of 6`:'The whole journey';$('capTitle').textContent=s[1];$('capBody').textContent=s[2];
-    $('next').hidden=k>=6;$('order').hidden=k<6;nodes.forEach(n=>n.classList.remove('out'));};
-  if(reduce){apply();}else{nodes.forEach(n=>n.classList.add('out'));setTimeout(apply,200);}
-  railBtns.forEach((b,i)=>{if(i===k)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');b.classList.toggle('done',i<k);});
-}
-
-const BG=[[0,'#FBEFC9'],[.088,'#F6DC93'],[.165,'#ECDDB0'],[.19,'#EEF3EC'],[.32,'#E9EDE3'],[.35,'#E8E2D5'],[.485,'#EEE4D3'],[.52,'#F6ECDD'],[.655,'#F9F2E6'],[.685,'#FCFAF5'],[.805,'#F3F6EE'],[.83,'#E3EDDC'],[.915,'#E3EDDC'],[.935,'#F4E6CF'],[1,'#EFDCBC']].map(([o,c])=>[o*4320,[1,3,5].map(i=>parseInt(c.slice(i,i+2),16))]);
-function bgAt(y){for(let i=1;i<BG.length;i++){if(y<=BG[i][0]){const t=clamp((y-BG[i-1][0])/(BG[i][0]-BG[i-1][0]));const c=BG[i-1][1].map((v,j)=>Math.round(lerp(v,BG[i][1][j],t)));return `rgb(${c})`;}}return 'rgb(239,220,188)';}
-const camKF=[[0,470],[C(.72),470],[C(1),1040],[C(1.72),1040],[C(2),1720],[C(2.72),1720],[C(3),2400],[C(3.72),2400],[C(4),3070],[C(4.72),3070],[C(5),3760],[C(5.42),3760],[C(5.62),4130],[C(6),4130]];
-const grainKF=[[0,[0,0]],[C(.45),[0,0]],[C(.72),[198,540]],[C(1),[200,800]],[C(1.15),[200,SY[0]-4]],[C(1.24),[200,SY[0]-4]],[C(1.36),[200,SY[1]-4]],[C(1.45),[200,SY[1]-4]],[C(1.57),[200,SY[2]-4]],[C(1.66),[200,SY[2]-4]],[C(1.76),[200,1270]],[C(2),[200,1470]],[C(2.28),[200,1690]]];
-const traceKF=[[0,470],[C(1),800],[C(2),1470],[C(2.3),1700],[C(3),2250],[C(4),2900],[C(5),3600]];
-
-function render(p,T){
-  const k=Math.min(6,Math.floor(p*N));
-  setCaption(k);
-  $('railFill').style.width=`calc(${Math.min(1,p*N/6)*100}% - ${Math.min(1,p*N/6)*44}px)`;
-
-  // camera
-  const z=ease(clamp((p-C(6))/C(.5)));
-  const a=L.area;
-  const s=Math.exp(lerp(Math.log(L.s0),Math.log(L.sF),z));
-  const camY=lerp(kf(camKF,Math.min(p,C(6))),2160,z);
-  const colX=L.desk?a.x+a.w*.32:a.x+a.w*.22;
-  const cx=lerp(a.x+a.w/2,colX,z);
-  const tx=cx-200*s, ty=a.y+a.h/2-camY*s;
-  world.style.transform=`translate(${tx}px,${ty}px) scale(${s})`;
-  stage.style.background=z>0?'#FCFAF5':bgAt(camY);
-  const vis=y=>Math.abs(y-camY)<(a.h/s)*.75||z>0;
-
-  // field: sway, clouds
-  if(vis(470)){
-    for(const st of stalks){const ang=reduce?0:Math.sin(T*1.1+st.x*.07+st.ph)*st.amp;st.g.setAttribute('transform',`rotate(${ang.toFixed(2)} ${st.x} ${st.base})`);st.ang=ang;}
-    $('cloud1').setAttribute('transform',`translate(${reduce?0:(T*4)%460-60} 0)`);
-    $('cloud2').setAttribute('transform',`translate(${reduce?0:-((T*3)%460)+120} 0)`);
+(()=>{
+  const btn=document.getElementById('pause'), line=document.getElementById('line');
+  const svgs=[...line.querySelectorAll('.pic svg')];
+  const label=btn.querySelector('span'), icon=btn.querySelector('svg');
+  const pauseIcon=icon.innerHTML, playIcon='<path d="M3 1.5L12.5 7L3 12.5Z" fill="currentColor"/>';
+  let userPaused=false, visible=true;
+  function apply(){
+    const stop=userPaused||!visible;
+    svgs.forEach(s=>stop?s.pauseAnimations():s.unpauseAnimations());
+    line.classList.toggle('paused',stop);
+    btn.setAttribute('aria-pressed',String(userPaused));
+    label.textContent=userPaused?'Play':'Pause';
+    icon.innerHTML=userPaused?playIcon:pauseIcon;
   }
-
-  // grain
-  let gx,gy,gs=1,go=1,gr=0;
-  if(p<C(.45)){const ang=(HERO.ang||0)*Math.PI/180, dx=0, dy=GRAIN_ON_HEAD[1]-HERO.base;
-    gx=HERO.x+dx*Math.cos(ang)-dy*Math.sin(ang);gy=HERO.base+dx*Math.sin(ang)+dy*Math.cos(ang);gr=HERO.ang||0;}
-  else{const v=kf(grainKF,p);gx=v[0];gy=v[1];gr=kf([[C(.45),0],[C(1),220],[C(2),400]],p);}
-  if(p>C(2.1)){gs=lerp(1,.6,clamp((p-C(2.1))/C(.18)));go=1-clamp((p-C(2.22))/C(.06));}
-  if(z>0){go=0;}
-  $('grain').setAttribute('transform',`translate(${gx.toFixed(1)} ${gy.toFixed(1)}) rotate(${gr.toFixed(1)}) scale(${gs})`);
-  $('grain').setAttribute('opacity',go);
-  $('halo').setAttribute('r',reduce?20:(20+Math.sin(T*2.2)*3).toFixed(1));
-  $('traceRect').setAttribute('height',z>0?4320:kf(traceKF,p));
-  const tr=$('trace');tr.setAttribute('stroke-width',lerp(3,22,z));tr.setAttribute('opacity',lerp(.7,1,z));tr.setAttribute('stroke-dasharray',z>0?'none':'2 9');
-
-  // cleaning: shake and dust bursts
-  if(vis(1040)){
-    SY.forEach((y,i)=>{const h0=C(1.15+i*.21),h1=h0+C(.09);
-      const amp=(p>h0&&p<h1&&!reduce)?Math.sin((p-h0)/(h1-h0)*Math.PI)*2.2:0;
-      sieveG[i].setAttribute('transform',`translate(${(Math.sin(T*38+i)*amp).toFixed(2)} 0)`);
-      const b=clamp((p-h0)/C(.4));
-      DUST[i].forEach((d,j)=>{const e=outC(b);const x=200+d.dir*(20+d.spread*e),yy=y+4+d.drop*b*b+j*.6;
-        d.e.setAttribute(d.husk?'cx':'cx',x);d.e.setAttribute('cy',yy);
-        if(d.husk)d.e.setAttribute('transform',`rotate(${d.rot+b*160} ${x} ${yy})`);
-        d.e.setAttribute('opacity',b>0&&b<1?(1-b)*.95:0);});
-    });
+  btn.addEventListener('click',()=>{userPaused=!userPaused;apply();});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+    userPaused=true;
+    svgs.forEach(s=>s.setCurrentTime(5.2)); // a still that tells the story: pack filling, rider at the door
   }
-
-  // milling
-  if(vis(1720)||vis(2400)){
-    if(!reduce)stoneAngle=T*.9; else stoneAngle=.6;
-    if(three){three.runner.rotation.y=-stoneAngle;three.renderer.render(three.scene,three.cam);}
-    else{const f=document.getElementById('fbStone');if(f)f.setAttribute('transform',`rotate(${(-stoneAngle*57.3).toFixed(1)})`);}
-    const so=clamp((p-C(2.32))/C(.1))*(1-clamp((p-C(3.7))/C(.12)));
-    $('stream').setAttribute('opacity',so);
-    if(so>0){const tt=reduce?0:T;
-      for(const sp of SPECK){const ph=(sp.off+tt*.55*sp.sp)%1;const y=1898+ph*360;const x=200+sp.jit*(.35+ph*.65)+Math.sin(ph*9+sp.off*20)*1.5;
-        sp.e.setAttribute('cx',x.toFixed(1));sp.e.setAttribute('cy',y.toFixed(1));}}
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(es=>{visible=es[0].isIntersecting;apply();}).observe(line);
   }
-
-  // packing
-  const fill=clamp((p-C(3.1))/C(.6));
-  $('packFill').style.clipPath=`inset(${((1-ease(fill))*100).toFixed(1)}% 0 0 0)`;
-
-  // day before calendar
-  const flip=ease(clamp((p-C(4.2))/C(.38)));
-  $('leaf').style.transform=`rotateX(${(-flip*180).toFixed(1)}deg)`;
-  $('leaf').style.visibility=flip>.98?'hidden':'visible';
-
-  // delivery
-  const d=clamp((p-C(5.04))/C(.36));
-  const de=ease(d);
-  route.style.strokeDashoffset=(RL*(1-(z>0?1:de))).toFixed(1);
-  const pt=route.getPointAtLength(RL*de);
-  $('rider').setAttribute('transform',`translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})`);
-  $('rider').setAttribute('opacity',z>0?0:1);
-  const door=ease(clamp((p-C(5.6))/C(.14)));
-  doorL.setAttribute('transform',`translate(130 0) scale(${lerp(1,.1,door)} 1) translate(-130 0)`);
-  doorR.setAttribute('transform',`translate(270 0) scale(${lerp(1,.1,door)} 1) translate(-270 0)`);
-  knobs.setAttribute('opacity',1-door);
-  const puff=ease(clamp((p-C(5.7))/C(.14)));
-  const breathe=reduce?0:Math.sin(T*2.4)*.06*puff;
-  const sy=1+puff*1.1+breathe;
-  roti.setAttribute('transform',`translate(0 4194) scale(1 ${sy.toFixed(3)}) translate(0 -4194)`);
-  spots.setAttribute('transform',`translate(0 ${(-puff*5).toFixed(1)})`);
-  steam.setAttribute('opacity',(puff*.8).toFixed(2));
-  if(!reduce)steam.setAttribute('transform',`translate(0 ${(-((T*10)%10)).toFixed(1)})`);
-  const v=ease(clamp((p-C(5.74))/C(.14)));
-  $('veer').style.transform=`translateX(${((1-v)*150).toFixed(1)}px)`;
-  $('bubble').style.opacity=clamp((p-C(5.84))/C(.08));
-
-  // closing overview labels
-  const lz=clamp((z-.55)/.4);
-  labelBtns.forEach((b,i)=>{const y=ty+CENTRES[i]*s;b.style.top=y+'px';b.style.left=(tx+400*s+22)+'px';b.style.opacity=lz;b.tabIndex=lz>.5?0:-1;b.style.pointerEvents=lz>.5?'auto':'none';});
-}
-
-/* ---------------- loop ---------------- */
-let shownP=0, running=false, pending=false, t0=performance.now();
-function schedule(){if(running&&!pending){pending=true;requestAnimationFrame(frame);}}
-function effP(){let p=progress();if(reduce){const k=Math.min(6,Math.floor(p*N));p=k>=6?1:(k+.62)/N;}return p;}
-function frame(now){
-  pending=false;
-  if(playing&&!reduce){const dt=lastT?Math.min(.05,(now-lastT)/1000):0;lastT=now;
-    playPos+=scrollable()/44*dt;window.scrollTo(0,playPos);if(progress()>=.999)stopPlay();}
-  const target=effP();
-  shownP=reduce?target:lerp(shownP,target,.18);
-  if(Math.abs(shownP-target)<.00005)shownP=target;
-  render(shownP,(now-t0)/1000);
-  schedule();
-}
-function start(){running=true;schedule();}
-const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)start();else{running=false;stopPlay();}});},{rootMargin:'100px'});
-io.observe(section);
-addEventListener('resize',()=>{layout();render(shownP,(performance.now()-t0)/1000);});
-addEventListener('scroll',()=>{if(!playing)setPlayUI();},{passive:true});
-layout();shownP=effP();render(shownP,0);
-document.fonts&&document.fonts.ready.then(()=>{layout();render(shownP,(performance.now()-t0)/1000);});
+  apply();
 })();
 </script>
 
