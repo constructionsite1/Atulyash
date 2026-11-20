@@ -58,6 +58,15 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
         <path d="M0 4V-80" stroke="#C9962F" stroke-width="2"/>
         <path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -12) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -12) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -30) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -30) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -48) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -48) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(-7 -65) rotate(-32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#C28D31" transform="translate(7 -65) rotate(32)"/><path class="tx" d="M0-12C5.5-6 5.5 6 0 12C-5.5 6-5.5-6 0-12Z" fill="#D9A441" transform="translate(0 -84)"/>
       </symbol>
+      <symbol id="packBody" overflow="visible">
+        <path class="tx" d="M-60 0H60L62 180H-62Z" fill="#F6F1E6"/>
+        <path class="tx" d="M44 0H60L62 180H46Z" fill="#E4DCCB"/>
+        <path class="tx" d="M-61.5 118Q-30 102 0 114Q30 126 61.5 106L62 180H-62Z" fill="#6E9F3F"/>
+        <path d="M46 120Q54 114 61.5 106L62 180H46Z" fill="#5C8A33"/>
+        <text x="-6" y="62" text-anchor="middle" font-family="'Young Serif',Georgia,serif" font-size="30" fill="#2F7A35">Atta</text>
+        <rect x="-30" y="72" width="48" height="2.4" rx="1" fill="#CC9E4A"/>
+        <text x="-4" y="162" text-anchor="middle" font-family="Figtree,system-ui,sans-serif" font-weight="700" font-size="9.5" letter-spacing="2" fill="#FFFDF5">ATULYASH</text>
+      </symbol>
       <symbol id="grain" overflow="visible"><ellipse rx="4.6" ry="2.8" fill="#CC9E4A"/><path d="M-4 .6Q0 2.6 4 .6" stroke="#A97B2E" stroke-width="1" fill="none"/></symbol>
       <pattern id="mesh" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0H6M0 0V6" stroke="#B98A50" stroke-width=".9"/></pattern>
       <clipPath id="topFace"><circle r="112"/></clipPath>
@@ -105,7 +114,7 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
     </g>
     <g id="fallGrains"></g>
     <ellipse id="stoneShadow" cx="200" cy="1030" rx="118" ry="9" fill="#ECE4D4"/>
-    <ellipse cx="346" cy="1044" rx="36" ry="5" fill="#ECE4D4"/>
+    <ellipse id="bowlShadow" cx="346" cy="1044" rx="36" ry="5" fill="#ECE4D4"/>
     <g id="stone">
       <path class="tx" d="M-112 64V118A112 26 0 0 0 112 118V64Z" fill="#8B867C"/>
       <path class="tx" d="M70 64V137A112 26 0 0 0 112 118V64Z" fill="#7F7A70"/>
@@ -132,12 +141,21 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
       <rect x="-15" y="37" width="30" height="7" rx="2" fill="#9C602F"/>
       <ellipse cx="0" cy="0" rx="42" ry="9" fill="#D08C45"/>
       <ellipse cx="0" cy=".5" rx="37" ry="6.5" fill="#7E4E24"/>
+      <g id="bowlFill">
       <path class="tx" d="M-34 1.5Q-4-16 34 1.5Q0 7-34 1.5Z" fill="#C9A27A"/>
       <circle cx="14.4" cy="0.8" r="1" fill="#7A4E2A"/><circle cx="-5.0" cy="-3.2" r="1" fill="#7A4E2A"/><circle cx="21.4" cy="-0.9" r="1" fill="#7A4E2A"/><circle cx="-15.8" cy="-5.1" r="1" fill="#7A4E2A"/><circle cx="-16.7" cy="0.3" r="1" fill="#7A4E2A"/><circle cx="14.7" cy="-5.0" r="1" fill="#7A4E2A"/><circle cx="15.7" cy="0.9" r="1" fill="#7A4E2A"/><circle cx="7.5" cy="-3.5" r="1" fill="#7A4E2A"/><circle cx="2.3" cy="-5.1" r="1" fill="#7A4E2A"/>
+      </g>
     </g>
 
     <!-- 4 pack -->
-    <g id="pack"><image href="img/pack-m.webp" x="-65" y="0" width="130" height="213"/></g>
+    <g id="pack">
+      <use href="#packBody"/>
+      <ellipse cx="0" cy="0" rx="60" ry="9" fill="#4A3826"/>
+      <clipPath id="mouthClip"><ellipse rx="58" ry="8"/></clipPath>
+      <g clip-path="url(#mouthClip)"><g id="packFill"><path class="tx" d="M-58 6Q0-12 58 6V14H-58Z" fill="#C9A27A"/><circle cx="9.8" cy="2.7" r="1" fill="#7A4E2A"/><circle cx="23.6" cy="4.5" r="1" fill="#7A4E2A"/><circle cx="19.2" cy="4.3" r="1" fill="#7A4E2A"/><circle cx="-37.7" cy="0.2" r="1" fill="#7A4E2A"/><circle cx="35.5" cy="1.8" r="1" fill="#7A4E2A"/><circle cx="32.1" cy="-3.0" r="1" fill="#7A4E2A"/><circle cx="-2.5" cy="-1.8" r="1" fill="#7A4E2A"/><circle cx="3.5" cy="1.2" r="1" fill="#7A4E2A"/><circle cx="-39.0" cy="-2.0" r="1" fill="#7A4E2A"/><circle cx="-17.6" cy="4.2" r="1" fill="#7A4E2A"/></g></g>
+      <g id="packSeal"><rect class="tx" x="-61" y="-13" width="122" height="22" rx="2" fill="#EFE8DA"/><path d="M-61-3H61" stroke="#D6CCB8" stroke-width="1.5"/></g>
+    </g>
+    <g id="pour2"><path id="pourHaze" fill="none" stroke="#D3B28A" stroke-width="8" stroke-linecap="round" opacity=".25"/></g>
 
     <!-- 5 delivery: island, road, house, rider -->
     <g id="island">
@@ -154,7 +172,7 @@ h2{font:400 clamp(34px,9vw,48px)/1.06 var(--display);color:var(--olive);margin:0
       <rect x="250" y="1742" width="34" height="60" fill="#E9B95A"/>
       <rect x="250" y="1742" width="34" height="6" fill="#D29E3E"/>
       <rect id="door" x="250" y="1742" width="34" height="60" fill="#8A5E36"/>
-      <image id="doorPack" href="img/pack-m.webp" x="288" y="1786" width="13" height="21" opacity="0"/>
+      <use id="doorPack" href="#packBody" transform="translate(294 1783) scale(.11)" opacity="0"/>
     </g>
     <g id="rider">
       <rect class="tx" x="-40" y="-60" width="25" height="23" rx="3" fill="#2A530F"/><rect x="-40" y="-60" width="25" height="5" rx="2" fill="#3C6E1F"/>
@@ -226,6 +244,8 @@ const dust=[...Array(9)].map((_,i)=>({el:i%3?mk('circle',{r:1.6+(i%2),fill:'#BDB
 const marks=[...Array(12)].map((_,i)=>({el:mk('path',{d:''},$('sideMarks')),a:i/12*Math.PI*2,h:8+(i*7)%14,y0:12+(i*11)%30}));
 
 /* bran specks riding the ribbon */
+/* powder tipping from the bowl into the pack */
+const pour=[...Array(26)].map((_,i)=>({el:mk('circle',{r:i%6===0?1.4:(.8+(i%4)*.35),fill:i%6===0?'#7A4E2A':['#C9A27A','#D8B892','#BF9468','#E4CCA8'][i%4]},$('pour2')),u:(i*.618)%1,off:((i*71)%21-10)/10,seed:i*1.9}));
 const POW=['#C9A27A','#D8B892','#BF9468','#E4CCA8'];
 const powder=[...Array(70)].map((_,i)=>{const bran=i%6===0;return {el:mk('circle',{r:bran?1.5:(.7+((i*37)%10)/10*1.6).toFixed(2),fill:bran?'#7A4E2A':POW[i%4],opacity:bran?.95:(.55+((i*53)%10)/22).toFixed(2)},$('powder')),
   u:(i*0.6180339)%1, sp:.11+((i*29)%10)/10*.09, off:((i*71)%21-10)/10, seed:i*1.37};});
@@ -281,11 +301,24 @@ function render(T){
   marks.forEach(m=>{const a=m.a+rot*Math.PI/180, c=Math.cos(a); if(c<.2){m.el.setAttribute('d','');return;}
     const x=Math.sin(a)*106; m.el.setAttribute('d',`M${x.toFixed(1)} ${(m.y0+4).toFixed(1)}v${(3+m.h*.3*c).toFixed(1)}`);m.el.setAttribute('opacity',(c*.8).toFixed(2));});
   drop.forEach((g,i)=>{const t=(T/1.1+g.t)%1; g.el.setAttribute('transform',`translate(${(hx+Math.sin(t*5+i)*2).toFixed(1)} ${lerp(hy+113,oy-2,t*t).toFixed(1)}) rotate(${(T*120+i*90)%360})`);g.el.setAttribute('opacity',(t>.8?(1-t)/.2:1).toFixed(2));});
-  // bowl just below the spout; atta pours in as fine powder
-  const bx=346, by=996+fo*.8;
-  $('bowl').setAttribute('transform',`translate(${bx} ${by.toFixed(1)})`);
-  const d=`M${ox+145} ${(oy+34).toFixed(1)}C${ox+154} ${(oy+52).toFixed(1)} ${bx+4} ${(by-36).toFixed(1)} ${bx} ${(by-4).toFixed(1)}`;
+  // packing loop (7 s): the bowl fills under the spout, floats to the open pack and tips the atta in;
+  // the pack seals and drifts on, and a fresh open pack takes its place
+  const P=7, kp=(T%P)/P, cl=v=>Math.max(0,Math.min(1,v));
+  const pk=kp<.08?0:kp<.88?0:(kp-.88)/.08, px=200+nz(T*.33,41)*4, py=1132+nz(T*.4,42)*4;
+  const homeX=346, homeY=996+fo*.8, tipX=px+8, tipY=py-66;
+  const mv=kp<.5?0:kp<.62?ease((kp-.5)/.12):kp<.8?1:kp<.9?1-ease((kp-.8)/.1):0;
+  const tip=kp<.55?0:kp<.62?ease((kp-.55)/.07):kp<.8?1:kp<.86?1-ease((kp-.8)/.06):0;
+  const bx=lerp(homeX,tipX,mv), by=lerp(homeY,tipY,mv)-Math.sin(mv*Math.PI)*18, th=-95*tip;
+  $('bowl').setAttribute('transform',`translate(${bx.toFixed(1)} ${by.toFixed(1)}) rotate(${th.toFixed(1)})`);
+  $('bowlShadow').setAttribute('opacity',(1-mv).toFixed(2));
+  const pourK=cl((kp-.62)/.18);
+  const fill=kp<.5?.25+.75*kp/.5:kp<.62?1:kp<.8?1-pourK:kp<.9?0:.25*(kp-.9)/.1;
+  const bf=$('bowlFill'); bf.setAttribute('transform',`scale(1 ${Math.max(.05,fill).toFixed(2)})`); bf.setAttribute('opacity',fill>.04?1:0);
+  // spout pours only while the bowl is home
+  const on=kp<.5?1:kp<.53?1-(kp-.5)/.03:kp<.93?0:(kp-.93)/.07;
+  const d=`M${ox+145} ${(oy+34).toFixed(1)}C${ox+154} ${(oy+52).toFixed(1)} ${homeX+4} ${(homeY-36).toFixed(1)} ${homeX} ${(homeY-4).toFixed(1)}`;
   ribbon.setAttribute('d',d);h2.setAttribute('d',d);h3.setAttribute('d',d);
+  ribbon.setAttribute('opacity',(.22*on).toFixed(3));h2.setAttribute('opacity',(.24*on).toFixed(3));h3.setAttribute('opacity',(.16*on).toFixed(3));
   const rl=ribbon.getTotalLength(), N=30, pts=[];
   for(let j=0;j<=N;j++){const q=ribbon.getPointAtLength(j/N*rl);pts.push(q.x,q.y);}
   powder.forEach(g=>{const u=(g.u+T*g.sp*2.2)%1, f=u*N, j=Math.min(N-1,f|0), fr=f-j;
@@ -293,10 +326,22 @@ function render(T){
     const spread=2+u*6;  // the pour widens a little as it falls
     g.el.setAttribute('cx',(x+g.off*spread+nz(T*1.3,g.seed)*1.5).toFixed(1));
     g.el.setAttribute('cy',(y+nz(T*1.1,g.seed+3)*2).toFixed(1));
-    g.el.setAttribute('opacity',(u>.9?(1-u)*8:.85).toFixed(2));});
-  // pack floats below
-  const px=200+nz(T*.33,41)*5, py=1126+nz(T*.4,42)*5;
-  $('pack').setAttribute('transform',`translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${(nz(T*.3,43)*1.6).toFixed(2)})`);
+    // a particle already falling keeps falling when the spout stops, so the stream ends cleanly
+    g.el.setAttribute('opacity',((u>.9?(1-u)*8:.85)*(on>0?1:0)).toFixed(2));});
+  // the pack: open, fills, seals, drifts down and away; a new one fades in
+  const pOp=kp<.08?kp/.08:kp<.88?1:kp<.96?1-(kp-.88)/.08:0, pDy=kp<.08?-10*(1-kp/.08):pk*26;
+  $('pack').setAttribute('transform',`translate(${px.toFixed(1)} ${(py+pDy).toFixed(1)}) rotate(${(nz(T*.3,43)*1.4).toFixed(2)})`);
+  $('pack').setAttribute('opacity',pOp.toFixed(2));
+  const pf=kp<.62?0:kp<.8?pourK:kp<.96?1:0; $('packFill').setAttribute('transform',`translate(0 ${((1-pf)*13).toFixed(1)})`);
+  const se=kp<.8?0:kp<.86?ease((kp-.8)/.06):kp<.96?1:0, ps=$('packSeal');
+  ps.setAttribute('transform',`translate(0 ${(-18*(1-se)).toFixed(1)})`);ps.setAttribute('opacity',se.toFixed(2));
+  // powder tipping out of the bowl lip into the pack mouth
+  const lx=bx-42*Math.cos(th*Math.PI/180), ly=by-42*Math.sin(th*Math.PI/180), mx=px, my=py-2;
+  const flow=kp>.62&&kp<.8?Math.min(1,pourK*12,(1-pourK)*8):0;
+  const pd=`M${lx.toFixed(1)} ${ly.toFixed(1)}Q${(lx-2).toFixed(1)} ${((ly+my)/2).toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
+  $('pourHaze').setAttribute('d',pd);$('pourHaze').setAttribute('opacity',(.25*flow).toFixed(3));
+  pour.forEach(g=>{const u=(g.u+T*1.6)%1, x=lerp(lx,mx,u)+g.off*(1.5+u*5)+nz(T*1.4,g.seed)*1.2, y=lerp(ly,my,u*u*.4+u*.6);
+    g.el.setAttribute('cx',x.toFixed(1));g.el.setAttribute('cy',y.toFixed(1));g.el.setAttribute('opacity',(flow*.9).toFixed(2));});
   // delivery loop (10 s)
   const L=10, k=(T%L)/L, travel=Math.min(1,k/.6), te=ease(travel);
   const stop=roadLen-74, p=road.getPointAtLength(te*stop), q=road.getPointAtLength(Math.min(roadLen,te*stop+2));
@@ -311,7 +356,7 @@ function render(T){
 
 /* loop, pause, visibility */
 const btn=$('pause'), label=btn.querySelector('span'), icon=btn.querySelector('svg'), pIcon=icon.innerHTML;
-let user=reduce, vis=true, T=reduce?6.6:0, last=0, raf=0;
+let user=reduce, vis=true, T=reduce?46.8:0, last=0, raf=0;
 function frame(now){raf=0;const dt=last?Math.min(.05,(now-last)/1000):0;last=now;T+=dt;render(T);loop();}
 function loop(){if(!user&&vis&&!raf)raf=requestAnimationFrame(frame);}
 function sync(){label.textContent=user?'Play':'Pause';btn.setAttribute('aria-pressed',String(user));
