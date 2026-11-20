@@ -32,9 +32,13 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
 .station{margin:0}
 .pic{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
 .pic svg{display:block;width:100%;height:auto}
-.station h3{font:400 26px/1.2 var(--display);color:var(--olive);margin:18px 0 6px;display:flex;gap:12px;align-items:baseline}
-.n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--olive);color:#fff;font:600 17px/34px var(--body);text-align:center;transform:translateY(-3px)}
-.station p{margin:0;max-width:40ch}
+.pic .t{font:400 18px var(--display);fill:var(--olive)}
+.pic .nb{fill:var(--olive)}
+.pic .nn{font:600 13px var(--body);fill:#fff}
+.pic .pl{fill:#fff;stroke:#E2D3B0;stroke-width:1}
+.pic .l{font:600 12px var(--body);fill:var(--olive)}
+.pic .ld{stroke:#A9784A;stroke-width:1.3;fill:none;stroke-dasharray:2 3;stroke-linecap:round}
+.pic .dt{fill:var(--gold);stroke:#fff;stroke-width:1.5}
 .join{display:block;width:40px;height:56px;margin:8px auto}
 .join path{stroke:var(--gold);stroke-width:3;fill:none;stroke-dasharray:4 9;stroke-linecap:round;animation:flow 1s linear infinite}
 .join .h{display:none}
@@ -43,7 +47,7 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
 @media (min-width:900px){
   .wrap{padding:72px 32px}
   .line{grid-template-columns:1fr 48px 1fr 48px 1fr;align-items:start}
-  .join{width:48px;height:40px;margin:clamp(80px,9vw,100px) 0 0}
+  .join{width:48px;height:40px;margin:130px 0 0}
   .join .v{display:none}
   .join .h{display:inline}
 }
@@ -71,11 +75,12 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
     <!-- 1. Clean and mill -->
     <figure class="station">
       <div class="pic">
-        <svg viewBox="0 0 340 220" role="img" aria-label="Wheat grains drop through a shaking sieve, slide into a wooden hopper and are ground by a turning stone chakki. Brown atta pours out into a tray.">
+        <svg viewBox="0 0 340 284" role="img" aria-label="Wheat grains drop through a shaking sieve, slide into a wooden hopper and are ground by a turning stone chakki. Brown atta pours out into a tray.">
           <defs>
             <pattern id="mesh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0H5M0 0V5" stroke="#A9784A" stroke-width=".8"/></pattern>
             <clipPath id="runnerTop"><circle r="53"/></clipPath>
           </defs>
+          <g transform="translate(0 56)">
           <rect width="340" height="220" fill="#FBF3DF"/>
           <rect y="200" width="340" height="20" fill="#EFE3C6"/>
           <!-- wheat -->
@@ -130,10 +135,10 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
           <path d="M286 204h42l-4 10h-34z" fill="#A9784A"/>
           <path d="M292 204q14-12 30 0z" fill="#C9A27A"/>
           <g fill="#7A4E2A"><circle cx="302" cy="201" r=".9"/><circle cx="309" cy="198" r=".9"/><circle cx="315" cy="202" r=".9"/></g>
+                  </g>
+          <circle cx="28" cy="28" r="13" class="nb"/><text x="28" y="32.5" text-anchor="middle" class="nn">1</text><text class="t" x="50" y="34">Milled on stone</text><path class="ld" d="M131 90Q123 104 131 117"/><circle class="dt" cx="131" cy="117" r="3.5"/><rect class="pl" x="90" y="70" width="125" height="20" rx="10"/><text class="l" x="152" y="84.2" text-anchor="middle">Cleaned in stages</text><path class="ld" d="M284 114Q276 158 284 203"/><circle class="dt" cx="284" cy="203" r="3.5"/><rect class="pl" x="241" y="94" width="94" height="20" rx="10"/><text class="l" x="288" y="108.2" text-anchor="middle">Stone chakki</text><path class="ld" d="M52 252Q44 242 52 232"/><circle class="dt" cx="52" cy="232" r="3.5"/><rect class="pl" x="14" y="244" width="125" height="20" rx="10"/><text class="l" x="76" y="258.2" text-anchor="middle">MP Sharbati wheat</text><path class="ld" d="M283 254Q296 250 304 258"/><circle class="dt" cx="304" cy="258" r="3.5"/><rect class="pl" x="133" y="244" width="150" height="20" rx="10"/><text class="l" x="208" y="258.2" text-anchor="middle">Chokar (bran) kept in</text>
         </svg>
       </div>
-      <h3><span class="n">1</span>Cleaned and milled on stone</h3>
-      <p>Sharbati wheat from Madhya Pradesh is cleaned in several stages, then ground slowly on a natural stone chakki. The chokar (bran) stays in.</p>
     </figure>
 
     <svg class="join" viewBox="0 0 48 56" aria-hidden="true"><path class="v" d="M24 4V52"/><path class="h" d="M4 20H44"/></svg>
@@ -141,7 +146,7 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
     <!-- 2. Pack -->
     <figure class="station">
       <div class="pic">
-        <svg viewBox="0 0 340 220" role="img" aria-label="Fresh atta pours from the chakki into an Atulyash pack on a moving belt. Each pack fills up and moves along to join the full ones.">
+        <svg viewBox="0 0 340 284" role="img" aria-label="Fresh atta pours from the chakki into an Atulyash pack on a moving belt. Each pack fills up and moves along to join the full ones.">
           <defs>
             <clipPath id="fillClip"><rect x="92" width="56" y="190" height="0">
               <animate attributeName="y" values="190;190;98;98" keyTimes="0;.36;.9;1" dur="3.4s" repeatCount="indefinite"/>
@@ -149,6 +154,7 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
             </rect></clipPath>
             <g id="empty"><rect width="56" height="92" rx="5" fill="#F4EBD8" stroke="#C9B89A" stroke-width="1.5" stroke-dasharray="4 3"/><path d="M8 10h40" stroke="#E3D5BA" stroke-width="3" stroke-linecap="round"/></g>
           </defs>
+          <g transform="translate(0 56)">
           <rect width="340" height="220" fill="#F3EEE4"/>
           <!-- pipe from the chakki -->
           <path d="M0 30H112Q120 30 120 38V58" stroke="#7C776C" stroke-width="10" fill="none"/>
@@ -176,10 +182,10 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
           </g>
           <!-- the pack under the spout, filling from the bottom -->
           <image href="img/pack-s.webp" x="92" y="98" width="56" height="92" clip-path="url(#fillClip)"/>
+                  </g>
+          <circle cx="28" cy="28" r="13" class="nb"/><text x="28" y="32.5" text-anchor="middle" class="nn">2</text><text class="t" x="50" y="34">Packed in small batches</text><path class="ld" d="M138 104Q123 107 124 110"/><circle class="dt" cx="124" cy="110" r="3.5"/><rect class="pl" x="138" y="94" width="169" height="20" rx="10"/><text class="l" x="222" y="108.2" text-anchor="middle">Straight from the chakki</text><path class="ld" d="M128 256Q120 241 128 226"/><circle class="dt" cx="128" cy="226" r="3.5"/><rect class="pl" x="75" y="248" width="206" height="20" rx="10"/><text class="l" x="178" y="262.2" text-anchor="middle">Nothing added, nothing removed</text>
         </svg>
       </div>
-      <h3><span class="n">2</span>Packed in small batches</h3>
-      <p>The atta goes from the chakki straight into your pack. Nothing added, nothing removed.</p>
     </figure>
 
     <svg class="join" viewBox="0 0 48 56" aria-hidden="true"><path class="v" d="M24 4V52"/><path class="h" d="M4 20H44"/></svg>
@@ -187,7 +193,8 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
     <!-- 3. Deliver -->
     <figure class="station">
       <div class="pic">
-        <svg viewBox="0 0 340 220" role="img" aria-label="An Atulyash rider brings a pack down the street to a front door. The door opens, Veer peeks out, the pack is left at the door and the rider heads off.">
+        <svg viewBox="0 0 340 284" role="img" aria-label="An Atulyash rider brings a pack down the street to a front door. The door opens, Veer peeks out, the pack is left at the door and the rider heads off.">
+          <g transform="translate(0 56)">
           <rect width="340" height="220" fill="#E6EFE9"/>
           <!-- city behind -->
           <g fill="#D3E0D7"><rect x="10" y="96" width="34" height="84"/><rect x="50" y="70" width="26" height="110"/><rect x="82" y="104" width="40" height="76"/><rect x="128" y="86" width="30" height="94"/><rect x="164" y="112" width="44" height="68"/></g>
@@ -226,10 +233,10 @@ h2{font:400 clamp(34px,8vw,52px)/1.08 var(--display);color:var(--olive);margin:0
             <circle cx="40" cy="132" r="7.5" fill="#9A3B22"/>
             <path d="M44 132h4" stroke="#2B302C" stroke-width="3" stroke-linecap="round"/>
           </g>
+                  </g>
+          <circle cx="28" cy="28" r="13" class="nb"/><text x="28" y="32.5" text-anchor="middle" class="nn">3</text><text class="t" x="50" y="34">At your door the next day</text><path class="ld" d="M40 100Q32 125 40 150"/><circle class="dt" cx="40" cy="150" r="3.5"/><rect class="pl" x="9" y="80" width="150" height="20" rx="10"/><text class="l" x="84" y="94.2" text-anchor="middle">South and North Delhi</text><path class="ld" d="M290 100Q282 143 290 186"/><circle class="dt" cx="290" cy="186" r="3.5"/><rect class="pl" x="181" y="80" width="150" height="20" rx="10"/><text class="l" x="258" y="94.2" text-anchor="middle">Milled the day before</text><path class="ld" d="M162 252Q200 243 222 234"/><circle class="dt" cx="222" cy="234" r="3.5"/><rect class="pl" x="64" y="244" width="107" height="20" rx="10"/><text class="l" x="118" y="258.2" text-anchor="middle">Our own riders</text><path class="ld" d="M317 252Q309 244 317 236"/><circle class="dt" cx="317" cy="236" r="3.5"/><rect class="pl" x="193" y="244" width="138" height="20" rx="10"/><text class="l" x="262" y="258.2" text-anchor="middle">Once, or every week</text>
         </svg>
       </div>
-      <h3><span class="n">3</span>At your door the next day</h3>
-      <p>Milled one day, delivered the next by our own riders, across South and North Delhi. Order once, or get it every week.</p>
     </figure>
 
   </div>
